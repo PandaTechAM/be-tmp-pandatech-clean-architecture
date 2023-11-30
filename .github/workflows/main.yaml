@@ -22,16 +22,15 @@ jobs:
         (github.ref == 'refs/heads/qa' && 'qa') ||
         (github.ref == 'refs/heads/development' && 'dev')
         }}
-        #(github.ref == 'refs/heads/main' && 'production') ||
+      #(github.ref == 'refs/heads/main' && 'production') ||
       K8S_CLUSTER_ADDRESS: https://10.0.8.11:6443
       DOTNET_INSTALL_DIR: $HOME/dotnet
     steps:
-    #  - name: Setup .NET Core
       - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
+      - name: Setup .NET Core        
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          cache: true
           include-prerelease: false
           dotnet-install-dir: ${{ env.DOTNET_INSTALL_DIR }}
 
@@ -65,7 +64,7 @@ jobs:
 
       - name: Display DOCKER_TAG
         run: echo "DOCKER_TAG=${{ env.DOCKER_TAG }}"
-        
+
       - name: Set DOCKER_REPO_PATH
         run: |
           if [ "${{ github.event_name }}" == "push" ] && [ "${{ startsWith(github.ref, 'refs/heads/') }}" == "true" ]; then
@@ -80,10 +79,10 @@ jobs:
           DOCKER_REPO_PATH="unknown-branch"
           fi
           echo "DOCKER_REPO_PATH=${DOCKER_REPO_PATH}" >> $GITHUB_ENV 
-      
+
       - name: Display DOCKER_REPO_PATH
         run: echo "DOCKER_REPO_PATH=${{ env.DOCKER_REPO_PATH }}"
-      
+
       - name: Build Docker Image
         run: |
           DOCKER_TAG=$(date +'%Y%m%d%H%M%S')-$GITHUB_RUN_NUMBER
@@ -97,12 +96,12 @@ jobs:
           else
             DOCKER_REPO=${DOCKER_REPO_BASE}/${DOCKER_REPO_PATH}
           fi
-      
+          
           docker build . -t $DOCKER_REPO/${{ env.SERVICE_NAME }}:${DOCKER_TAG} -t $DOCKER_REPO/${{ env.SERVICE_NAME }}:latest
-    
+
       - name: Display Docker Image Tags
         run: docker images $DOCKER_REPO/${{ env.SERVICE_NAME }}
-          
+
       - name: Login to Nexus
         run: docker login ${{ env.DOCKER_REPO_BASE }} -u ${{ secrets.nexus_username }} -p ${{ secrets.nexus_password }}
 
@@ -112,7 +111,7 @@ jobs:
           DOCKER_REPO=${DOCKER_REPO_BASE}/${DOCKER_REPO_PATH}
           docker push "${DOCKER_REPO}/${SERVICE_NAME}:${DOCKER_TAG}"
           docker push "${DOCKER_REPO}/${SERVICE_NAME}:latest"
-          
+
       - name: Update Deployment
         if: github.ref != 'refs/heads/main'
         run: |
