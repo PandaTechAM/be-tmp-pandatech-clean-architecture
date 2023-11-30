@@ -26,11 +26,12 @@ jobs:
       K8S_CLUSTER_ADDRESS: https://10.0.8.11:6443
       DOTNET_INSTALL_DIR: $HOME/dotnet
     steps:
+    #  - name: Setup .NET Core
       - uses: actions/checkout@v3
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          cache: true
           include-prerelease: false
           dotnet-install-dir: ${{ env.DOTNET_INSTALL_DIR }}
 
