@@ -102,6 +102,7 @@ public static class SwaggerExtension
         {
             options.InjectStylesheet("/assets/css/panda-style.css");
             options.InjectJavascript("/assets/js/docs.js");
+            options.DocExpansion(DocExpansion.None);
         });
     } // move to common
 
