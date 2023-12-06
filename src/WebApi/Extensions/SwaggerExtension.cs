@@ -1,5 +1,6 @@
 ﻿using BaseConverter;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using WebApi.Configurations;
 
 namespace WebApi.Extensions;
@@ -102,7 +103,7 @@ public static class SwaggerExtension
         {
             // Specify the custom display name for the tab
             options.DocumentTitle = $"Swagger - {AppDomain.CurrentDomain.FriendlyName}";
-            
+
             options.InjectStylesheet("/assets/css/panda-style.css");
             options.InjectJavascript("/assets/js/docs.js");
             options.DocExpansion(DocExpansion.None);

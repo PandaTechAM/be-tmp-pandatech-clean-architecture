@@ -7,6 +7,9 @@ using ResponseCrafter;
 
 var builder = WebApplication.CreateBuilder(args);
 
+if (!builder.Environment.IsLocal())
+    builder.Configuration.AddPandaVault();
+
 builder.AddSerilog()
     .AddCors()
     .AddHealthChecks()
@@ -24,8 +27,6 @@ builder.Services
     .AddFeatureManagement().Services
     .AddControllers();
 
-if (!builder.Environment.IsLocal())
-    builder.Configuration.AddPandaVault();
 
 var app = builder.Build();
 
