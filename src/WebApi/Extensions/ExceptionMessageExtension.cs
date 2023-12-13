@@ -2,7 +2,7 @@ using System.Text;
 
 namespace WebApi.Extensions;
 
-public static class ExceptionMessageExtension
+public static class ExceptionMessageExtension //todo not sure if this is needed
 {
     public static string ToFullBlownString(this System.Exception e, int level = int.MaxValue)
     {

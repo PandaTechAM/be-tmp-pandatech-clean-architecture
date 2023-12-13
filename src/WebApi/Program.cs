@@ -15,12 +15,11 @@ builder.AddSerilog()
     .AddHealthChecks()
     .AddResponseCrafter()
     .RegisterPandaVaultEndpoint() //optional
-    .RegisterAllCustomServices(); // Move to common
+    .RegisterAllServices(); // Move to common
 
 builder.Services
     .AddEndpointsApiExplorer()
     .AddPandaSwaggerGen(builder.Configuration) // Move to common
-    .AddCustomFluentValidation()
     .AddApplicationLayer()
     .AddInfrastructureLayer(builder.Configuration)
     .AddApiVersioningFromHeader()

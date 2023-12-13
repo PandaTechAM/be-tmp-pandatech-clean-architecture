@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using ResponseCrafter.StandardHttpExceptions;
 
 namespace WebApi.Attributes;
 
@@ -16,14 +16,15 @@ public class ValidatorModelFilterAttribute : ActionFilterAttribute
             return;
         }
 
-        var errors = context.ModelState.Values.Where(v => v.Errors.Any())
-            .SelectMany(v => v.Errors)
-            .Select(v => v.ErrorMessage)
-            .ToList();
+        var errorDetails = new Dictionary<string, string>();
+        foreach (var entry in context.ModelState)
+        {
+            if (!entry.Value.Errors.Any()) continue;
 
-        var errorResponses = errors
-            .Select(errorMessage => new ProblemDetails() { Detail = errorMessage, Status = 400 }).ToList();
+            var errorMessage = string.Join("; ", entry.Value.Errors.Select(e => e.ErrorMessage));
+            errorDetails.Add(entry.Key, errorMessage);
+        }
 
-        context.Result = new JsonResult(errorResponses) { StatusCode = 400 };
+        throw new BadRequestException(errorDetails);
     }
 }

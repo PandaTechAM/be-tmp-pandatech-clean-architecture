@@ -1,8 +1,8 @@
 ﻿using HealthChecks.UI.Client;
 using Infrastructure.Context;
+using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using PandaVaultClient;
-using PandaWebApi.Helpers;
 
 namespace WebApi.Extensions;
 
