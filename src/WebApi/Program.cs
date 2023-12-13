@@ -39,3 +39,5 @@ app.MapPandaStandardEndpoints();
 
 
 app.Run();
+
+//todo adjust redis and swagger configurations from list to multiple single value
