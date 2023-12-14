@@ -7,20 +7,27 @@ namespace WebApi.Extensions;
 
 public static class SwaggerExtension
 {
+    private static SwaggerOptions GetSwaggerOptions(IConfiguration configuration)
+    {
+        var swaggerOptions =
+                configuration.GetSection("Swagger").Get<SwaggerOptions>() ?? SwaggerOptions.Default;
+
+        return swaggerOptions;
+    }
+
     public static IServiceCollection
         AddPandaSwaggerGen(this IServiceCollection services, IConfiguration configuration) // Move to common
     {
         services.AddSwaggerGen(options =>
         {
-            var swaggerOptions =
-                configuration.GetSection("Swagger").Get<SwaggerOptions>() ?? SwaggerOptions.Default;
+            var swaggerOptions = GetSwaggerOptions(configuration);
 
             foreach (var version in swaggerOptions.Versions)
             {
                 options.SwaggerDoc(version.Key, new OpenApiInfo
                 {
-                    Title = version.Title,
-                    Description = version.Description,
+                    Title = version.Key,
+                    Description = version.Value.Description,
                     //  "Powered by PandaTech LLC: Where precision meets innovation. Let's build the future, one endpoint at a time.",
                     Contact = new OpenApiContact
                     {
@@ -41,7 +48,7 @@ public static class SwaggerExtension
             options.AddSecurityDefinition("token", new OpenApiSecurityScheme
             {
                 Type = SecuritySchemeType.ApiKey,
-                In = ParameterLocation.Header,
+                In = ParameterLocation.Cookie,
                 Name = "token",
                 Description = "Token authentication using the bearer scheme"
             });
@@ -72,7 +79,7 @@ public static class SwaggerExtension
 
         var swaggerOptions =
             configuration.GetSection("Swagger").Get<SwaggerOptions>() ?? SwaggerOptions.Default;
-
+        
         app.UseSwagger(c =>
         {
             c.RouteTemplate = "swagger/{documentName}/swagger.json";
@@ -83,24 +90,25 @@ public static class SwaggerExtension
                     new()
                     {
                         Url =
+                            $"http://{httpReq.Host.Value}{swaggerOptions.ApiBasePath}"
+                    },
+                    new()
+                    {
+                        Url =
                             $"https://{httpReq.Host.Value}{swaggerOptions.ApiBasePath}"
                     }
                 };
             });
         });
-        app.UseSwaggerUI(c =>
+        app.UseSwaggerUI(options =>
         {
             foreach (var version in swaggerOptions.Versions)
             {
-                c.SwaggerEndpoint($"{swaggerOptions.JsonRoutePrefix}/swagger/{version.Key}/swagger.json",
-                    version.Title);
+                options.SwaggerEndpoint($"{swaggerOptions.JsonRoutePrefix}/swagger/{version.Key}/swagger.json",
+                    version.Value.Title);
             }
 
-            c.RoutePrefix = "swagger";
-        });
-
-        app.UseSwaggerUI(options =>
-        {
+            options.RoutePrefix = "swagger";
             // Specify the custom display name for the tab
             options.DocumentTitle = $"Swagger - {AppDomain.CurrentDomain.FriendlyName}";
 
@@ -118,13 +126,15 @@ public static class SwaggerExtension
             JsonRoutePrefix = "",
             ApiBasePath = "/",
             ApiBaseScheme = "http",
-            Versions = new List<SwaggerVersionOptions>
+            Versions = new Dictionary<string, SwaggerVersionOptions>
             {
-                new()
                 {
-                    Key = "v1",
-                    Title = "API V1",
-                    Description = "API V1"
+                    "v1", 
+                    new SwaggerVersionOptions
+                    {
+                        Title = "V1",
+                        Description = "V1"
+                    }
                 }
             }
         };
@@ -137,12 +147,11 @@ public static class SwaggerExtension
 
         public string ApiBaseScheme { get; set; } = null!;
 
-        public List<SwaggerVersionOptions> Versions { get; set; } = null!;
+        public Dictionary<string, SwaggerVersionOptions> Versions { get; set; } = null!;
     } // move to common
 
     public class SwaggerVersionOptions
     {
-        public string Key { get; set; } = null!;
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
     } // move to common

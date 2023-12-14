@@ -10,22 +10,37 @@ public class HealthChecksFilter : IDocumentFilter
 
     public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
     {
+        var currentDocumentName = context.DocumentName;
+
+        if (currentDocumentName != "service")
+        {
+            return;
+        }
         var pathItem = new OpenApiPathItem();
+        
 
         var operation = new OpenApiOperation();
+
+        //operation.
 
         operation.Tags.Add(new OpenApiTag { Name = "Above Board" });
 
         var properties = new Dictionary<string, OpenApiSchema>
         {
             { "status", new OpenApiSchema { Type = "string" } },
-            { "errors", new OpenApiSchema { Type = "array" } }
+            {
+                "errors", new OpenApiSchema
+                {
+                    Items = new OpenApiSchema
+                    {
+                        Type = "string",
+                    }
+                }
+            }
         };
 
         var response = new OpenApiResponse();
-
         response.Content.Add("application / json", new OpenApiMediaType
-
         {
             Schema = new OpenApiSchema
             {

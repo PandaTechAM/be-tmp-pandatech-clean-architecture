@@ -22,11 +22,11 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.14.0.81108">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.15.0.81779">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="StackExchange.Redis" Version="2.7.4" />
+      <PackageReference Include="StackExchange.Redis" Version="2.7.10" />
       <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="9.1.0" />
       <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft" Version="9.1.0" />
     </ItemGroup>

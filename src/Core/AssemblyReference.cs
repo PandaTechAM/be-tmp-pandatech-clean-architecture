@@ -1,5 +1,2 @@
 ﻿namespace Core;
-
-public class AssemblyReference
-{
-}
+public class AssemblyReference;

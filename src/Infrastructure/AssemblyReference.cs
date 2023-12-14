@@ -1,5 +1,2 @@
 ﻿namespace Infrastructure;
-
-public class AssemblyReference
-{
-}
+public class AssemblyReference;
