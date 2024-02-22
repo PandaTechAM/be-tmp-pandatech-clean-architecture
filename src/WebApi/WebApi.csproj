@@ -10,23 +10,23 @@
     <ItemGroup>
         <PackageReference Include="Asp.Versioning.Mvc" Version="8.0.0" />
         <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
-        <PackageReference Include="AspNetCore.HealthChecks.Elasticsearch" Version="7.0.0" />
-        <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="7.1.0" />
-        <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="7.0.0" />
-        <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="7.0.1" />
-        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.Elasticsearch" Version="8.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="8.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="8.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0"/>
         <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="3.1.1" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="PandaTech.BaseConverter" Version="2.0.2" />
-        <PackageReference Include="PandaTech.IEnumerableFilters" Version="3.2.34" />
-        <PackageReference Include="Pandatech.PandaVaultClient" Version="3.0.4" />
+        <PackageReference Include="PandaTech.IEnumerableFilters" Version="3.2.35" />
+        <PackageReference Include="Pandatech.PandaVaultClient" Version="3.0.5" />
         <PackageReference Include="Pandatech.ResponseCrafter" Version="1.0.4" />
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
         <PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0" />
         <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.3" />
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="9.15.0.81779">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="9.16.0.82469">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -37,6 +37,14 @@
         <ProjectReference Include="..\Application\Application.csproj" />
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
         <ProjectReference Include="..\Core\Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\assets\css\panda-style.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\favicon.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo-wording.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\js\docs.js" />
     </ItemGroup>
 
 </Project>
