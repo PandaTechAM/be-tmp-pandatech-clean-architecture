@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandatech.CleanArchitecture.Api", "src\Pandatech.CleanArchitecture.Api\Pandatech.CleanArchitecture.Api.csproj", "{B3DBBA53-9DAA-4908-9B10-0123080E3AAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. API", "01. API", "{C30EE29B-6C2A-4196-97F4-5EC41036FD4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandatech.CleanArchitecture.Application", "src\Pandatech.CleanArchitecture.Application\Pandatech.CleanArchitecture.Application.csproj", "{B8DBB027-8302-41AD-BA8C-2DE1E351BA85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Application", "02. Application", "{592BF683-9FDA-45C2-A7FD-E5424D2E5CE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandatech.CleanArchitecture.Infrastructure", "src\Pandatech.CleanArchitecture.Infrastructure\Pandatech.CleanArchitecture.Infrastructure.csproj", "{38EAEC98-418E-4C71-B3F1-A4A4D43CFE9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Infrastructure", "03. Infrastructure", "{B43E602D-6BE5-459C-ABE4-CE9EEEA3292F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04. Core", "04. Core", "{37D29061-D20C-4571-8FAE-16CF87689106}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandatech.CleanArchitecture.Core", "src\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj", "{CBF7EB23-FEA6-457E-A652-A27A7ECA9146}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandatech.CleanArchitecture.Test", ".\tests\Pandatech.CleanArchitecture.Test\Pandatech.CleanArchitecture.Test.csproj", "{78DFC6AE-4993-4CE4-984A-66287D2A4332}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7E9661D-A9A2-4848-B19A-0A5FEE394CB9}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+		Dockerfile.Local = Dockerfile.Local
+		global.json = global.json
+		nuget.config = nuget.config
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{667F3D36-3663-4AD2-A48B-1133F86F4D97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2D7AC6FA-2C79-4893-A8F5-FCC0A0C9FE4A}"
+EndProject
+
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3DBBA53-9DAA-4908-9B10-0123080E3AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3DBBA53-9DAA-4908-9B10-0123080E3AAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3DBBA53-9DAA-4908-9B10-0123080E3AAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3DBBA53-9DAA-4908-9B10-0123080E3AAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8DBB027-8302-41AD-BA8C-2DE1E351BA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8DBB027-8302-41AD-BA8C-2DE1E351BA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8DBB027-8302-41AD-BA8C-2DE1E351BA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8DBB027-8302-41AD-BA8C-2DE1E351BA85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBF7EB23-FEA6-457E-A652-A27A7ECA9146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF7EB23-FEA6-457E-A652-A27A7ECA9146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF7EB23-FEA6-457E-A652-A27A7ECA9146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF7EB23-FEA6-457E-A652-A27A7ECA9146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38EAEC98-418E-4C71-B3F1-A4A4D43CFE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38EAEC98-418E-4C71-B3F1-A4A4D43CFE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38EAEC98-418E-4C71-B3F1-A4A4D43CFE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38EAEC98-418E-4C71-B3F1-A4A4D43CFE9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78DFC6AE-4993-4CE4-984A-66287D2A4332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78DFC6AE-4993-4CE4-984A-66287D2A4332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78DFC6AE-4993-4CE4-984A-66287D2A4332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78DFC6AE-4993-4CE4-984A-66287D2A4332}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B3DBBA53-9DAA-4908-9B10-0123080E3AAC} = {C30EE29B-6C2A-4196-97F4-5EC41036FD4A}
+		{B8DBB027-8302-41AD-BA8C-2DE1E351BA85} = {592BF683-9FDA-45C2-A7FD-E5424D2E5CE0}
+		{CBF7EB23-FEA6-457E-A652-A27A7ECA9146} = {37D29061-D20C-4571-8FAE-16CF87689106}
+		{38EAEC98-418E-4C71-B3F1-A4A4D43CFE9A} = {B43E602D-6BE5-459C-ABE4-CE9EEEA3292F}
+		{78DFC6AE-4993-4CE4-984A-66287D2A4332} = {2D7AC6FA-2C79-4893-A8F5-FCC0A0C9FE4A}
+		{C30EE29B-6C2A-4196-97F4-5EC41036FD4A} = {667F3D36-3663-4AD2-A48B-1133F86F4D97}
+		{592BF683-9FDA-45C2-A7FD-E5424D2E5CE0} = {667F3D36-3663-4AD2-A48B-1133F86F4D97}
+		{B43E602D-6BE5-459C-ABE4-CE9EEEA3292F} = {667F3D36-3663-4AD2-A48B-1133F86F4D97}
+		{37D29061-D20C-4571-8FAE-16CF87689106} = {667F3D36-3663-4AD2-A48B-1133F86F4D97}
+	EndGlobalSection
+EndGlobal

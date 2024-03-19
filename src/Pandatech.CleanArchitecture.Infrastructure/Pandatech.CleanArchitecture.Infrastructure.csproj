@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3"/>
+
+   <ItemGroup>
+      <PackageReference Include="EFCore.NamingConventions"/>
+      <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" />
+      <PackageReference Include="Hangfire.EntityFrameworkCore" />
+      <PackageReference Include="Hangfire.PostgreSql" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" >
+         <PrivateAssets>all</PrivateAssets>
+         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+         <PrivateAssets>all</PrivateAssets>
+         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
+      <PackageReference Include="StackExchange.Redis" />
+      <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" />
+      <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft"  />
+      <PackageReference Include="StackExchange.Redis.Extensions.Protobuf"  />
+      <PackageReference Include="AspNetCore.HealthChecks.Elasticsearch"/>
+      <PackageReference Include="AspNetCore.HealthChecks.NpgSql"/>
+      <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq"/>
+      <PackageReference Include="AspNetCore.HealthChecks.Redis"/>
+      <PackageReference Include="AspNetCore.HealthChecks.UI.Client"/>
+      <PackageReference Include="Serilog.AspNetCore"/>
+      <PackageReference Include="Serilog.Enrichers.Environment"/>
+      <PackageReference Include="Serilog.Sinks.Elasticsearch"/>
+   </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Pandatech.CleanArchitecture.Application\Pandatech.CleanArchitecture.Application.csproj" />
+        <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Seed\" />
+    </ItemGroup>
+    
+</Project>

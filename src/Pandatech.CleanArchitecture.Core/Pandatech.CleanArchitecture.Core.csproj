@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3"/>
+
+
+   <ItemGroup>
+      <PackageReference Include="FluentDateTime" />
+      <PackageReference Include="FluentValidation.AspNetCore" />
+      <PackageReference Include="Hangfire" />
+      <PackageReference Include="MediatR" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
+      <PackageReference Include="PandaTech.BaseConverter" />
+      <PackageReference Include="Pandatech.CommissionCalculator"/>
+      <PackageReference Include="Pandatech.Communicator"/>
+      <PackageReference Include="Pandatech.Crypto" />
+      <PackageReference Include="PandaTech.IEnumerableFilters" />
+      <PackageReference Include="Pandatech.RegexBox" />
+      <PackageReference Include="Pandatech.ResponseCrafter"  />
+      <PackageReference Include="protobuf-net.Core" />
+      <PackageReference Include="SonarAnalyzer.CSharp">
+         <PrivateAssets>all</PrivateAssets>
+         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+   </ItemGroup>
+
+
+   <ItemGroup>
+     <PackageVersion Update="MediatR" Version="12.2.0" />
+   </ItemGroup>
+
+</Project>
