@@ -8,17 +8,21 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /build
 COPY ["Directory.Build.props", "."]
 COPY ["Directory.Packages.props", "."]
-COPY ["src/Pandatech.VerticalSlices/Pandatech.VerticalSlices.csproj", "src/Pandatech.VerticalSlices/"] # Copy csproj to its corresponding src folder structure
-RUN dotnet restore "src/Pandatech.VerticalSlices/Pandatech.VerticalSlices.csproj"
+COPY ["src/Pandatech.CleanArchitecture.Api/Pandatech.CleanArchitecture.Api.csproj", "src/Pandatech.CleanArchitecture.Api/"]
+COPY ["src/Pandatech.CleanArchitecture.Application/Pandatech.CleanArchitecture.Application.csproj", "src/Pandatech.CleanArchitecture.Application/"]
+COPY ["src/Pandatech.CleanArchitecture.Core/Pandatech.CleanArchitecture.Core.csproj", "src/Pandatech.CleanArchitecture.Core/"]
+COPY ["src/Pandatech.CleanArchitecture.Infrastructure/Pandatech.CleanArchitecture.Infrastructure.csproj", "src/Pandatech.CleanArchitecture.Infrastructure/"]
+
+RUN dotnet restore "src/Pandatech.CleanArchitecture.Api/Pandatech.CleanArchitecture.Api.csproj"
 COPY . .
-WORKDIR "/build/src/Pandatech.VerticalSlices"
-RUN dotnet build "Pandatech.VerticalSlices.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/build/src/Pandatech.CleanArchitecture.Api"
+RUN dotnet build "Pandatech.CleanArchitecture.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Pandatech.VerticalSlices.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Pandatech.CleanArchitecture.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Pandatech.VerticalSlices.dll"]
+ENTRYPOINT ["dotnet", "Pandatech.CleanArchitecture.Api.dll"]

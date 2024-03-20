@@ -1,4 +1,4 @@
-﻿# Pandatech.VerticalSlices - Monolith Application Using Vertical Slices Architecture
+﻿# Pandatech.CleanArchitecture - Monolith Application Using Clean Architecture
 
 ## Introduction
 

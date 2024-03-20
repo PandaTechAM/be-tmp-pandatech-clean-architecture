@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pandatech.CleanArchitecture.Core.Extensions;
 using Pandatech.CleanArchitecture.Core.Interfaces.Redis.EntityCacheServices;
+using Pandatech.CleanArchitecture.Infrastructure.Redis.EntityCacheServices;
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Newtonsoft;
@@ -29,7 +30,7 @@ internal static class RedisExtension
       }
 
 
-      builder.Services.AddSingleton<ILoggedUserCacheService, ILoggedUserCacheService>();
+      builder.Services.AddSingleton<ILoggedUserCacheService, LoggedUserCacheService>();
 
       return builder;
    }

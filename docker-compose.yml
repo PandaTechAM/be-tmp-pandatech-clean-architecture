@@ -18,12 +18,12 @@ volumes:
 
 
 services:
-   pandatech_vertical_slices:
+   pandatech_clean_architecture:
       build:
          context: .
          dockerfile: Dockerfile.Local
-      container_name: pandatech_vertical_slices
-      hostname: pandatech_vertical_slices
+      container_name: pandatech_clean_architecture
+      hostname: pandatech_clean_architecture
       restart: always
       
       depends_on:
@@ -38,7 +38,7 @@ services:
          ASPNETCORE_HTTP_PORTS: 80
          PANDAVAULT_URL: https://bevault.pandatech.it
          PANDAVAULT_SECRET: 0c579832-968e-463e-a69e-f9634332d29e
-         ConnectionStrings__Postgres: Server=postgres_db;Port=5432;Database=pandatech_vertical_slices;User Id=test;Password=test;Pooling=true;
+         ConnectionStrings__Postgres: Server=postgres_db;Port=5432;Database=pandatech_clean_architecture;User Id=test;Password=test;Pooling=true;
          ConnectionStrings__Redis: redis:6379
          RabbitMqSettings__RabbitMqHost: amqp://test:test@rabbitmq:5672
       volumes:
@@ -47,7 +47,7 @@ services:
    #####################################################################################
    
    # elasticsearch:
-   #   container_name: pandatech_vertical_slices_elasticsearch
+   #   container_name: pandatech_clean_architecture_elasticsearch
    #   image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
    #   restart: always
    #   ports:
@@ -76,7 +76,7 @@ services:
    #   depends_on:
    #    elasticsearch:
    #      condition: service_healthy
-   #   container_name: pandatech_vertical_slices_kibana
+   #   container_name: pandatech_clean_architecture_kibana
    #   image: docker.elastic.co/kibana/kibana:8.12.2
    #   restart: always
    #   ports:
@@ -89,7 +89,7 @@ services:
    ################################a###################################################
    
    # pg-admin:
-   #   container_name: pandatech_vertical_slices_pg_admin
+   #   container_name: pandatech_clean_architecture_pg_admin
    #   image: dpage/pgadmin4:8.4
    #   restart: always
    #   ports:
@@ -104,7 +104,7 @@ services:
    ###################################################################################
    
    rabbitmq:
-      container_name: pandatech_vertical_slices_rabbitmq
+      container_name: pandatech_clean_architecture_rabbitmq
       image: rabbitmq:3.13.0-management-alpine
       restart: always
       ports:
@@ -119,7 +119,7 @@ services:
    ###################################################################################
    
    redis:
-      container_name: pandatech_vertical_slices_redis
+      container_name: pandatech_clean_architecture_redis
       image: redis:7.2.4
       restart: always
       ports:
@@ -130,7 +130,7 @@ services:
    ###################################################################################
    
    redisinsight:
-      container_name: pandatech_vertical_slices_redisinsight
+      container_name: pandatech_clean_architecture_redisinsight
       image: redislabs/redisinsight:1.14.0
       restart: always
       ports:
@@ -141,7 +141,7 @@ services:
    ###################################################################################
    
    postgres_db:
-      container_name: pandatech_vertical_slices_postgres
+      container_name: pandatech_clean_architecture_postgres
       image: postgres:16.2
       restart: always
       environment:
