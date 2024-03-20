@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Pandatech.CleanArchitecture.Core.Entities;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories.EntityRepositories;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
+using Pandatech.CleanArchitecture.Infrastructure.Contexts;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Repositories.EntityRepositories;
 

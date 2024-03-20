@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
+using Pandatech.CleanArchitecture.Infrastructure.Contexts;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Extensions;
 
