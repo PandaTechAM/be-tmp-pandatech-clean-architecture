@@ -7,7 +7,6 @@
       <PackageReference Include="FluentValidation.AspNetCore" />
       <PackageReference Include="Hangfire" />
       <PackageReference Include="MediatR" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
       <PackageReference Include="PandaTech.BaseConverter" />
       <PackageReference Include="Pandatech.CommissionCalculator"/>
       <PackageReference Include="Pandatech.Communicator"/>
