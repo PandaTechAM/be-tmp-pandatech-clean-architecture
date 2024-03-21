@@ -3,11 +3,11 @@
 
    <ItemGroup>
       <PackageReference Include="EFCore.NamingConventions"/>
-      <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" />
-      <PackageReference Include="Hangfire.EntityFrameworkCore" />
-      <PackageReference Include="Hangfire.PostgreSql" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" >
+      <PackageReference Include="Hangfire.Dashboard.Basic.Authentication"/>
+      <PackageReference Include="Hangfire.EntityFrameworkCore"/>
+      <PackageReference Include="Hangfire.PostgreSql"/>
+      <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
          <PrivateAssets>all</PrivateAssets>
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -15,14 +15,22 @@
          <PrivateAssets>all</PrivateAssets>
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions"/>
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
-      <PackageReference Include="StackExchange.Redis" />
-      <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" />
-      <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft"  />
-      <PackageReference Include="StackExchange.Redis.Extensions.Protobuf"  />
+      <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol"/>
+      <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore"/>
+      <PackageReference Include="OpenTelemetry.Extensions.Hosting"/>
+      <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore"/>
+      <PackageReference Include="OpenTelemetry.Instrumentation.GrpcNetClient"/>
+      <PackageReference Include="OpenTelemetry.Instrumentation.Http"/>
+      <PackageReference Include="OpenTelemetry.Instrumentation.Runtime"/>
+      <PackageReference Include="StackExchange.Redis"/>
+      <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore"/>
+      <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft"/>
+      <PackageReference Include="StackExchange.Redis.Extensions.Protobuf"/>
       <PackageReference Include="AspNetCore.HealthChecks.Elasticsearch"/>
       <PackageReference Include="AspNetCore.HealthChecks.NpgSql"/>
+      <PackageReference Include="AspNetCore.HealthChecks.Prometheus.Metrics"/>
       <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq"/>
       <PackageReference Include="AspNetCore.HealthChecks.Redis"/>
       <PackageReference Include="AspNetCore.HealthChecks.UI.Client"/>
@@ -31,13 +39,13 @@
       <PackageReference Include="Serilog.Sinks.Elasticsearch"/>
    </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Pandatech.CleanArchitecture.Application\Pandatech.CleanArchitecture.Application.csproj" />
-        <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj" />
-    </ItemGroup>
+   <ItemGroup>
+      <ProjectReference Include="..\Pandatech.CleanArchitecture.Application\Pandatech.CleanArchitecture.Application.csproj"/>
+      <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj"/>
+   </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Seed\" />
-    </ItemGroup>
-    
+   <ItemGroup>
+      <Folder Include="Seed\"/>
+   </ItemGroup>
+
 </Project>

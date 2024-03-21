@@ -11,6 +11,7 @@ public static class DependencyInjection
       builder.AddSerilog()
          .AddHangfireServer()
          .AddPostgresContext()
+         .ConfigureOpenTelemetry()
          .AddPandaCryptoAndFilters()
          .AddRedisCache()
          .AddRepositories()

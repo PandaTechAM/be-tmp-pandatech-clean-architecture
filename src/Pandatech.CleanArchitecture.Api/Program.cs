@@ -31,7 +31,7 @@ app.UseResponseCrafter()
    .UseCors()
    .UseSwagger(builder.Configuration);
 
-app.MapPandaOptionalEndpoints();
+app.MapPandaEndpoints();
 app.MapCarter();
 
 StartupLogger.LogStartSuccess();
