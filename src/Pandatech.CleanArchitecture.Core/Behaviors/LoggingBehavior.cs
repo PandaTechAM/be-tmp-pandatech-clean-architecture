@@ -1,10 +1,14 @@
 using System.Diagnostics;
+using System.Reflection;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Pandatech.CleanArchitecture.Core.Behaviors;
 
-public class LoggingBehavior<TRequest, TResponse>(ILogger<Mediator> logger) : IPipelineBehavior<TRequest, TResponse>
+public class LoggingBehavior<TRequest, TResponse>(ILogger<Mediator> logger, IHostEnvironment environment)
+   : IPipelineBehavior<TRequest, TResponse>
    where TRequest : IRequest<TResponse>
 {
    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
@@ -20,16 +24,16 @@ public class LoggingBehavior<TRequest, TResponse>(ILogger<Mediator> logger) : IP
          logger.LogInformation("Handling {RequestName}", typeof(TRequest).Name);
 
          // Reflection! Could be a performance concern and also expose sensitive data
-
-         /*
-         Type myType = request.GetType();
-         IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-         foreach (PropertyInfo prop in props)
+         if (!environment.IsProduction())
          {
-           object? propValue = prop?.GetValue(request, null);
-           logger.LogInformation("Property {Property} : {@Value}", prop?.Name, propValue);
+            Type myType = request.GetType();
+            IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+            foreach (PropertyInfo prop in props)
+            {
+               object? propValue = prop?.GetValue(request, null);
+               logger.LogInformation("Property {Property} : {@Value}", prop?.Name, propValue);
+            }
          }
-         */
       }
 
       var sw = Stopwatch.StartNew();
