@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Pandatech.CleanArchitecture.Application.Features.Auth.CommandAndHandlers.Authenticate;
 using Pandatech.CleanArchitecture.Core.DTOs.Auth;
 using Pandatech.CleanArchitecture.Core.Enums;
-using Pandatech.CleanArchitecture.Core.Helpers;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;

@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Pandatech.CleanArchitecture.Core.Entities;
 using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
-using Pandatech.CleanArchitecture.Infrastructure.Contexts;
 using Pandatech.Crypto;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Seed.User;

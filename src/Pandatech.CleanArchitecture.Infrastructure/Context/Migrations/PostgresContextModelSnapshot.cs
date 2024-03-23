@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Pandatech.CleanArchitecture.Infrastructure.Contexts;
+using Pandatech.CleanArchitecture.Infrastructure.Context;
 
 #nullable disable
 
-namespace Pandatech.CleanArchitecture.Infrastructure.Migrations
+namespace Pandatech.CleanArchitecture.Infrastructure.Context.Migrations
 {
     [DbContext(typeof(PostgresContext))]
     partial class PostgresContextModelSnapshot : ModelSnapshot

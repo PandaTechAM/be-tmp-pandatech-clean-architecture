@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Pandatech.CleanArchitecture.Api.Helpers;
 using Pandatech.CleanArchitecture.Core.Extensions;
-using Pandatech.CleanArchitecture.Infrastructure.Contexts;
+using Pandatech.CleanArchitecture.Infrastructure.Context;
 using PandaVaultClient;
 
 namespace Pandatech.CleanArchitecture.Api.Endpoints.SharedEndpoints;

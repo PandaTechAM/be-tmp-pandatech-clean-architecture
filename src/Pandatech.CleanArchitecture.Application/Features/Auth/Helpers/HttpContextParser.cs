@@ -2,11 +2,9 @@ using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
-using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 using Pandatech.CleanArchitecture.Core.Enums;
-using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 
-namespace Pandatech.CleanArchitecture.Core.Helpers;
+namespace Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 
 public static class HttpContextParser
 {

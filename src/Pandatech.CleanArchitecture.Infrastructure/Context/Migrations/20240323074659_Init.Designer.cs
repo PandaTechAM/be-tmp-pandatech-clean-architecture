@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Pandatech.CleanArchitecture.Infrastructure.Contexts;
+using Pandatech.CleanArchitecture.Infrastructure.Context;
 
 #nullable disable
 
-namespace Pandatech.CleanArchitecture.Infrastructure.Migrations
+namespace Pandatech.CleanArchitecture.Infrastructure.Context.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    [Migration("20240320190043_Init")]
+    [Migration("20240323074659_Init")]
     partial class Init
     {
         /// <inheritdoc />

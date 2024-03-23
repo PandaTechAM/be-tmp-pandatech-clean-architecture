@@ -11,7 +11,6 @@ using Pandatech.CleanArchitecture.Application.Features.Auth.CommandAndHandlers.U
 using Pandatech.CleanArchitecture.Application.Features.Auth.CommandAndHandlers.UpdatePasswordForced;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 using Pandatech.CleanArchitecture.Core.Enums;
-using Pandatech.CleanArchitecture.Core.Helpers;
 using ResponseCrafter.Dtos;
 
 namespace Pandatech.CleanArchitecture.Api.Endpoints.Auth;

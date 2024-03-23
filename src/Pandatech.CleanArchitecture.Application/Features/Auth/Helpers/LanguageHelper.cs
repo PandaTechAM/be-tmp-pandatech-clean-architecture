@@ -2,7 +2,7 @@
 using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 
-namespace Pandatech.CleanArchitecture.Infrastructure.Helpers;
+namespace Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 
 public static class LanguageHelper
 {

@@ -2,7 +2,6 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
-using Pandatech.CleanArchitecture.Infrastructure.Contexts;
 using PandaTech.IEnumerableFilters;
 using PandaTech.IEnumerableFilters.Dto;
 using PandaTech.IEnumerableFilters.Extensions;

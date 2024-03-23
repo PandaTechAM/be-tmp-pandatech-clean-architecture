@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Pandatech.CleanArchitecture.Infrastructure.Contexts;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Context;
 
