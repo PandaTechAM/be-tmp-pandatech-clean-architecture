@@ -1,5 +1,6 @@
 using Carter;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Pandatech.CleanArchitecture.Api.Helpers;
 using Pandatech.CleanArchitecture.Application.Contracts.Auth.IdentityState;
 using Pandatech.CleanArchitecture.Application.Contracts.Auth.Login;
@@ -30,8 +31,9 @@ public class AuthenticationV1Endpoints : ICarterModule
          .WithOpenApi();
 
       groupApp.MapPost("/login",
-            async (ISender sender, LoginV1Command command, IHttpContextAccessor httpContextAccessor,
-               IHostEnvironment environment, IConfiguration configuration) =>
+            async ([FromServices] ISender sender, [FromBody] LoginV1Command command,
+               [FromServices] IHttpContextAccessor httpContextAccessor,
+               [FromServices] IHostEnvironment environment, [FromServices] IConfiguration configuration) =>
             {
                var response = await sender.Send(command);
                var clientType = httpContextAccessor.HttpContext!.TryParseClientType().ConvertToEnum();
@@ -54,8 +56,8 @@ public class AuthenticationV1Endpoints : ICarterModule
 
 
       groupApp.MapPost("/refresh-token",
-            async (ISender sender, IHttpContextAccessor httpContextAccessor,
-               IHostEnvironment environment, IConfiguration configuration) =>
+            async ([FromServices] ISender sender, [FromServices] IHttpContextAccessor httpContextAccessor,
+               [FromServices] IHostEnvironment environment, [FromServices] IConfiguration configuration) =>
             {
                var refreshTokenSignature = httpContextAccessor.HttpContext!.TryParseRefreshTokenSignature(environment);
                var response = await sender.Send(new RefreshUserTokenV1Command(refreshTokenSignature));
@@ -76,7 +78,7 @@ public class AuthenticationV1Endpoints : ICarterModule
          .Produces<ErrorResponse>(400);
 
 
-      groupApp.MapGet("/state", async (ISender sender) =>
+      groupApp.MapGet("/state", async ([FromServices] ISender sender) =>
          {
             var identity = await sender.Send(new GetIdentityStateV1Query());
             return Results.Ok(identity);
@@ -87,8 +89,9 @@ public class AuthenticationV1Endpoints : ICarterModule
 
 
       groupApp.MapPost("/logout",
-            async (ISender sender, IHttpContextAccessor httpContextAccessor, IHostEnvironment environment,
-               IConfiguration configuration) =>
+            async ([FromServices] ISender sender, [FromServices] IHttpContextAccessor httpContextAccessor,
+               [FromServices] IHostEnvironment environment,
+               [FromServices] IConfiguration configuration) =>
             {
                var domain = configuration["Security:CookieDomain"]!;
                await sender.Send(new RevokeCurrentTokenV1Command());
@@ -100,7 +103,7 @@ public class AuthenticationV1Endpoints : ICarterModule
          .Produces<ErrorResponse>(404);
 
       groupApp.MapPatch("/password/force",
-            async (ISender sender, UpdatePasswordForcedV1Command command) =>
+            async ([FromServices] ISender sender, [FromBody] UpdatePasswordForcedV1Command command) =>
             {
                await sender.Send(command);
                return Results.Ok();
@@ -109,11 +112,12 @@ public class AuthenticationV1Endpoints : ICarterModule
          .WithDescription("This endpoint is used to update the user password when it is forced.")
          .Produces<ErrorResponse>(400);
 
-      groupApp.MapPatch("/password/own", async (ISender sender, UpdateOwnPasswordV1Command command) =>
-         {
-            await sender.Send(command);
-            return Results.Ok();
-         })
+      groupApp.MapPatch("/password/own",
+            async ([FromServices] ISender sender, [FromBody] UpdateOwnPasswordV1Command command) =>
+            {
+               await sender.Send(command);
+               return Results.Ok();
+            })
          .Authorize(UserRole.User)
          .WithDescription("This endpoint is used to update the user password from its own profile.")
          .Produces<ErrorResponse>(400);

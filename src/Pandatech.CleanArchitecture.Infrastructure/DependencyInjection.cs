@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Pandatech.CleanArchitecture.Core.Helpers;
 using Pandatech.CleanArchitecture.Infrastructure.Extensions;
 using Pandatech.CleanArchitecture.Infrastructure.Seed.User;
 
@@ -8,6 +9,8 @@ public static class DependencyInjection
 {
    public static WebApplicationBuilder AddInfrastructureLayer(this WebApplicationBuilder builder)
    {
+      AssemblyRegistry.AddAssemblies(typeof(DependencyInjection).Assembly);
+      
       builder.AddSerilog()
          .AddHangfireServer()
          .AddPostgresContext()

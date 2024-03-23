@@ -16,7 +16,7 @@ public class ArchitectureTests
     public void Domain_Should_Not_HaveDependencyOnOtherProjects()
     {
         // Arrange
-        var assembly = typeof(Pandatech.CleanArchitecture.Core.AssemblyReference).Assembly;
+        var assembly = typeof(Pandatech.CleanArchitecture.Core.DependencyInjection).Assembly;
 
         var otherProjects = new[]
         {
@@ -41,7 +41,7 @@ public class ArchitectureTests
     public void Application_Should_Not_HaveDependencyOnOtherProjects()
     {
         // Arrange
-        var assembly = typeof(AssemblyReference).Assembly;
+        var assembly = typeof(DependencyInjection).Assembly;
 
         var otherProjects = new[]
         {
@@ -65,7 +65,7 @@ public class ArchitectureTests
     public void Handlers_Should_Have_DependencyOnDomain()
     {
         // Arrange
-        var assembly = typeof(AssemblyReference).Assembly;
+        var assembly = typeof(DependencyInjection).Assembly;
 
         // Act
         var testResult = Types
@@ -84,7 +84,7 @@ public class ArchitectureTests
     public void Infrastructure_Should_Not_HaveDependencyOnOtherProjects()
     {
         // Arrange
-        var assembly = typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly;
+        var assembly = typeof(Pandatech.CleanArchitecture.Infrastructure.DependencyInjection).Assembly;
 
         var otherProjects = new[]
         {
@@ -107,7 +107,7 @@ public class ArchitectureTests
     public void Presentation_Should_Not_HaveDependencyOnOtherProjects()
     {
         // Arrange
-        var assembly = typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly;
+        var assembly = typeof(Pandatech.CleanArchitecture.Infrastructure.DependencyInjection).Assembly;
 
         var otherProjects = new[]
         {

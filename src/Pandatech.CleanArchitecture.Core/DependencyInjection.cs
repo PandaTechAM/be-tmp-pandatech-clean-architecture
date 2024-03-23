@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Pandatech.CleanArchitecture.Core.Helpers;
 
-namespace Pandatech.CleanArchitecture.Application;
+namespace Pandatech.CleanArchitecture.Core;
 
 public static class DependencyInjection
 {
-   public static WebApplicationBuilder AddApplicationLayer(this WebApplicationBuilder builder)
+   public static WebApplicationBuilder AddCoreLayer(this WebApplicationBuilder builder)
    {
       AssemblyRegistry.AddAssemblies(typeof(DependencyInjection).Assembly);
-
-
       return builder;
    }
-
 }

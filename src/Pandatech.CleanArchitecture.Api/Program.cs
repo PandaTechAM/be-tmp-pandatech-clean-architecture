@@ -3,12 +3,15 @@ using Pandatech.CleanArchitecture.Api.Endpoints.SharedEndpoints;
 using Pandatech.CleanArchitecture.Api.Extensions;
 using Pandatech.CleanArchitecture.Infrastructure;
 using Pandatech.CleanArchitecture.Application;
+using Pandatech.CleanArchitecture.Core;
 using Pandatech.CleanArchitecture.Core.Extensions;
+using Pandatech.CleanArchitecture.Core.Helpers;
 using PandaVaultClient;
 using ResponseCrafter;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.LogStartAttempt();
+AssemblyRegistry.AddAssemblies(typeof(Program).Assembly);
 
 if (!builder.Environment.IsLocal())
    builder.Configuration.AddPandaVault();
@@ -16,10 +19,15 @@ if (!builder.Environment.IsLocal())
 builder
    .AddCors()
    .AddResponseCrafter()
+   .AddCoreLayer()
    .AddInfrastructureLayer()
    .AddApplicationLayer()
    .AddSwagger()
-   .RegisterAllServices(); // Move to common
+   .AddMediatrWithBehaviors()
+   .RegisterAllServices();
+
+builder.Services.AddCarter();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddEndpointsApiExplorer();
 

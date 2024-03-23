@@ -101,7 +101,7 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
         try
         {
             var tableName = $"{typeof(TEntity).Name}FilterModel";
-            return Task.FromResult(FilterExtenders.GetFilters(typeof(Core.AssemblyReference).Assembly, tableName));
+            return Task.FromResult(FilterExtenders.GetFilters(typeof(Core.DependencyInjection).Assembly, tableName));
         }
         catch (Exception ex)
         {

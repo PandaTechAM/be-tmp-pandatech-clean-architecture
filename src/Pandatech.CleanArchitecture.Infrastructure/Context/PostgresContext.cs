@@ -16,6 +16,6 @@ public class PostgresContext(DbContextOptions<PostgresContext> options) : Postgr
       base.OnModelCreating(modelBuilder);
 
       modelBuilder.OnHangfireModelCreating();
-      modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyReference).Assembly);
+      modelBuilder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
    }
 }
