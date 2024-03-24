@@ -1,4 +1,4 @@
-using Carter;
+using FluentMinimalApiMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pandatech.CleanArchitecture.Api.Helpers;
@@ -16,7 +16,7 @@ using ResponseCrafter.Dtos;
 
 namespace Pandatech.CleanArchitecture.Api.Endpoints.Auth;
 
-public class AuthenticationV1Endpoints : ICarterModule
+public class AuthenticationV1Endpoints : IEndpoint
 {
    private static string RoutePrefix => ApiHelper.GetRoutePrefix(1, BaseRoute);
    private const string BaseRoute = "/authentication";

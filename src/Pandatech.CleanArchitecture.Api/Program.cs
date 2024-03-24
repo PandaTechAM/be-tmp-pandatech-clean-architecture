@@ -1,4 +1,4 @@
-using Carter;
+using FluentMinimalApiMapper;
 using Pandatech.CleanArchitecture.Api.Endpoints.SharedEndpoints;
 using Pandatech.CleanArchitecture.Api.Extensions;
 using Pandatech.CleanArchitecture.Infrastructure;
@@ -24,9 +24,9 @@ builder
    .AddApplicationLayer()
    .AddSwagger()
    .AddMediatrWithBehaviors()
+   .AddEndpoints()
    .RegisterAllServices();
 
-builder.Services.AddCarter();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -40,7 +40,7 @@ app.UseResponseCrafter()
    .UseSwagger(builder.Configuration);
 
 app.MapPandaEndpoints();
-app.MapCarter();
+app.MapEndpoints();
 
 StartupLogger.LogStartSuccess();
 app.Run();
