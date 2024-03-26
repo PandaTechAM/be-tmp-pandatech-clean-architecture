@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Pandatech.CleanArchitecture.Core.EntityFilters;
 using Pandatech.CleanArchitecture.Core.Enums;
 using PandaTech.IEnumerableFilters.Attributes;

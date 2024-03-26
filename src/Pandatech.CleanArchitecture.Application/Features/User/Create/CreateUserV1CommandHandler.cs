@@ -19,6 +19,7 @@ public class CreateUserV1CommandHandler(IUnitOfWork unitOfWork, Argon2Id argon)
       }
 
       var passwordHash = argon.HashPassword(request.Password);
+      
       var user = new UserEntity
       {
          Username = request.Username.ToLower(),
