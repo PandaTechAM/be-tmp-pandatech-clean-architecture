@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pandatech.CleanArchitecture.Core.Extensions;
 using Pandatech.CleanArchitecture.Core.Interfaces.Redis.EntityCacheServices;
+using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 using Pandatech.CleanArchitecture.Infrastructure.Redis.EntityCacheServices;
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core.Configuration;
@@ -15,7 +16,7 @@ internal static class RedisExtension
 {
    internal static WebApplicationBuilder AddRedisCache(this WebApplicationBuilder builder)
    {
-      var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
+      var redisConnectionString = builder.Configuration.GetConnectionString(ConfigurationPaths.RedisUrl);
       builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnectionString!));
 
       var redisConfiguration = new RedisConfiguration { ConnectionString = redisConnectionString };

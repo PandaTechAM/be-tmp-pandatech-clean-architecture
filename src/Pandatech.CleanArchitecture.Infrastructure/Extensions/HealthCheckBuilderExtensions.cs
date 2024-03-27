@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pandatech.CleanArchitecture.Core.Extensions;
+using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 using RabbitMQ.Client;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Extensions;
@@ -13,11 +14,10 @@ public static class HealthCheckBuilderExtensions
    {
       var configuration = builder.Configuration;
       var timeoutSeconds = TimeSpan.FromSeconds(5);
-      var postgresConnectionString = configuration.GetConnectionString("Postgres")!;
-      var redisConnectionString = configuration.GetConnectionString("Redis")!;
-      var elasticSearchUrl = configuration.GetConnectionString("ElasticSearch")!;
-      var rabbitMqUri = configuration["RabbitMqSettings:RabbitMqHost"]!;
-  //    var auditTrailUrl = new CustomHealthChecks(configuration.GetConnectionString("AuditTrail")!);
+      var postgresConnectionString = configuration.GetConnectionString(ConfigurationPaths.PostgresUrl)!;
+      var redisConnectionString = configuration.GetConnectionString(ConfigurationPaths.RedisUrl)!;
+      var elasticSearchUrl = configuration.GetConnectionString(ConfigurationPaths.ElasticSearchUrl)!;
+      var rabbitMqUri = configuration.GetConnectionString(ConfigurationPaths.RabbitMqUrl)!;
 
       //This part is only for RMQ health check
       ConnectionFactory factory = new() { Uri = new Uri(rabbitMqUri) };

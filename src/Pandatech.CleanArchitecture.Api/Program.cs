@@ -6,6 +6,7 @@ using Pandatech.CleanArchitecture.Application;
 using Pandatech.CleanArchitecture.Core;
 using Pandatech.CleanArchitecture.Core.Extensions;
 using Pandatech.CleanArchitecture.Core.Helpers;
+using Pandatech.CleanArchitecture.Infrastructure.Extensions;
 using PandaVaultClient;
 using ResponseCrafter;
 
@@ -23,6 +24,7 @@ builder
    .AddInfrastructureLayer()
    .AddApplicationLayer()
    .AddSwagger()
+   .AddMassTransit(AssemblyRegistry.GetAllAssemblies().ToArray())
    .AddMediatrWithBehaviors()
    .AddEndpoints()
    .RegisterAllServices();

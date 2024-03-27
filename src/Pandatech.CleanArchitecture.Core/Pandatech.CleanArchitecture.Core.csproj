@@ -6,6 +6,8 @@
       <PackageReference Include="FluentDateTime" />
       <PackageReference Include="FluentValidation.AspNetCore" />
       <PackageReference Include="Hangfire" />
+      <PackageReference Include="MassTransit.EntityFrameworkCore" />
+      <PackageReference Include="MassTransit.RabbitMQ" />
       <PackageReference Include="MediatR" />
       <PackageReference Include="PandaTech.BaseConverter" />
       <PackageReference Include="Pandatech.CommissionCalculator"/>

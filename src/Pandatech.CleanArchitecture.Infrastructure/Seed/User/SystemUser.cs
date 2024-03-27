@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pandatech.CleanArchitecture.Core.Entities;
 using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
+using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 using Pandatech.Crypto;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Seed.User;
@@ -19,8 +20,8 @@ public static class SystemUser
       var configuration = services.GetRequiredService<IConfiguration>();
       var argon2Id = services.GetRequiredService<Argon2Id>();
 
-      var username = configuration["Security:SuperUser:Username"];
-      ValidateConfiguration(username, "SuperUser:Username");
+      var username = configuration[ConfigurationPaths.SuperUsername];
+      ValidateConfiguration(username, ConfigurationPaths.SuperUserPassword);
 
       var normalizedUsername = username!.ToLowerInvariant();
       var existingUsers = context.Users
@@ -34,8 +35,8 @@ public static class SystemUser
          return app;
       }
 
-      var userPassword = configuration["Security:SuperUser:Password"];
-      ValidateConfiguration(userPassword, "SuperUser:Password");
+      var userPassword = configuration[ConfigurationPaths.SuperUserPassword];
+      ValidateConfiguration(userPassword, ConfigurationPaths.SuperUserPassword);
 
       var passwordHash = argon2Id.HashPassword(userPassword!);
 

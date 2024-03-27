@@ -1,6 +1,7 @@
 using Hangfire;
 using HangfireBasicAuthenticationFilter;
 using Microsoft.AspNetCore.Builder;
+using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Extensions;
 
@@ -8,8 +9,8 @@ public static class HangfireDashboardExtensions
 {
    public static WebApplication UseHangfireServer(this WebApplication app)
    {
-      var user = app.Configuration["Security:Hangfire:Username"];
-      var pass = app.Configuration["Security:Hangfire:Password"];
+      var user = app.Configuration[ConfigurationPaths.HangfireUsername];
+      var pass = app.Configuration[ConfigurationPaths.HangfirePassword];
 
       app.UseHangfireDashboard("/hangfire",
          new DashboardOptions

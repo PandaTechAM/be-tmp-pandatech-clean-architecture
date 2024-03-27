@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
+using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Extensions;
 
@@ -12,7 +13,7 @@ public static class DatabaseExtensions
     {
         var configuration = builder.Configuration;
 
-        var connectionString = configuration.GetConnectionString("Postgres");
+        var connectionString = configuration.GetConnectionString(ConfigurationPaths.PostgresUrl);
         builder.Services.AddDbContextPool<PostgresContext>(options =>
             options.UseNpgsql(connectionString)
                 .UseSnakeCaseNamingConvention());

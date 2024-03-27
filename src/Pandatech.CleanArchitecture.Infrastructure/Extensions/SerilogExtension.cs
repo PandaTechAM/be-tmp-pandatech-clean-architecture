@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Pandatech.CleanArchitecture.Core.Extensions;
+using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 using Serilog;
 using Serilog.Events;
 
@@ -14,8 +15,8 @@ public static class SerilogExtension
    public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder)
    {
       var configuration = builder.Configuration;
-      var indexName = configuration["ElasticIndexName"]!;
-      var elasticSearchUrl = configuration.GetConnectionString("ElasticSearch")!;
+      var indexName = configuration[ConfigurationPaths.ElasticIndex]!;
+      var elasticSearchUrl = configuration.GetConnectionString(ConfigurationPaths.ElasticSearchUrl)!;
 
       var loggerConfig = new LoggerConfiguration()
          .Enrich.FromLogContext()
