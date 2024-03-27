@@ -44,5 +44,6 @@ app.UseResponseCrafter()
 app.MapPandaEndpoints();
 app.MapEndpoints();
 
+AssemblyRegistry.RemoveAllAssemblies();
 StartupLogger.LogStartSuccess();
 app.Run();
