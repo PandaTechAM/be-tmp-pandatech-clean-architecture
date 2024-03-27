@@ -1,6 +1,7 @@
 using System.Reflection;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
 using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 
@@ -25,7 +26,7 @@ public static class MassTransitExtension
 
          x.UsingRabbitMq((context, cfg) =>
          {
-            cfg.Host(ConfigurationPaths.RabbitMqUrl);
+            cfg.Host(builder.Configuration.GetConnectionString(ConfigurationPaths.RabbitMqUrl));
             cfg.ConfigureEndpoints(context);
          });
       });
