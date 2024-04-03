@@ -22,7 +22,6 @@ public class PostgresContext : PostgresDbContext
    {
       base.OnModelCreating(modelBuilder);
 
-      modelBuilder.OnHangfireModelCreating();
       modelBuilder.AddTransactionalOutboxEntities();
       modelBuilder.FilterOutDeletedMarkedObjects();
       modelBuilder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
