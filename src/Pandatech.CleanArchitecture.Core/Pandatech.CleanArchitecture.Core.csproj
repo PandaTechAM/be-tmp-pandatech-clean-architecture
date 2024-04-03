@@ -13,6 +13,7 @@
       <PackageReference Include="Pandatech.CommissionCalculator"/>
       <PackageReference Include="Pandatech.Communicator"/>
       <PackageReference Include="Pandatech.Crypto" />
+      <PackageReference Include="Pandatech.EFCore.AuditBase" />
       <PackageReference Include="PandaTech.IEnumerableFilters" />
       <PackageReference Include="Pandatech.RegexBox" />
       <PackageReference Include="Pandatech.ResponseCrafter"  />

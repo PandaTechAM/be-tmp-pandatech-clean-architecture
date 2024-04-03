@@ -1,3 +1,4 @@
+using EFCore.AuditBase;
 using Hangfire.EntityFrameworkCore;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +8,13 @@ using PandaTech.IEnumerableFilters.PostgresContext;
 namespace Pandatech.CleanArchitecture.Infrastructure.Context;
 
 //hint for migration: dotnet ef migrations add --project src\Pandatech.CleanArchitecture.Infrastructure\Pandatech.CleanArchitecture.Infrastructure.csproj --context Pandatech.CleanArchitecture.Infrastructure.Context.PostgresContext --configuration Debug --output-dir ./Context/Migrations
-public class PostgresContext(DbContextOptions<PostgresContext> options) : PostgresDbContext(options)
+public class PostgresContext : PostgresDbContext
 {
+   public PostgresContext(DbContextOptions<PostgresContext> options) : base(options)
+   {
+      this.UseAuditPropertyValidation();
+   }
+
    public DbSet<UserTokenEntity> UserTokens { get; set; } = null!;
    public DbSet<UserEntity> Users { get; set; } = null!;
 
@@ -18,6 +24,8 @@ public class PostgresContext(DbContextOptions<PostgresContext> options) : Postgr
 
       modelBuilder.OnHangfireModelCreating();
       modelBuilder.AddTransactionalOutboxEntities();
+      modelBuilder.FilterOutDeletedMarkedObjects();
       modelBuilder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
    }
 }
+

@@ -34,7 +34,7 @@ public class UpdatePasswordForcedV1CommandHandler(
 
       user.PasswordHash = argon2Id.HashPassword(request.NewPassword);
       user.ForcePasswordChange = false;
-      user.UpdatedAt = DateTime.UtcNow;
+      user.MarkAsUpdated(requestContext.Identity.UserId);
 
       await unitOfWork.SaveChangesAsync(cancellationToken);
       

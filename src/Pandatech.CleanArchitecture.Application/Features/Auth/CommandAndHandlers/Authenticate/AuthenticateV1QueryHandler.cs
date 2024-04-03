@@ -16,7 +16,7 @@ public class AuthenticateV1QueryHandler(IUnitOfWork unitOfWork)
 
       var tokenEntity = await unitOfWork.UserTokens.GetUserTokenByAccessTokenAsync(accessTokenHash, cancellationToken);
 
-      if (tokenEntity is null || tokenEntity.User.Status is not UserStatus.Active)
+      if (tokenEntity?.User.Status is not UserStatus.Active)
       {
          throw new UnauthorizedException();
       }

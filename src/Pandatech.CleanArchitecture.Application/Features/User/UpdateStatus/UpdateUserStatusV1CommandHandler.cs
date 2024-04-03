@@ -5,7 +5,7 @@ using ResponseCrafter.StandardHttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.UpdateStatus;
 
-public class UpdateUserStatusV1CommandHandler(IUnitOfWork unitOfWork)
+public class UpdateUserStatusV1CommandHandler(IUnitOfWork unitOfWork, IRequestContext requestContext)
    : ICommandHandler<UpdateUserStatusV1Command>
 {
    public async Task Handle(UpdateUserStatusV1Command request, CancellationToken cancellationToken)
@@ -23,7 +23,7 @@ public class UpdateUserStatusV1CommandHandler(IUnitOfWork unitOfWork)
       }
 
       user.Status = request.Status;
-      user.UpdatedAt = DateTime.UtcNow;
+      user.MarkAsUpdated(requestContext.Identity.UserId);
 
       await unitOfWork.SaveChangesAsync(cancellationToken);
    }

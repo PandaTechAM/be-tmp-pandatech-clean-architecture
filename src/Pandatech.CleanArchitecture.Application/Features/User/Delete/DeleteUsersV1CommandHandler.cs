@@ -6,7 +6,7 @@ using ResponseCrafter.StandardHttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Delete;
 
-public class DeleteUsersV1CommandHandler(IUnitOfWork unitOfWork) : ICommandHandler<DeleteUsersV1Command>
+public class DeleteUsersV1CommandHandler(IUnitOfWork unitOfWork, IRequestContext requestContext) : ICommandHandler<DeleteUsersV1Command>
 {
    public async Task Handle(DeleteUsersV1Command request, CancellationToken cancellationToken)
    {
@@ -15,11 +15,7 @@ public class DeleteUsersV1CommandHandler(IUnitOfWork unitOfWork) : ICommandHandl
       var notFoundIds = request.Ids
          .Except(users.Select(x => x.Id))
          .ToList();
-
-      var alreadyDeletedIds = users
-         .Where(x => x.Status == UserStatus.Deleted)
-         .Select(x => x.Id)
-         .ToList();
+      
 
       var superAdminIds = users
          .Where(x => x.Role == UserRole.SuperAdmin)
@@ -35,14 +31,7 @@ public class DeleteUsersV1CommandHandler(IUnitOfWork unitOfWork) : ICommandHandl
             errors.Add("not_found", $"User with id {base36Id} not found");
          }
       }
-
-      if (alreadyDeletedIds.Count != 0)
-      {
-         foreach (var base36Id in alreadyDeletedIds.Select(PandaBaseConverter.Base10ToBase36))
-         {
-            errors.Add("already_deleted", $"User with id {base36Id} already deleted");
-         }
-      }
+      
 
       if (superAdminIds.Count != 0)
       {
@@ -59,8 +48,7 @@ public class DeleteUsersV1CommandHandler(IUnitOfWork unitOfWork) : ICommandHandl
 
       foreach (var user in users)
       {
-         user.Status = UserStatus.Deleted;
-         user.UpdatedAt = DateTime.UtcNow;
+         user.MarkAsDeleted(requestContext.Identity.UserId);
       }
 
       await unitOfWork.SaveChangesAsync(cancellationToken);

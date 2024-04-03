@@ -6,7 +6,7 @@ using ResponseCrafter.StandardHttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Create;
 
-public class CreateUserV1CommandHandler(IUnitOfWork unitOfWork, Argon2Id argon)
+public class CreateUserV1CommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, IRequestContext requestContext)
    : ICommandHandler<CreateUserV1Command>
 {
    public async Task Handle(CreateUserV1Command request, CancellationToken cancellationToken)
@@ -26,7 +26,8 @@ public class CreateUserV1CommandHandler(IUnitOfWork unitOfWork, Argon2Id argon)
          FullName = request.FullName,
          PasswordHash = passwordHash,
          Role = request.UserRole,
-         Comment = request.Comment
+         Comment = request.Comment,
+         CreatedByUserId = requestContext.Identity.UserId
       };
       await unitOfWork.Users.AddAsync(user, cancellationToken);
       await unitOfWork.SaveChangesAsync(cancellationToken);

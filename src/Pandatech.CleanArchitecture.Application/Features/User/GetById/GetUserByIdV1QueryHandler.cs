@@ -14,7 +14,7 @@ public class GetUserByIdV1QueryHandler(IUnitOfWork unitOfWork)
    {
       var user = await unitOfWork.Users.GetByIdNoTrackingAsync(request.Id, cancellationToken: cancellationToken);
 
-      if (user is null || user.Status == UserStatus.Deleted || user.Role == UserRole.SuperAdmin)
+      if (user is null || user.Role == UserRole.SuperAdmin)
       {
          throw new NotFoundException("User not found");
       }
