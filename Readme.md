@@ -33,6 +33,7 @@ This project integrates various services and configurations:
 **appsettings{environment}.json:** Configuration settings for the application.
 
 ## Project built-in features
+
 **Integration tests setup:** The project is pre-configured with integration tests.
 **Health checks:** The project has health checks for the database and other services. Also endpoint for prometheus.
 **OpenTelemetry:** The project is pre-configured with OpenTelemetry for logging and tracing.

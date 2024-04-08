@@ -6,17 +6,17 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Context.EntityConfiguration
 
 public class UserEntityConfiguration : IEntityTypeConfiguration<UserEntity>
 {
-  public void Configure(EntityTypeBuilder<UserEntity> builder)
-  {
-    builder.HasKey(b => b.Id);
-    
+   public void Configure(EntityTypeBuilder<UserEntity> builder)
+   {
+      builder.HasKey(b => b.Id);
 
-    builder.HasMany(b => b.UserTokens)
-      .WithOne(u => u.User)
-      .HasForeignKey(u => u.UserId)
-      .IsRequired();
 
-    builder.HasIndex(b => b.Username).IsUnique();
-    builder.HasIndex(b => b.FullName);
-  }
+      builder.HasMany(b => b.UserTokens)
+         .WithOne(u => u.User)
+         .HasForeignKey(u => u.UserId)
+         .IsRequired();
+
+      builder.HasIndex(b => b.Username).IsUnique();
+      builder.HasIndex(b => b.FullName);
+   }
 }

@@ -19,6 +19,7 @@ public static class AssemblyRegistry
          }
       }
    }
+
    public static void RemoveAllAssemblies()
    {
       lock (_assemblies)
@@ -26,7 +27,7 @@ public static class AssemblyRegistry
          _assemblies.Clear();
       }
    }
-   
+
 
    public static IEnumerable<Assembly> GetAllAssemblies()
    {

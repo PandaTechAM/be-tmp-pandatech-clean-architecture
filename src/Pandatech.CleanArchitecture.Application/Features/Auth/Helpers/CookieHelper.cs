@@ -79,7 +79,7 @@ public static class CookieHelper
          AccessTokenSignature = mediatorResponse.AccessTokenSignature,
          RefreshTokenSignature = mediatorResponse.RefreshTokenSignature,
          RefreshTokenExpiresAt = mediatorResponse.RefreshTokenExpiration,
-         AccessTokenExpiresAt = mediatorResponse.AccessTokenExpiration,
+         AccessTokenExpiresAt = mediatorResponse.AccessTokenExpiration
       };
       RefreshIdentityCookies(cookies, httpContext, environment, domain);
    }
@@ -93,7 +93,7 @@ public static class CookieHelper
          AccessTokenSignature = mediatorResponse.AccessTokenSignature,
          RefreshTokenSignature = mediatorResponse.RefreshTokenSignature,
          RefreshTokenExpiresAt = mediatorResponse.RefreshTokenExpiration,
-         AccessTokenExpiresAt = mediatorResponse.AccessTokenExpiration,
+         AccessTokenExpiresAt = mediatorResponse.AccessTokenExpiration
       };
       RefreshIdentityCookies(cookies, httpContext, environment, domain);
    }

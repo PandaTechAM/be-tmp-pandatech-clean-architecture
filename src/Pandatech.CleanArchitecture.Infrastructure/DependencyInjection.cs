@@ -10,7 +10,7 @@ public static class DependencyInjection
    public static WebApplicationBuilder AddInfrastructureLayer(this WebApplicationBuilder builder)
    {
       AssemblyRegistry.AddAssemblies(typeof(DependencyInjection).Assembly);
-      
+
       builder.AddSerilog()
          .AddHangfireServer()
          .AddPostgresContext()

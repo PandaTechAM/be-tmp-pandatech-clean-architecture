@@ -1,5 +1,4 @@
 using EFCore.AuditBase;
-using Hangfire.EntityFrameworkCore;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Pandatech.CleanArchitecture.Core.Entities;
@@ -27,4 +26,3 @@ public class PostgresContext : PostgresDbContext
       modelBuilder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
    }
 }
-

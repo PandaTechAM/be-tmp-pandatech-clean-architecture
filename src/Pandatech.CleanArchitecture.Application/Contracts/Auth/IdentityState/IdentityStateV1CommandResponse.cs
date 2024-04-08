@@ -1,5 +1,4 @@
 using BaseConverter.Attributes;
-using Pandatech.CleanArchitecture.Application.Contracts.Auth.Authenticate;
 using Pandatech.CleanArchitecture.Core.DTOs.Auth;
 using Pandatech.CleanArchitecture.Core.Enums;
 

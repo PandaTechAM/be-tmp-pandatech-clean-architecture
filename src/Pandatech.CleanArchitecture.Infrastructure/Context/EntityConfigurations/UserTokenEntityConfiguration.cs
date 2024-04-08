@@ -6,21 +6,21 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Context.EntityConfiguration
 
 public class UserTokenEntityConfiguration : IEntityTypeConfiguration<UserTokenEntity>
 {
-  public void Configure(EntityTypeBuilder<UserTokenEntity> builder)
-  {
-    builder.HasKey(x => x.Id);
+   public void Configure(EntityTypeBuilder<UserTokenEntity> builder)
+   {
+      builder.HasKey(x => x.Id);
 
-    builder.HasOne(x => x.User)
-      .WithMany(u => u.UserTokens)
-      .HasForeignKey(x => x.UserId)
-      .IsRequired();
-    
-    builder.HasOne(x => x.PreviousUserTokenEntity)
-      .WithOne()
-      .HasForeignKey<UserTokenEntity>(x => x.PreviousUserTokenId)
-      .IsRequired(false);
+      builder.HasOne(x => x.User)
+         .WithMany(u => u.UserTokens)
+         .HasForeignKey(x => x.UserId)
+         .IsRequired();
 
-    builder.HasIndex(x => x.AccessTokenHash).IsUnique();
-    builder.HasIndex(x => x.RefreshTokenHash).IsUnique();
-  }
+      builder.HasOne(x => x.PreviousUserTokenEntity)
+         .WithOne()
+         .HasForeignKey<UserTokenEntity>(x => x.PreviousUserTokenId)
+         .IsRequired(false);
+
+      builder.HasIndex(x => x.AccessTokenHash).IsUnique();
+      builder.HasIndex(x => x.RefreshTokenHash).IsUnique();
+   }
 }

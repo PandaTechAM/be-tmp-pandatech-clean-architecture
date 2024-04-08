@@ -8,14 +8,14 @@ namespace Pandatech.CleanArchitecture.Core.Entities;
 [FilterModel(typeof(UserEntityFilter))]
 public class UserEntity : AuditEntityBase
 {
-  public long Id { get; set; }
-  public string Username { get; set; } = null!;
-  public string FullName { get; set; } = null!;
-  public byte[] PasswordHash { get; set; } = null!;
-  public UserRole Role { get; set; }
-  public UserStatus Status { get; set; } = UserStatus.Active;
-  public bool ForcePasswordChange { get; set; } = true;
-  public string? Comment { get; set; }
+   public long Id { get; set; }
+   public string Username { get; set; } = null!;
+   public string FullName { get; set; } = null!;
+   public byte[] PasswordHash { get; set; } = null!;
+   public UserRole Role { get; set; }
+   public UserStatus Status { get; set; } = UserStatus.Active;
+   public bool ForcePasswordChange { get; set; } = true;
+   public string? Comment { get; set; }
 
-  public ICollection<UserTokenEntity> UserTokens { get; set; } = new List<UserTokenEntity>();
+   public ICollection<UserTokenEntity> UserTokens { get; set; } = new List<UserTokenEntity>();
 }

@@ -16,7 +16,8 @@ public class CreateUserTokenV1CommandHandler(IConfiguration configuration, IUnit
    private readonly int _refreshTokenExpirationMinutes =
       UserTokenHelpers.SetRefreshTokenExpirationMinutes(configuration);
 
-   public async Task<CreateUserTokenV1CommandResponse> Handle(CreateUserTokenV1Command request, CancellationToken cancellationToken)
+   public async Task<CreateUserTokenV1CommandResponse> Handle(CreateUserTokenV1Command request,
+      CancellationToken cancellationToken)
    {
       var now = DateTime.UtcNow;
 

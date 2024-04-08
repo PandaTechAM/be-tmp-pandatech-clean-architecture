@@ -6,8 +6,8 @@ namespace Pandatech.CleanArchitecture.Application.Contracts.Auth.Login;
 
 public class LoginV1CommandResponse
 {
-   [PandaPropertyBaseConverter]
-   public long UserId { get; set; }
+   [PandaPropertyBaseConverter] public long UserId { get; set; }
+
    public bool ForcePasswordChange { get; set; }
    public UserRole UserRole { get; set; }
    public string AccessTokenSignature { get; set; } = null!;

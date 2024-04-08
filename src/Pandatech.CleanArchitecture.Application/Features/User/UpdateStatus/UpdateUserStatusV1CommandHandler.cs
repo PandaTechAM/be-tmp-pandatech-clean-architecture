@@ -10,7 +10,7 @@ public class UpdateUserStatusV1CommandHandler(IUnitOfWork unitOfWork, IRequestCo
 {
    public async Task Handle(UpdateUserStatusV1Command request, CancellationToken cancellationToken)
    {
-      var user = await unitOfWork.Users.GetByIdAsync(request.Id, cancellationToken: cancellationToken);
+      var user = await unitOfWork.Users.GetByIdAsync(request.Id, cancellationToken);
 
       if (user is null || user.Role == UserRole.SuperAdmin)
       {

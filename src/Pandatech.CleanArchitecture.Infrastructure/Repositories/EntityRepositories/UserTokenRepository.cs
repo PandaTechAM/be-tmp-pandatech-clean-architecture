@@ -16,24 +16,27 @@ public class UserTokenRepository(PostgresContext postgresContext)
          .ToListAsync(cancellationToken);
    }
 
-   public async Task<List<UserTokenEntity>> GetAllUserTokensByUserIdWhichAreNotExpiredAsync(long userId, CancellationToken cancellationToken = default)
+   public async Task<List<UserTokenEntity>> GetAllUserTokensByUserIdWhichAreNotExpiredAsync(long userId,
+      CancellationToken cancellationToken = default)
    {
       var now = DateTime.UtcNow;
       return await Context.UserTokens
          .Where(x =>
             x.UserId == userId
             && (x.AccessTokenExpiresAt >= now || x.RefreshTokenExpiresAt >= now))
-         .ToListAsync(cancellationToken: cancellationToken);
+         .ToListAsync(cancellationToken);
    }
 
-   public async Task<UserTokenEntity?> GetUserTokenByRefreshTokenAsync(byte[] refreshTokenHash, CancellationToken cancellationToken = default)
+   public async Task<UserTokenEntity?> GetUserTokenByRefreshTokenAsync(byte[] refreshTokenHash,
+      CancellationToken cancellationToken = default)
    {
       return await Context.UserTokens
          .Include(ut => ut.User)
          .FirstOrDefaultAsync(x => x.RefreshTokenHash == refreshTokenHash, cancellationToken);
    }
 
-   public async Task<UserTokenEntity?> GetUserTokenByAccessTokenAsync(byte[] accessTokenHash, CancellationToken cancellationToken = default)
+   public async Task<UserTokenEntity?> GetUserTokenByAccessTokenAsync(byte[] accessTokenHash,
+      CancellationToken cancellationToken = default)
    {
       return await Context.UserTokens
          .Include(ut => ut.User)

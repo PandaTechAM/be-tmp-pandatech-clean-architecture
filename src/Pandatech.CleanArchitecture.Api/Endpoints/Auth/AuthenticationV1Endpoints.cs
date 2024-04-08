@@ -18,9 +18,9 @@ namespace Pandatech.CleanArchitecture.Api.Endpoints.Auth;
 
 public class AuthenticationV1Endpoints : IEndpoint
 {
-   private static string RoutePrefix => ApiHelper.GetRoutePrefix(1, BaseRoute);
    private const string BaseRoute = "/authentication";
    private const string TagName = "authentication";
+   private static string RoutePrefix => ApiHelper.GetRoutePrefix(1, BaseRoute);
 
    public void AddRoutes(IEndpointRouteBuilder app)
    {

@@ -7,29 +7,29 @@
          <PrivateAssets>all</PrivateAssets>
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Pandatech.FluentMinimalApiMapper" />
+      <PackageReference Include="Pandatech.FluentMinimalApiMapper"/>
       <PackageReference Include="Pandatech.PandaVaultClient"/>
       <PackageReference Include="Swashbuckle.AspNetCore"/>
    </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Pandatech.CleanArchitecture.Application\Pandatech.CleanArchitecture.Application.csproj" />
-        <ProjectReference Include="..\Pandatech.CleanArchitecture.Infrastructure\Pandatech.CleanArchitecture.Infrastructure.csproj" />
-        <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj" />
-    </ItemGroup>
+   <ItemGroup>
+      <ProjectReference Include="..\Pandatech.CleanArchitecture.Application\Pandatech.CleanArchitecture.Application.csproj"/>
+      <ProjectReference Include="..\Pandatech.CleanArchitecture.Infrastructure\Pandatech.CleanArchitecture.Infrastructure.csproj"/>
+      <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj"/>
+   </ItemGroup>
 
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\assets\css\panda-style.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\assets\images\favicon.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo-wording.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\assets\js\docs.js" />
-    </ItemGroup>
+   <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\assets\css\panda-style.css"/>
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\favicon.svg"/>
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo-wording.svg"/>
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo.svg"/>
+      <_ContentIncludedByDefault Remove="wwwroot\assets\js\docs.js"/>
+   </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="DTOs\Inner\" />
-      <Folder Include="DTOs\Request\" />
-      <Folder Include="DTOs\Response\" />
-    </ItemGroup>
+   <ItemGroup>
+      <Folder Include="DTOs\Inner\"/>
+      <Folder Include="DTOs\Request\"/>
+      <Folder Include="DTOs\Response\"/>
+   </ItemGroup>
 
 </Project>

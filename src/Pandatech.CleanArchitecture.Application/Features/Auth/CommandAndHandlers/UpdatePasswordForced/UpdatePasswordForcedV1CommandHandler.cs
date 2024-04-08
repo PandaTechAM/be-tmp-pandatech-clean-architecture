@@ -37,8 +37,7 @@ public class UpdatePasswordForcedV1CommandHandler(
       user.MarkAsUpdated(requestContext.Identity.UserId);
 
       await unitOfWork.SaveChangesAsync(cancellationToken);
-      
-      BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllUserTokensExceptCurrentV1Command(), cancellationToken));
 
+      BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllUserTokensExceptCurrentV1Command(), cancellationToken));
    }
 }

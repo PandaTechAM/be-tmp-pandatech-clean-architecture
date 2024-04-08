@@ -1,8 +1,7 @@
-﻿namespace Pandatech.CleanArchitecture.Core.Enums
+﻿namespace Pandatech.CleanArchitecture.Core.Enums;
+
+public enum UserStatus
 {
-    public enum UserStatus
-    {
-        Active,
-        Disabled
-    }
+   Active,
+   Disabled
 }

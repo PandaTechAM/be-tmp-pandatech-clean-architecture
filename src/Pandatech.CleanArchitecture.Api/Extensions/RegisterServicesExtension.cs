@@ -1,10 +1,5 @@
-﻿using System.Reflection;
-using BaseConverter;
-using FluentValidation;
-using Pandatech.CleanArchitecture.Core.Extensions;
+﻿using Pandatech.CleanArchitecture.Core.Extensions;
 using Pandatech.CleanArchitecture.Infrastructure.Helpers;
-using Pandatech.Crypto;
-using PandaTech.IEnumerableFilters.Extensions;
 
 namespace Pandatech.CleanArchitecture.Api.Extensions;
 
@@ -25,7 +20,7 @@ public static class RegisterServicesExtension
          builder.Services.AddSingleton<DatabaseHelper>();
       }
 
-      
+
       return builder;
    }
 }

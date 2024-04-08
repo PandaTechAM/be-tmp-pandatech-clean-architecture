@@ -12,7 +12,7 @@ public class GetUserByIdV1QueryHandler(IUnitOfWork unitOfWork)
    public async Task<GetUserByIdV1QueryResponse> Handle(GetUserByIdV1Query request,
       CancellationToken cancellationToken)
    {
-      var user = await unitOfWork.Users.GetByIdNoTrackingAsync(request.Id, cancellationToken: cancellationToken);
+      var user = await unitOfWork.Users.GetByIdNoTrackingAsync(request.Id, cancellationToken);
 
       if (user is null || user.Role == UserRole.SuperAdmin)
       {

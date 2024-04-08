@@ -11,7 +11,8 @@ public class CreateUserV1CommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, 
 {
    public async Task Handle(CreateUserV1Command request, CancellationToken cancellationToken)
    {
-      var isDuplicateUsername = await unitOfWork.Users.IsUsernameDuplicateAsync(request.Username.ToLower(), cancellationToken);
+      var isDuplicateUsername =
+         await unitOfWork.Users.IsUsernameDuplicateAsync(request.Username.ToLower(), cancellationToken);
 
       if (isDuplicateUsername)
       {
@@ -19,7 +20,7 @@ public class CreateUserV1CommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, 
       }
 
       var passwordHash = argon.HashPassword(request.Password);
-      
+
       var user = new UserEntity
       {
          Username = request.Username.ToLower(),

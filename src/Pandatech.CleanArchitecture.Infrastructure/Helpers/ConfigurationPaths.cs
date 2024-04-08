@@ -15,4 +15,3 @@ public static class ConfigurationPaths
    public const string SuperUsername = "Security:SuperUser:Username";
    public const string SuperUserPassword = "Security:SuperUser:Password";
 }
-
