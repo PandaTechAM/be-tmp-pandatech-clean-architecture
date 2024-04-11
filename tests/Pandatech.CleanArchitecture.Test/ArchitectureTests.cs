@@ -1,33 +1,37 @@
 ﻿using NetArchTest.Rules;
-using Pandatech.CleanArchitecture.Core;
 using Xunit;
 
 namespace Architecture.Tests;
 
 public class ArchitectureTests
 {
-   private const string CoreNamespace = "Pandatech.CleanArchitecture.Core";
-   private const string ApplicationNamespace = "Pandatech.CleanArchitecture.Application";
-   private const string InfrastructureNamespace = "Pandatech.CleanArchitecture.Infrastructure";
-   private const string PresentationNamespace = "Presentation";
-   private const string WebApiNamespace = "Pandatech.CleanArchitecture.Api";
+   private readonly static string? CoreName = 
+      typeof(Pandatech.CleanArchitecture.Core.AssemblyReference).Assembly.GetName().Name;
+   private readonly static string? ApplicationClientName = 
+      typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly.GetName().Name;
+   private readonly static string? InfrastructureName = 
+      typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly.GetName().Name;
+   private readonly static string? WebApiName = 
+      typeof(Pandatech.CleanArchitecture.Api.AssemblyReference).Assembly.GetName().Name;
 
    [Fact]
-   public void Domain_Should_Not_HaveDependencyOnOtherProjects()
+   public void Core_Should_Not_HaveDependency_On_OtherProjects()
    {
       // Arrange
-      var assembly = typeof(DependencyInjection).Assembly;
+      var assembly = typeof(Pandatech.CleanArchitecture.Core.AssemblyReference).Assembly;
 
       var otherProjects = new[]
       {
-         ApplicationNamespace, InfrastructureNamespace, PresentationNamespace, WebApiNamespace
+         WebApiName,
+         InfrastructureName,
+         ApplicationClientName,
       };
 
       // Act
       var testResult = Types
          .InAssembly(assembly)
          .ShouldNot()
-         .HaveDependencyOnAll(otherProjects)
+         .HaveDependencyOnAny(otherProjects)
          .GetResult();
 
       // Assert
@@ -35,18 +39,22 @@ public class ArchitectureTests
    }
 
    [Fact]
-   public void Application_Should_Not_HaveDependencyOnOtherProjects()
+   public void Application_Should_Not_HaveDependency_On_OtherProjects()
    {
       // Arrange
-      var assembly = typeof(Pandatech.CleanArchitecture.Application.DependencyInjection).Assembly;
+      var assembly = typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly;
 
-      var otherProjects = new[] { InfrastructureNamespace, PresentationNamespace, WebApiNamespace };
+      var otherProjects = new[]
+      {
+         WebApiName,
+         InfrastructureName,
+      };
 
       // Act
       var testResult = Types
          .InAssembly(assembly)
          .ShouldNot()
-         .HaveDependencyOnAll(otherProjects)
+         .HaveDependencyOnAny(otherProjects)
          .GetResult();
 
       // Assert
@@ -54,10 +62,10 @@ public class ArchitectureTests
    }
 
    [Fact]
-   public void Handlers_Should_Have_DependencyOnDomain()
+   public void Handlers_Should_Have_Dependency_On_Core()
    {
       // Arrange
-      var assembly = typeof(Pandatech.CleanArchitecture.Application.DependencyInjection).Assembly;
+      var assembly = typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly;
 
       // Act
       var testResult = Types
@@ -65,7 +73,7 @@ public class ArchitectureTests
          .That()
          .HaveNameEndingWith("Handler")
          .Should()
-         .HaveDependencyOn(CoreNamespace)
+         .HaveDependencyOnAny(CoreName)
          .GetResult();
 
       // Assert
@@ -73,37 +81,16 @@ public class ArchitectureTests
    }
 
    [Fact]
-   public void Infrastructure_Should_Not_HaveDependencyOnOtherProjects()
+   public void Infrastructure_Should_Not_HaveDependency_On_OtherProjects()
    {
       // Arrange
-      var assembly = typeof(Pandatech.CleanArchitecture.Infrastructure.DependencyInjection).Assembly;
-
-      var otherProjects = new[] { PresentationNamespace, WebApiNamespace };
+      var assembly = typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly;
 
       // Act
       var testResult = Types
          .InAssembly(assembly)
          .ShouldNot()
-         .HaveDependencyOnAll(otherProjects)
-         .GetResult();
-
-      // Assert
-      Assert.True(testResult.IsSuccessful);
-   }
-
-   [Fact]
-   public void Presentation_Should_Not_HaveDependencyOnOtherProjects()
-   {
-      // Arrange
-      var assembly = typeof(Pandatech.CleanArchitecture.Infrastructure.DependencyInjection).Assembly;
-
-      var otherProjects = new[] { InfrastructureNamespace, WebApiNamespace };
-
-      // Act
-      var testResult = Types
-         .InAssembly(assembly)
-         .ShouldNot()
-         .HaveDependencyOnAll(otherProjects)
+         .HaveDependencyOnAny(WebApiName)
          .GetResult();
 
       // Assert
