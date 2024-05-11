@@ -2,8 +2,6 @@ using FluentMinimalApiMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pandatech.CleanArchitecture.Api.Helpers;
-using Pandatech.CleanArchitecture.Application.Contracts.Auth.IdentityState;
-using Pandatech.CleanArchitecture.Application.Contracts.Auth.Login;
 using Pandatech.CleanArchitecture.Application.Features.Auth.CommandAndHandlers.IdentityState;
 using Pandatech.CleanArchitecture.Application.Features.Auth.CommandAndHandlers.Login;
 using Pandatech.CleanArchitecture.Application.Features.Auth.CommandAndHandlers.RefreshToken;
@@ -40,18 +38,17 @@ public class AuthenticationV1Endpoints : IEndpoint
 
                if (clientType != ClientType.Browser)
                {
-                  return Results.Ok(response);
+                  return TypedResults.Ok(response);
                }
 
                var domain = configuration["Security:CookieDomain"]!;
                httpContextAccessor.HttpContext!.PrepareAndSetCookies(response, environment, domain);
 
-               return Results.Ok(response);
+               return TypedResults.Ok(response);
             })
          .WithSummary(" \ud83c\udf6a Cookies for the browser and token for the rest of the clients. \ud83c\udf6a")
          .WithDescription(
             "This endpoint is used to authenticate a user. Be aware that the response will be different depending on the client type.")
-         .Produces<LoginV1CommandResponse>()
          .Produces<ErrorResponse>(400);
 
 
@@ -65,13 +62,13 @@ public class AuthenticationV1Endpoints : IEndpoint
 
                if (clientType != ClientType.Browser)
                {
-                  return Results.Ok(response);
+                  return TypedResults.Ok(response);
                }
 
                var domain = configuration["Security:CookieDomain"]!;
                httpContextAccessor.HttpContext!.PrepareAndSetCookies(response, environment, domain);
 
-               return Results.Ok(response);
+               return TypedResults.Ok(response);
             })
          .WithSummary(" \ud83c\udf6a Cookies for the browser and token for the rest of the clients. \ud83c\udf6a")
          .WithDescription("This endpoint is used to refresh the user token.")
@@ -81,11 +78,10 @@ public class AuthenticationV1Endpoints : IEndpoint
       groupApp.MapGet("/state", async ([FromServices] ISender sender) =>
          {
             var identity = await sender.Send(new GetIdentityStateV1Query());
-            return Results.Ok(identity);
+            return TypedResults.Ok(identity);
          })
          .Authorize(UserRole.User)
-         .WithDescription("This endpoint is used to get the current user state.")
-         .Produces<IdentityStateV1CommandResponse>();
+         .WithDescription("This endpoint is used to get the current user state.");
 
 
       groupApp.MapPost("/logout",
@@ -96,7 +92,7 @@ public class AuthenticationV1Endpoints : IEndpoint
                var domain = configuration["Security:CookieDomain"]!;
                await sender.Send(new RevokeCurrentTokenV1Command());
                httpContextAccessor.HttpContext!.DeleteAllCookies(environment, domain);
-               return Results.Ok();
+               return TypedResults.Ok();
             })
          .Authorize(UserRole.User)
          .WithDescription("This endpoint is used to logout the user and delete cookies. \ud83c\udf6a")
@@ -106,7 +102,7 @@ public class AuthenticationV1Endpoints : IEndpoint
             async ([FromServices] ISender sender, [FromBody] UpdatePasswordForcedV1Command command) =>
             {
                await sender.Send(command);
-               return Results.Ok();
+               return TypedResults.Ok();
             })
          .Authorize(UserRole.User, false, true)
          .WithDescription("This endpoint is used to update the user password when it is forced.")
@@ -116,7 +112,7 @@ public class AuthenticationV1Endpoints : IEndpoint
             async ([FromServices] ISender sender, [FromBody] UpdateOwnPasswordV1Command command) =>
             {
                await sender.Send(command);
-               return Results.Ok();
+               return TypedResults.Ok();
             })
          .Authorize(UserRole.User)
          .WithDescription("This endpoint is used to update the user password from its own profile.")

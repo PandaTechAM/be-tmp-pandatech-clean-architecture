@@ -3,7 +3,6 @@ using FluentMinimalApiMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pandatech.CleanArchitecture.Api.Helpers;
-using Pandatech.CleanArchitecture.Application.Contracts.User.GetById;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 using Pandatech.CleanArchitecture.Application.Features.User.Create;
 using Pandatech.CleanArchitecture.Application.Features.User.Delete;
@@ -32,19 +31,17 @@ public class UserV1Endpoints : IEndpoint
       groupApp.MapPost("", async (ISender sender, [FromBody] CreateUserV1Command command) =>
          {
             await sender.Send(command);
-            return Results.Ok();
+            return TypedResults.Ok();
          })
          .Authorize()
-         .Produces(200)
          .Produces<ErrorResponse>(400);
 
       groupApp.MapGet("/{id}", async (ISender sender, [PandaParameterBaseConverter] long id) =>
          {
             var user = await sender.Send(new GetUserByIdV1Query(id));
-            return Results.Ok(user);
+            return TypedResults.Ok(user);
          })
          .Authorize()
-         .Produces<GetUserByIdV1QueryResponse>()
          .Produces<ErrorResponse>(404);
 
 
@@ -53,10 +50,9 @@ public class UserV1Endpoints : IEndpoint
             {
                command.Id = id;
                await sender.Send(command);
-               return Results.Ok();
+               return TypedResults.Ok();
             })
          .Authorize()
-         .Produces(200)
          .Produces<ErrorResponse>(400)
          .Produces<ErrorResponse>(409);
 
@@ -67,10 +63,9 @@ public class UserV1Endpoints : IEndpoint
             {
                command.Id = id;
                await sender.Send(command);
-               return Results.Ok();
+               return TypedResults.Ok();
             })
          .Authorize()
-         .Produces(200)
          .Produces<ErrorResponse>(400)
          .Produces<ErrorResponse>(404);
 
@@ -80,10 +75,9 @@ public class UserV1Endpoints : IEndpoint
             {
                command.Id = id;
                await sender.Send(command);
-               return Results.Ok();
+               return TypedResults.Ok();
             })
          .Authorize()
-         .Produces(200)
          .Produces<ErrorResponse>(400)
          .Produces<ErrorResponse>(404);
 
@@ -91,10 +85,9 @@ public class UserV1Endpoints : IEndpoint
             async (ISender sender, [FromBody] DeleteUsersV1Command command) =>
             {
                await sender.Send(command);
-               return Results.Ok();
+               return TypedResults.Ok();
             })
          .Authorize()
-         .Produces(200)
          .Produces<ErrorResponse>(400);
    }
 }
