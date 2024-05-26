@@ -1,6 +1,6 @@
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using ResponseCrafter.StandardHttpExceptions;
+using ResponseCrafter.HttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Update;
 

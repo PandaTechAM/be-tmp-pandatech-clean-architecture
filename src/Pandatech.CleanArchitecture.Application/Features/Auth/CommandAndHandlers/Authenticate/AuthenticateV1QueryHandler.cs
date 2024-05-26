@@ -3,7 +3,7 @@ using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 using Pandatech.Crypto;
-using ResponseCrafter.StandardHttpExceptions;
+using ResponseCrafter.HttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.CommandAndHandlers.Authenticate;
 

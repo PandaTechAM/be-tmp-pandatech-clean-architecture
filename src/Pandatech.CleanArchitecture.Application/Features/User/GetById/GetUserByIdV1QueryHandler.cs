@@ -2,7 +2,7 @@ using Pandatech.CleanArchitecture.Application.Contracts.User.GetById;
 using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using ResponseCrafter.StandardHttpExceptions;
+using ResponseCrafter.HttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.GetById;
 

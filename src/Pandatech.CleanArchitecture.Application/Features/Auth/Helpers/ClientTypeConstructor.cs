@@ -1,5 +1,5 @@
 ﻿using Pandatech.CleanArchitecture.Core.Enums;
-using ResponseCrafter.StandardHttpExceptions;
+using ResponseCrafter.HttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 

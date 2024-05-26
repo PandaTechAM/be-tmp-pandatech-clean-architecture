@@ -2,7 +2,7 @@ using Pandatech.CleanArchitecture.Core.Entities;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 using Pandatech.Crypto;
-using ResponseCrafter.StandardHttpExceptions;
+using ResponseCrafter.HttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Create;
 

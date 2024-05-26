@@ -8,7 +8,7 @@ using Pandatech.CleanArchitecture.Core.Helpers;
 using Pandatech.CleanArchitecture.Infrastructure;
 using Pandatech.CleanArchitecture.Infrastructure.Extensions;
 using PandaVaultClient;
-using ResponseCrafter;
+using ResponseCrafter.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.LogStartAttempt();

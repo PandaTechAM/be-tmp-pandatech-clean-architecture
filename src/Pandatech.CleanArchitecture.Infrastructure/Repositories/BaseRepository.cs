@@ -5,7 +5,7 @@ using Pandatech.CleanArchitecture.Infrastructure.Context;
 using PandaTech.IEnumerableFilters;
 using PandaTech.IEnumerableFilters.Dto;
 using PandaTech.IEnumerableFilters.Extensions;
-using ResponseCrafter.StandardHttpExceptions;
+using ResponseCrafter.HttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Repositories;
 
