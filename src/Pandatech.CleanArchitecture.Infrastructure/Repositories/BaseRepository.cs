@@ -1,11 +1,9 @@
 using System.Linq.Expressions;
+using GridifyExtensions.Extensions;
+using GridifyExtensions.Models;
 using Microsoft.EntityFrameworkCore;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
-using PandaTech.IEnumerableFilters;
-using PandaTech.IEnumerableFilters.Dto;
-using PandaTech.IEnumerableFilters.Extensions;
-using ResponseCrafter.HttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Repositories;
 
@@ -25,31 +23,9 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
          .FirstOrDefaultAsync(e => EF.Property<object>(e, "Id").Equals(id), cancellationToken);
    }
 
-   public IQueryable<TEntity> GetAll(CancellationToken cancellationToken = default)
+   public void Add(TEntity entity)
    {
-      return Context.Set<TEntity>().AsQueryable();
-   }
-
-   public IQueryable<TEntity> GetAllNoTracking(CancellationToken cancellationToken = default)
-   {
-      return Context.Set<TEntity>().AsNoTracking();
-   }
-
-   public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate,
-      CancellationToken cancellationToken = default)
-   {
-      return Context.Set<TEntity>().Where(predicate);
-   }
-
-   public IQueryable<TEntity> FindNoTracking(Expression<Func<TEntity, bool>> predicate,
-      CancellationToken cancellationToken = default)
-   {
-      return Context.Set<TEntity>().Where(predicate).AsNoTracking();
-   }
-
-   public async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default)
-   {
-      await Context.Set<TEntity>().AddAsync(entity, cancellationToken);
+      Context.Set<TEntity>().Add(entity);
    }
 
    public async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
@@ -78,35 +54,60 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
       Context.Set<TEntity>().RemoveRange(entities);
    }
 
-   public async Task<DistinctColumnValuesResult> GetColumnValuesAsync(string columnName,
-      int page, //todo this part is wrong
-      int pageSize, string dataRequest)
+   public Task<PagedResponse<TEntity>> GetPagedAsync(GridifyQueryModel model,
+      CancellationToken cancellationToken = default)
    {
-      try
-      {
-         return await Context.Set<TEntity>()
-            .DistinctColumnValuesAsync(
-               GetDataRequest.FromString(dataRequest).Filters,
-               columnName,
-               pageSize,
-               page);
-      }
-      catch (Exception ex)
-      {
-         throw new BadRequestException(ex.Message);
-      }
+      return Context
+         .Set<TEntity>()
+         .GetPagedAsync(model, cancellationToken);
    }
 
-   public Task<List<FilterInfo>> GetFiltersAsync() //todo this part is wrong
+   public IQueryable<TEntity> ApplyOrder(GridifyQueryModel model)
    {
-      try
-      {
-         var tableName = $"{typeof(TEntity).Name}FilterModel";
-         return Task.FromResult(FilterExtenders.GetFilters(typeof(Core.DependencyInjection).Assembly, tableName));
-      }
-      catch (Exception ex)
-      {
-         throw new BadRequestException(ex.Message);
-      }
+      return Context
+         .Set<TEntity>()
+         .ApplyOrder(model);
+   }
+
+   public IQueryable<TEntity> ApplyFilter(GridifyQueryModel model)
+   {
+      return Context
+         .Set<TEntity>()
+         .ApplyFilter(model);
+   }
+
+   public Task<PagedResponse<TDto>> FilterOrderAndGetPagedAsync<TDto>(GridifyQueryModel model,
+      Expression<Func<TEntity, TDto>> selectExpression,
+      CancellationToken cancellationToken = default)
+   {
+      return Context
+         .Set<TEntity>()
+         .FilterOrderAndGetPagedAsync(model, selectExpression, cancellationToken);
+   }
+
+   public Task<PagedResponse<TEntity>> FilterOrderAndGetPagedAsync(GridifyQueryModel model,
+      CancellationToken cancellationToken = default)
+   {
+      return Context
+         .Set<TEntity>()
+         .FilterOrderAndGetPagedAsync(model, cancellationToken);
+   }
+
+
+   public Task<PagedResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueQueryModel queryModel,
+      CancellationToken cancellationToken = default)
+   {
+      return Context.Set<TEntity>().ColumnDistinctValuesAsync(queryModel, cancellationToken: cancellationToken);
+   }
+
+   public async Task<object?> AggregateAsync(AggregateQueryModel queryModel,
+      CancellationToken cancellationToken = default)
+   {
+      return await Context.Set<TEntity>().AggregateAsync(queryModel, cancellationToken: cancellationToken);
+   }
+
+   public IEnumerable<MappingModel> GetFilters()
+   {
+      return QueryableExtensions.GetMappings<TEntity>();
    }
 }

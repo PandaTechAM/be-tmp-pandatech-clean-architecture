@@ -19,7 +19,7 @@ public static class PandaEndpoints
    {
       if (!app.Environment.IsProduction())
       {
-         app.MapPandaVaultApi($"{BasePath}/configuration", TagName, ApiHelper.GroupNameMain);
+         app.MapPandaVaultApi($"{BasePath}/configuration", TagName, ApiHelper.GroupNameClean);
       }
 
       if (app.Environment.IsLocal())
@@ -37,7 +37,7 @@ public static class PandaEndpoints
       app.MapGet($"{BasePath}/reset-database",
             ([FromServices] DatabaseHelper helper) => helper.ResetDatabase<PostgresContext>())
          .WithTags(TagName)
-         .WithGroupName(ApiHelper.GroupNameMain);
+         .WithGroupName(ApiHelper.GroupNameClean);
 
 
       return app;
@@ -68,7 +68,7 @@ public static class PandaEndpoints
       app.MapGet($"{BasePath}/ping", () => "pong")
          .Produces<string>()
          .WithTags(TagName)
-         .WithGroupName(ApiHelper.GroupNameMain)
+         .WithGroupName(ApiHelper.GroupNameClean)
          .WithOpenApi();
       return app;
    }

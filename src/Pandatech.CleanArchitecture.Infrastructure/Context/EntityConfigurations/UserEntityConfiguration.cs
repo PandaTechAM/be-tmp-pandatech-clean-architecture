@@ -4,18 +4,11 @@ using Pandatech.CleanArchitecture.Core.Entities;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Context.EntityConfigurations;
 
-public class UserEntityConfiguration : IEntityTypeConfiguration<UserEntity>
+public class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
-   public void Configure(EntityTypeBuilder<UserEntity> builder)
+   public void Configure(EntityTypeBuilder<User> builder)
    {
       builder.HasKey(b => b.Id);
-
-
-      builder.HasMany(b => b.UserTokens)
-         .WithOne(u => u.User)
-         .HasForeignKey(u => u.UserId)
-         .IsRequired();
-
       builder.HasIndex(b => b.Username).IsUnique();
       builder.HasIndex(b => b.FullName);
    }

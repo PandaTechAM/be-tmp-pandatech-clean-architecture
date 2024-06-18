@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using EFCore.PostgresExtensions.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,9 @@ public static class DatabaseExtensions
 
       var connectionString = configuration.GetConnectionString(ConfigurationPaths.PostgresUrl);
       builder.Services.AddDbContextPool<PostgresContext>(options =>
-         options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
+         options.UseNpgsql(connectionString)
+            .UseQueryLocks()
+            .UseSnakeCaseNamingConvention());
       return builder;
    }
 

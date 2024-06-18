@@ -8,21 +8,22 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Repositories;
 public class UnitOfWork(
    IUserRepository userRepository,
    IUserTokenRepository userTokenRepository,
-   PostgresContext context,
-   IDbContextTransaction transaction)
+   PostgresContext context)
    : IUnitOfWork
 {
+   private IDbContextTransaction _transaction = null!;
    public IUserRepository Users { get; set; } = userRepository;
    public IUserTokenRepository UserTokens { get; set; } = userTokenRepository;
 
+
    public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
    {
-      if (transaction != null)
+      if (_transaction != null)
       {
          throw new InvalidOperationException("A transaction is already in progress.");
       }
 
-      transaction = await context.Database.BeginTransactionAsync(cancellationToken);
+      _transaction = await context.Database.BeginTransactionAsync(cancellationToken);
    }
 
    public async Task CommitAsync(CancellationToken cancellationToken = default)
@@ -30,12 +31,12 @@ public class UnitOfWork(
       try
       {
          await SaveChangesAsync(cancellationToken);
-         await transaction.CommitAsync(cancellationToken);
+         await _transaction.CommitAsync(cancellationToken);
       }
       finally
       {
-         await transaction.DisposeAsync();
-         transaction = null!;
+         await _transaction.DisposeAsync();
+         _transaction = null!;
       }
    }
 
@@ -43,12 +44,12 @@ public class UnitOfWork(
    {
       try
       {
-         await transaction.RollbackAsync(cancellationToken);
+         await _transaction.RollbackAsync(cancellationToken);
       }
       finally
       {
-         await transaction.DisposeAsync();
-         transaction = null!;
+         await _transaction.DisposeAsync();
+         _transaction = null!;
       }
    }
 

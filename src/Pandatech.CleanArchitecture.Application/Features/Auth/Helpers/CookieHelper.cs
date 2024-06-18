@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
-using Pandatech.CleanArchitecture.Application.Contracts.Auth.Authenticate;
-using Pandatech.CleanArchitecture.Application.Contracts.Auth.Login;
-using Pandatech.CleanArchitecture.Application.Contracts.Auth.RefreshToken;
+using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.Auth;
+using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.Login;
+using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.RefreshToken;
+using Pandatech.CleanArchitecture.Core.DTOs.Auth;
 using Pandatech.CleanArchitecture.Core.Extensions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
@@ -71,7 +72,7 @@ public static class CookieHelper
    }
 
    public static void PrepareAndSetCookies(this HttpContext httpContext,
-      RefreshUserTokenV1CommandResponse mediatorResponse, IHostEnvironment environment,
+      RefreshTokenCommandResponse mediatorResponse, IHostEnvironment environment,
       string domain)
    {
       var cookies = new IdentityCookies
@@ -85,7 +86,7 @@ public static class CookieHelper
    }
 
    public static void PrepareAndSetCookies(this HttpContext httpContext,
-      LoginV1CommandResponse mediatorResponse, IHostEnvironment environment,
+      LoginCommandResponse mediatorResponse, IHostEnvironment environment,
       string domain)
    {
       var cookies = new IdentityCookies

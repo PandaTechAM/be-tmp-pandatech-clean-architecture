@@ -1,28 +1,32 @@
 using EFCore.AuditBase;
-using MassTransit;
+using GridifyExtensions.DbContextFunction;
+using MassTransit.PostgresOutbox.Abstractions;
+using MassTransit.PostgresOutbox.Entities;
+using MassTransit.PostgresOutbox.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Pandatech.CleanArchitecture.Core.Entities;
-using PandaTech.IEnumerableFilters.PostgresContext;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Context;
 
 //hint for migration: dotnet ef migrations add --project src\Pandatech.CleanArchitecture.Infrastructure\Pandatech.CleanArchitecture.Infrastructure.csproj --context Pandatech.CleanArchitecture.Infrastructure.Context.PostgresContext --configuration Debug --output-dir ./Context/Migrations
-public class PostgresContext : PostgresDbContext
+public class PostgresContext : PostgresFunctions, IOutboxDbContext, IInboxDbContext
 {
    public PostgresContext(DbContextOptions<PostgresContext> options) : base(options)
    {
       this.UseAuditPropertyValidation();
    }
 
-   public DbSet<UserTokenEntity> UserTokens { get; set; } = null!;
-   public DbSet<UserEntity> Users { get; set; } = null!;
+   public DbSet<OutboxMessage> OutboxMessages { get; set; }
+   public DbSet<InboxMessage> InboxMessages { get; set; }
+   public DbSet<Token> Tokens { get; set; } = null!;
+   public DbSet<User> Users { get; set; } = null!;
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
       base.OnModelCreating(modelBuilder);
-
-      modelBuilder.AddTransactionalOutboxEntities();
+      modelBuilder.ConfigureInboxOutboxEntities();
       modelBuilder.FilterOutDeletedMarkedObjects();
       modelBuilder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
    }
+
 }

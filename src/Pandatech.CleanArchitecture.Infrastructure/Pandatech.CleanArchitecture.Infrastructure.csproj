@@ -15,7 +15,6 @@
          <PrivateAssets>all</PrivateAssets>
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions"/>
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
       <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol"/>
       <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore"/>
@@ -24,10 +23,6 @@
       <PackageReference Include="OpenTelemetry.Instrumentation.GrpcNetClient"/>
       <PackageReference Include="OpenTelemetry.Instrumentation.Http"/>
       <PackageReference Include="OpenTelemetry.Instrumentation.Runtime"/>
-      <PackageReference Include="StackExchange.Redis"/>
-      <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore"/>
-      <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft"/>
-      <PackageReference Include="StackExchange.Redis.Extensions.Protobuf"/>
       <PackageReference Include="AspNetCore.HealthChecks.Elasticsearch"/>
       <PackageReference Include="AspNetCore.HealthChecks.NpgSql"/>
       <PackageReference Include="AspNetCore.HealthChecks.Prometheus.Metrics"/>

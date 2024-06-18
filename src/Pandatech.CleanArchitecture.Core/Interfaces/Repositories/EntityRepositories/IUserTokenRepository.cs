@@ -2,17 +2,17 @@ using Pandatech.CleanArchitecture.Core.Entities;
 
 namespace Pandatech.CleanArchitecture.Core.Interfaces.Repositories.EntityRepositories;
 
-public interface IUserTokenRepository : IBaseRepository<UserTokenEntity>
+public interface IUserTokenRepository : IBaseRepository<Token>
 {
-   public Task<List<UserTokenEntity>> GetAllUserTokensByUserIdExceptCurrentAsync(long userId, long userTokenId,
+   public Task<List<Token>> GetAllUserTokensByUserIdExceptCurrentAsync(long userId, long userTokenId,
       CancellationToken cancellationToken = default);
 
-   public Task<List<UserTokenEntity>> GetAllUserTokensByUserIdWhichAreNotExpiredAsync(long userId,
+   public Task<List<Token>> GetAllUserTokensByUserIdWhichAreNotExpiredAsync(long userId,
       CancellationToken cancellationToken = default);
 
-   public Task<UserTokenEntity?> GetUserTokenByRefreshTokenAsync(byte[] refreshTokenHash,
+   public Task<Token?> GetUserTokenByRefreshTokenAsync(byte[] refreshTokenHash,
       CancellationToken cancellationToken = default);
 
-   public Task<UserTokenEntity?> GetUserTokenByAccessTokenAsync(byte[] accessTokenHash,
+   public Task<Token?> GetUserTokenByAccessTokenAsync(byte[] accessTokenHash,
       CancellationToken cancellationToken = default);
 }

@@ -19,10 +19,7 @@ public static class HangfireServerExtensions
          configuration.UsePostgreSqlStorage(c => c.UseNpgsqlConnection(postgresConnectionString));
       });
 
-      builder.Services.AddHangfireServer(options =>
-      {
-         options.WorkerCount = 5;
-      });
+      builder.Services.AddHangfireServer();
       return builder;
    }
 }

@@ -6,39 +6,40 @@ using Pandatech.CleanArchitecture.Infrastructure.Context;
 namespace Pandatech.CleanArchitecture.Infrastructure.Repositories.EntityRepositories;
 
 public class UserTokenRepository(PostgresContext postgresContext)
-   : BaseRepository<UserTokenEntity>(postgresContext), IUserTokenRepository
+   : BaseRepository<Token>(postgresContext), IUserTokenRepository
 {
-   public async Task<List<UserTokenEntity>> GetAllUserTokensByUserIdExceptCurrentAsync(long userId, long userTokenId,
+   public Task<List<Token>> GetAllUserTokensByUserIdExceptCurrentAsync(long userId, long userTokenId,
       CancellationToken cancellationToken = default)
    {
-      return await Context.UserTokens
+      return Context.Tokens
          .Where(x => x.UserId == userId && x.Id != userTokenId)
          .ToListAsync(cancellationToken);
    }
 
-   public async Task<List<UserTokenEntity>> GetAllUserTokensByUserIdWhichAreNotExpiredAsync(long userId,
+   public Task<List<Token>> GetAllUserTokensByUserIdWhichAreNotExpiredAsync(long userId,
       CancellationToken cancellationToken = default)
    {
       var now = DateTime.UtcNow;
-      return await Context.UserTokens
+
+      return Context.Tokens
          .Where(x =>
             x.UserId == userId
             && (x.AccessTokenExpiresAt >= now || x.RefreshTokenExpiresAt >= now))
          .ToListAsync(cancellationToken);
    }
 
-   public async Task<UserTokenEntity?> GetUserTokenByRefreshTokenAsync(byte[] refreshTokenHash,
+   public Task<Token?> GetUserTokenByRefreshTokenAsync(byte[] refreshTokenHash,
       CancellationToken cancellationToken = default)
    {
-      return await Context.UserTokens
+      return Context.Tokens
          .Include(ut => ut.User)
          .FirstOrDefaultAsync(x => x.RefreshTokenHash == refreshTokenHash, cancellationToken);
    }
 
-   public async Task<UserTokenEntity?> GetUserTokenByAccessTokenAsync(byte[] accessTokenHash,
+   public Task<Token?> GetUserTokenByAccessTokenAsync(byte[] accessTokenHash,
       CancellationToken cancellationToken = default)
    {
-      return await Context.UserTokens
+      return Context.Tokens
          .Include(ut => ut.User)
          .Where(t => t.AccessTokenHash == accessTokenHash)
          .AsNoTracking()

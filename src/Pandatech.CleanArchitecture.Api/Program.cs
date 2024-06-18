@@ -9,6 +9,7 @@ using Pandatech.CleanArchitecture.Infrastructure;
 using Pandatech.CleanArchitecture.Infrastructure.Extensions;
 using PandaVaultClient;
 using ResponseCrafter.Extensions;
+using NamingConvention = ResponseCrafter.Enums.NamingConvention;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.LogStartAttempt();
@@ -21,7 +22,7 @@ if (!builder.Environment.IsLocal())
 
 builder
    .AddCors()
-   .AddResponseCrafter()
+   .AddResponseCrafter(NamingConvention.ToSnakeCase)
    .AddCoreLayer()
    .AddInfrastructureLayer()
    .AddApplicationLayer()

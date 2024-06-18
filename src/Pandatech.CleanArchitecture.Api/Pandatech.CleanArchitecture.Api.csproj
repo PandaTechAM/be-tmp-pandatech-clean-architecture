@@ -26,10 +26,4 @@
       <_ContentIncludedByDefault Remove="wwwroot\assets\js\docs.js"/>
    </ItemGroup>
 
-   <ItemGroup>
-      <Folder Include="DTOs\Inner\"/>
-      <Folder Include="DTOs\Request\"/>
-      <Folder Include="DTOs\Response\"/>
-   </ItemGroup>
-
 </Project>

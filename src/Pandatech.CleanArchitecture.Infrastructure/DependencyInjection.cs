@@ -1,6 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using DistributedCache.Extensions;
+using GridifyExtensions.Extensions;
+using MassTransit.PostgresOutbox.Extensions;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Pandatech.CleanArchitecture.Core.Helpers;
+using Pandatech.CleanArchitecture.Infrastructure.Context;
 using Pandatech.CleanArchitecture.Infrastructure.Extensions;
+using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 using Pandatech.CleanArchitecture.Infrastructure.Seed.User;
 
 namespace Pandatech.CleanArchitecture.Infrastructure;
@@ -15,10 +21,16 @@ public static class DependencyInjection
          .AddHangfireServer()
          .AddPostgresContext()
          .ConfigureOpenTelemetry()
-         .AddPandaCryptoAndFilters()
-         .AddRedisCache()
+         .AddPandaCrypto()
+         .AddGridify()
          .AddRepositories()
+         .AddDistributedCache(options =>
+         {
+            options.RedisConnectionString = builder.Configuration.GetConnectionString(ConfigurationPaths.RedisUrl)!;
+         })
          .AddHealthChecks();
+
+      builder.Services.AddOutboxInboxServices<PostgresContext>();
 
       return builder;
    }

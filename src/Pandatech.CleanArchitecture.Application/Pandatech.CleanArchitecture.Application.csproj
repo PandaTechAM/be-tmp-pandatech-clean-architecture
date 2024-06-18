@@ -6,11 +6,7 @@
    </ItemGroup>
 
    <ItemGroup>
-      <Folder Include="Features\Auth\CommandAndHandlers\"/>
-      <Folder Include="Features\Auth\Extensions\"/>
-      <Folder Include="Features\User\GetAggregate\"/>
-      <Folder Include="Features\User\GetDistinct\"/>
-      <Folder Include="Features\User\GetFilters\"/>
-      <Folder Include="Features\User\GetPaged\"/>
+      <Folder Include="Features\Auth\Application\" />
+      <Folder Include="Features\User\Application\" />
    </ItemGroup>
 </Project>

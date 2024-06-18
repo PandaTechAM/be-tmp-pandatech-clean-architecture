@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Pandatech.CleanArchitecture.Core.Entities;
 using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
 using Pandatech.CleanArchitecture.Infrastructure.Helpers;
@@ -63,9 +62,9 @@ public static class SystemUser
       }
    }
 
-   private static UserEntity CreateNewUser(string username, byte[] passwordHash)
+   private static Core.Entities.User CreateNewUser(string username, byte[] passwordHash)
    {
-      return new UserEntity
+      return new Core.Entities.User
       {
          FullName = "System",
          PasswordHash = passwordHash,

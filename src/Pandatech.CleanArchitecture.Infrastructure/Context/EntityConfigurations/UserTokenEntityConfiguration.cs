@@ -4,20 +4,20 @@ using Pandatech.CleanArchitecture.Core.Entities;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Context.EntityConfigurations;
 
-public class UserTokenEntityConfiguration : IEntityTypeConfiguration<UserTokenEntity>
+public class UserTokenEntityConfiguration : IEntityTypeConfiguration<Token>
 {
-   public void Configure(EntityTypeBuilder<UserTokenEntity> builder)
+   public void Configure(EntityTypeBuilder<Token> builder)
    {
       builder.HasKey(x => x.Id);
 
       builder.HasOne(x => x.User)
-         .WithMany(u => u.UserTokens)
+         .WithMany(u => u.Tokens)
          .HasForeignKey(x => x.UserId)
          .IsRequired();
 
-      builder.HasOne(x => x.PreviousUserTokenEntity)
+      builder.HasOne(x => x.PreviousToken)
          .WithOne()
-         .HasForeignKey<UserTokenEntity>(x => x.PreviousUserTokenId)
+         .HasForeignKey<Token>(x => x.PreviousUserTokenId)
          .IsRequired(false);
 
       builder.HasIndex(x => x.AccessTokenHash).IsUnique();

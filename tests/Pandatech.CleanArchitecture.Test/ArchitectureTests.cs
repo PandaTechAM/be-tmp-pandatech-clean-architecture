@@ -5,13 +5,13 @@ namespace Architecture.Tests;
 
 public class ArchitectureTests
 {
-   private readonly static string? CoreName = 
+   private static readonly string? _coreName = 
       typeof(Pandatech.CleanArchitecture.Core.AssemblyReference).Assembly.GetName().Name;
-   private readonly static string? ApplicationClientName = 
+   private static readonly string? _applicationClientName = 
       typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly.GetName().Name;
-   private readonly static string? InfrastructureName = 
+   private static readonly string? _infrastructureName = 
       typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly.GetName().Name;
-   private readonly static string? WebApiName = 
+   private static readonly string? _webApiName = 
       typeof(Pandatech.CleanArchitecture.Api.AssemblyReference).Assembly.GetName().Name;
 
    [Fact]
@@ -22,9 +22,9 @@ public class ArchitectureTests
 
       var otherProjects = new[]
       {
-         WebApiName,
-         InfrastructureName,
-         ApplicationClientName,
+         _webApiName,
+         _infrastructureName,
+         _applicationClientName,
       };
 
       // Act
@@ -46,8 +46,8 @@ public class ArchitectureTests
 
       var otherProjects = new[]
       {
-         WebApiName,
-         InfrastructureName,
+         _webApiName,
+         _infrastructureName,
       };
 
       // Act
@@ -73,7 +73,7 @@ public class ArchitectureTests
          .That()
          .HaveNameEndingWith("Handler")
          .Should()
-         .HaveDependencyOnAny(CoreName)
+         .HaveDependencyOnAny(_coreName)
          .GetResult();
 
       // Assert
@@ -90,7 +90,7 @@ public class ArchitectureTests
       var testResult = Types
          .InAssembly(assembly)
          .ShouldNot()
-         .HaveDependencyOnAny(WebApiName)
+         .HaveDependencyOnAny(_webApiName)
          .GetResult();
 
       // Assert

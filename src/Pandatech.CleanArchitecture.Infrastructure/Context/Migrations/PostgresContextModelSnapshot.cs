@@ -17,12 +17,74 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Context.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MassTransit.EntityFrameworkCoreIntegration.InboxState", b =>
+            modelBuilder.Entity("MassTransit.PostgresOutbox.Entities.InboxMessage", b =>
+                {
+                    b.Property<Guid>("MessageId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("message_id");
+
+                    b.Property<string>("ConsumerId")
+                        .HasColumnType("text")
+                        .HasColumnName("consumer_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("State")
+                        .HasColumnType("integer")
+                        .HasColumnName("state");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("MessageId", "ConsumerId")
+                        .HasName("pk_inbox_messages");
+
+                    b.ToTable("inbox_messages", (string)null);
+                });
+
+            modelBuilder.Entity("MassTransit.PostgresOutbox.Entities.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Payload")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("payload");
+
+                    b.Property<int>("State")
+                        .HasColumnType("integer")
+                        .HasColumnName("state");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("type");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("pk_outbox_messages");
+
+                    b.ToTable("outbox_messages", (string)null);
+                });
+
+            modelBuilder.Entity("Pandatech.CleanArchitecture.Core.Entities.Token", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,216 +93,66 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Context.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime?>("Consumed")
+                    b.Property<DateTime>("AccessTokenExpiresAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("consumed");
+                        .HasColumnName("access_token_expires_at");
 
-                    b.Property<Guid>("ConsumerId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("consumer_id");
-
-                    b.Property<DateTime?>("Delivered")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("delivered");
-
-                    b.Property<DateTime?>("ExpirationTime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("expiration_time");
-
-                    b.Property<long?>("LastSequenceNumber")
-                        .HasColumnType("bigint")
-                        .HasColumnName("last_sequence_number");
-
-                    b.Property<Guid>("LockId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("lock_id");
-
-                    b.Property<Guid>("MessageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("message_id");
-
-                    b.Property<int>("ReceiveCount")
-                        .HasColumnType("integer")
-                        .HasColumnName("receive_count");
-
-                    b.Property<DateTime>("Received")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("received");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
+                    b.Property<byte[]>("AccessTokenHash")
+                        .IsRequired()
                         .HasColumnType("bytea")
-                        .HasColumnName("row_version");
+                        .HasColumnName("access_token_hash");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime>("InitialRefreshTokenCreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("initial_refresh_token_created_at");
+
+                    b.Property<long?>("PreviousUserTokenId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("previous_user_token_id");
+
+                    b.Property<DateTime>("RefreshTokenExpiresAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("refresh_token_expires_at");
+
+                    b.Property<byte[]>("RefreshTokenHash")
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasColumnName("refresh_token_hash");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_inbox_state");
+                        .HasName("pk_tokens");
 
-                    b.HasAlternateKey("MessageId", "ConsumerId")
-                        .HasName("ak_inbox_state_message_id_consumer_id");
-
-                    b.HasIndex("Delivered")
-                        .HasDatabaseName("ix_inbox_state_delivered");
-
-                    b.ToTable("inbox_state", (string)null);
-                });
-
-            modelBuilder.Entity("MassTransit.EntityFrameworkCoreIntegration.OutboxMessage", b =>
-                {
-                    b.Property<long>("SequenceNumber")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("sequence_number");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("SequenceNumber"));
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("body");
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("content_type");
-
-                    b.Property<Guid?>("ConversationId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("conversation_id");
-
-                    b.Property<Guid?>("CorrelationId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("correlation_id");
-
-                    b.Property<string>("DestinationAddress")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("destination_address");
-
-                    b.Property<DateTime?>("EnqueueTime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("enqueue_time");
-
-                    b.Property<DateTime?>("ExpirationTime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("expiration_time");
-
-                    b.Property<string>("FaultAddress")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("fault_address");
-
-                    b.Property<string>("Headers")
-                        .HasColumnType("text")
-                        .HasColumnName("headers");
-
-                    b.Property<Guid?>("InboxConsumerId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("inbox_consumer_id");
-
-                    b.Property<Guid?>("InboxMessageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("inbox_message_id");
-
-                    b.Property<Guid?>("InitiatorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("initiator_id");
-
-                    b.Property<Guid>("MessageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("message_id");
-
-                    b.Property<string>("MessageType")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("message_type");
-
-                    b.Property<Guid?>("OutboxId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("outbox_id");
-
-                    b.Property<string>("Properties")
-                        .HasColumnType("text")
-                        .HasColumnName("properties");
-
-                    b.Property<Guid?>("RequestId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("request_id");
-
-                    b.Property<string>("ResponseAddress")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("response_address");
-
-                    b.Property<DateTime>("SentTime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("sent_time");
-
-                    b.Property<string>("SourceAddress")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("source_address");
-
-                    b.HasKey("SequenceNumber")
-                        .HasName("pk_outbox_message");
-
-                    b.HasIndex("EnqueueTime")
-                        .HasDatabaseName("ix_outbox_message_enqueue_time");
-
-                    b.HasIndex("ExpirationTime")
-                        .HasDatabaseName("ix_outbox_message_expiration_time");
-
-                    b.HasIndex("OutboxId", "SequenceNumber")
+                    b.HasIndex("AccessTokenHash")
                         .IsUnique()
-                        .HasDatabaseName("ix_outbox_message_outbox_id_sequence_number");
+                        .HasDatabaseName("ix_tokens_access_token_hash");
 
-                    b.HasIndex("InboxMessageId", "InboxConsumerId", "SequenceNumber")
+                    b.HasIndex("PreviousUserTokenId")
                         .IsUnique()
-                        .HasDatabaseName("ix_outbox_message_inbox_message_id_inbox_consumer_id_sequence_");
+                        .HasDatabaseName("ix_tokens_previous_user_token_id");
 
-                    b.ToTable("outbox_message", (string)null);
+                    b.HasIndex("RefreshTokenHash")
+                        .IsUnique()
+                        .HasDatabaseName("ix_tokens_refresh_token_hash");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_tokens_user_id");
+
+                    b.ToTable("tokens", (string)null);
                 });
 
-            modelBuilder.Entity("MassTransit.EntityFrameworkCoreIntegration.OutboxState", b =>
-                {
-                    b.Property<Guid>("OutboxId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("outbox_id");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created");
-
-                    b.Property<DateTime?>("Delivered")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("delivered");
-
-                    b.Property<long?>("LastSequenceNumber")
-                        .HasColumnType("bigint")
-                        .HasColumnName("last_sequence_number");
-
-                    b.Property<Guid>("LockId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("lock_id");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea")
-                        .HasColumnName("row_version");
-
-                    b.HasKey("OutboxId")
-                        .HasName("pk_outbox_state");
-
-                    b.HasIndex("Created")
-                        .HasDatabaseName("ix_outbox_state_created");
-
-                    b.ToTable("outbox_state", (string)null);
-                });
-
-            modelBuilder.Entity("Pandatech.CleanArchitecture.Core.Entities.UserEntity", b =>
+            modelBuilder.Entity("Pandatech.CleanArchitecture.Core.Entities.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -318,96 +230,28 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Context.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("Pandatech.CleanArchitecture.Core.Entities.UserTokenEntity", b =>
+            modelBuilder.Entity("Pandatech.CleanArchitecture.Core.Entities.Token", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("AccessTokenExpiresAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("access_token_expires_at");
-
-                    b.Property<byte[]>("AccessTokenHash")
-                        .IsRequired()
-                        .HasColumnType("bytea")
-                        .HasColumnName("access_token_hash");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime>("InitialRefreshTokenCreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("initial_refresh_token_created_at");
-
-                    b.Property<long?>("PreviousUserTokenId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("previous_user_token_id");
-
-                    b.Property<DateTime>("RefreshTokenExpiresAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("refresh_token_expires_at");
-
-                    b.Property<byte[]>("RefreshTokenHash")
-                        .IsRequired()
-                        .HasColumnType("bytea")
-                        .HasColumnName("refresh_token_hash");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_user_tokens");
-
-                    b.HasIndex("AccessTokenHash")
-                        .IsUnique()
-                        .HasDatabaseName("ix_user_tokens_access_token_hash");
-
-                    b.HasIndex("PreviousUserTokenId")
-                        .IsUnique()
-                        .HasDatabaseName("ix_user_tokens_previous_user_token_id");
-
-                    b.HasIndex("RefreshTokenHash")
-                        .IsUnique()
-                        .HasDatabaseName("ix_user_tokens_refresh_token_hash");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_user_tokens_user_id");
-
-                    b.ToTable("user_tokens", (string)null);
-                });
-
-            modelBuilder.Entity("Pandatech.CleanArchitecture.Core.Entities.UserTokenEntity", b =>
-                {
-                    b.HasOne("Pandatech.CleanArchitecture.Core.Entities.UserTokenEntity", "PreviousUserTokenEntity")
+                    b.HasOne("Pandatech.CleanArchitecture.Core.Entities.Token", "PreviousToken")
                         .WithOne()
-                        .HasForeignKey("Pandatech.CleanArchitecture.Core.Entities.UserTokenEntity", "PreviousUserTokenId")
-                        .HasConstraintName("fk_user_tokens_user_tokens_previous_user_token_id");
+                        .HasForeignKey("Pandatech.CleanArchitecture.Core.Entities.Token", "PreviousUserTokenId")
+                        .HasConstraintName("fk_tokens_tokens_previous_user_token_id");
 
-                    b.HasOne("Pandatech.CleanArchitecture.Core.Entities.UserEntity", "User")
-                        .WithMany("UserTokens")
+                    b.HasOne("Pandatech.CleanArchitecture.Core.Entities.User", "User")
+                        .WithMany("Tokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_user_tokens_users_user_id");
+                        .HasConstraintName("fk_tokens_users_user_id");
 
-                    b.Navigation("PreviousUserTokenEntity");
+                    b.Navigation("PreviousToken");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Pandatech.CleanArchitecture.Core.Entities.UserEntity", b =>
+            modelBuilder.Entity("Pandatech.CleanArchitecture.Core.Entities.User", b =>
                 {
-                    b.Navigation("UserTokens");
+                    b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618
         }
