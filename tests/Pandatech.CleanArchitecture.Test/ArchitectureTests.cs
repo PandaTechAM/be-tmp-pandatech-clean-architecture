@@ -1,31 +1,30 @@
 ﻿using NetArchTest.Rules;
+using Pandatech.CleanArchitecture.Core;
 using Xunit;
 
 namespace Architecture.Tests;
 
 public class ArchitectureTests
 {
-   private static readonly string? _coreName = 
-      typeof(Pandatech.CleanArchitecture.Core.AssemblyReference).Assembly.GetName().Name;
-   private static readonly string? _applicationClientName = 
+   private static readonly string? _coreName =
+      typeof(AssemblyReference).Assembly.GetName().Name;
+
+   private static readonly string? _applicationClientName =
       typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly.GetName().Name;
-   private static readonly string? _infrastructureName = 
+
+   private static readonly string? _infrastructureName =
       typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly.GetName().Name;
-   private static readonly string? _webApiName = 
+
+   private static readonly string? _webApiName =
       typeof(Pandatech.CleanArchitecture.Api.AssemblyReference).Assembly.GetName().Name;
 
    [Fact]
    public void Core_Should_Not_HaveDependency_On_OtherProjects()
    {
       // Arrange
-      var assembly = typeof(Pandatech.CleanArchitecture.Core.AssemblyReference).Assembly;
+      var assembly = typeof(AssemblyReference).Assembly;
 
-      var otherProjects = new[]
-      {
-         _webApiName,
-         _infrastructureName,
-         _applicationClientName,
-      };
+      var otherProjects = new[] { _webApiName, _infrastructureName, _applicationClientName };
 
       // Act
       var testResult = Types
@@ -44,11 +43,7 @@ public class ArchitectureTests
       // Arrange
       var assembly = typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly;
 
-      var otherProjects = new[]
-      {
-         _webApiName,
-         _infrastructureName,
-      };
+      var otherProjects = new[] { _webApiName, _infrastructureName };
 
       // Act
       var testResult = Types

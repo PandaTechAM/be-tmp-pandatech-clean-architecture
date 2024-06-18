@@ -21,6 +21,6 @@ public class GetUsersQueryHandler(IUnitOfWork unitOfWork)
                Role = x.Role,
                Status = x.Status,
                Comment = x.Comment
-            }, cancellationToken: cancellationToken);
+            }, cancellationToken);
    }
 }

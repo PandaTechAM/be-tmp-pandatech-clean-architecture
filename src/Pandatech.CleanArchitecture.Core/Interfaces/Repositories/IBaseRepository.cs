@@ -7,7 +7,7 @@ public interface IBaseRepository<TEntity>
 {
    Task<TEntity?> GetByIdAsync(long id, CancellationToken cancellationToken = default);
    Task<TEntity?> GetByIdNoTrackingAsync(long id, CancellationToken cancellationToken = default);
-   
+
    public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
    void Add(TEntity entity);
    Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);

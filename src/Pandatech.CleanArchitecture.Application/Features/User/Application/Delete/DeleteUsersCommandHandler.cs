@@ -1,8 +1,6 @@
 using BaseConverter;
-using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using ResponseCrafter.HttpExceptions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Delete;
 

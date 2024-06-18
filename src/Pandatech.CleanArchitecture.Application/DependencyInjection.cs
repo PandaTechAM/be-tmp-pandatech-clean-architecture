@@ -11,7 +11,7 @@ public static class DependencyInjection
    public static WebApplicationBuilder AddApplicationLayer(this WebApplicationBuilder builder)
    {
       AssemblyRegistry.AddAssemblies(typeof(DependencyInjection).Assembly);
-      
+
       builder.Services.AddScoped<IRequestContext, RequestContext>();
 
 

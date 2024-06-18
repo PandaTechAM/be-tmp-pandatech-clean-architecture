@@ -2,5 +2,4 @@ namespace Pandatech.CleanArchitecture.Application.Features.Auth.Helpers.ApiAuth.
 
 public class AnonymousMetadata
 {
-   
 }

@@ -11,7 +11,6 @@ using Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdatePa
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers.ApiAuth.MinimalApiExtensions;
 using Pandatech.CleanArchitecture.Core.Enums;
-using Pandatech.CleanArchitecture.Core.Helpers;
 using ResponseCrafter.Extensions;
 
 namespace Pandatech.CleanArchitecture.Api.Endpoints.Auth;
@@ -110,11 +109,12 @@ public class AuthenticationEndpoints : IEndpoint
          .WithDescription("This endpoint is used to update the user password when it is forced.")
          .ProducesErrorResponse(400);
 
-      groupApp.MapPatch("/password/own", async (ISender sender, [FromBody]UpdateOwnPasswordCommand command, CancellationToken token) =>
-         {
-            await sender.Send(command, token);
-            return TypedResults.Ok();
-         })
+      groupApp.MapPatch("/password/own",
+            async (ISender sender, [FromBody] UpdateOwnPasswordCommand command, CancellationToken token) =>
+            {
+               await sender.Send(command, token);
+               return TypedResults.Ok();
+            })
          .Authorize(UserRole.User)
          .WithDescription("This endpoint is used to update the user password from its own profile.")
          .ProducesErrorResponse(400);

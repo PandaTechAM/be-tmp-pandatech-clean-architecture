@@ -7,10 +7,11 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Application.GetC
 public class GetUserColumnDistinctValuesQueryHandler(IUnitOfWork unitOfWork)
    : IQueryHandler<GetUserColumnDistinctValuesQuery, PagedResponse<object>>
 {
-   public  Task<PagedResponse<object>> Handle(GetUserColumnDistinctValuesQuery request, CancellationToken cancellationToken)
+   public Task<PagedResponse<object>> Handle(GetUserColumnDistinctValuesQuery request,
+      CancellationToken cancellationToken)
    {
-      return  unitOfWork
+      return unitOfWork
          .Users
-         .ColumnDistinctValuesAsync(request, cancellationToken: cancellationToken);
+         .ColumnDistinctValuesAsync(request, cancellationToken);
    }
 }

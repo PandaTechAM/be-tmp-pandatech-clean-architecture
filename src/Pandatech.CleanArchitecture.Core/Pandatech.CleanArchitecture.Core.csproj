@@ -12,10 +12,10 @@
       <PackageReference Include="Pandatech.CommissionCalculator"/>
       <PackageReference Include="Pandatech.Communicator"/>
       <PackageReference Include="Pandatech.Crypto"/>
-      <PackageReference Include="Pandatech.DistributedCache" />
+      <PackageReference Include="Pandatech.DistributedCache"/>
       <PackageReference Include="Pandatech.EFCore.AuditBase"/>
-      <PackageReference Include="Pandatech.GridifyExtensions" />
-      <PackageReference Include="Pandatech.MassTransit.PostgresOutbox" />
+      <PackageReference Include="Pandatech.GridifyExtensions"/>
+      <PackageReference Include="Pandatech.MassTransit.PostgresOutbox"/>
       <PackageReference Include="Pandatech.RegexBox"/>
       <PackageReference Include="Pandatech.ResponseCrafter"/>
       <PackageReference Include="SonarAnalyzer.CSharp">

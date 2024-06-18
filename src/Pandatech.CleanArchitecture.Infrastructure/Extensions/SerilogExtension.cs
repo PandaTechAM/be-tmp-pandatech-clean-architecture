@@ -79,15 +79,16 @@ public static class SerilogExtension
              && requestPathValue is ScalarValue requestPath
              && requestPath.Value?.ToString()?.Contains("/hangfire") == true;
    }
-   
+
    private static bool ShouldExcludeOutboxDbCommandLogs(this LogEvent logEvent, IHostEnvironment environment)
    {
       if (!environment.IsLocalOrDevelopmentOrQa())
       {
          return false;
       }
+
       return logEvent.RenderMessage().StartsWith("Executed DbCommand") &&
-             (logEvent.RenderMessage().Contains("FROM outbox_messages") || 
+             (logEvent.RenderMessage().Contains("FROM outbox_messages") ||
               logEvent.RenderMessage().Contains("FROM OutboxMessages"));
    }
 }

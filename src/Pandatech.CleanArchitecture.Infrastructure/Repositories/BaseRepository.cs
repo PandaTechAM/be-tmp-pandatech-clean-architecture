@@ -103,7 +103,7 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
    public async Task<object?> AggregateAsync(AggregateQueryModel queryModel,
       CancellationToken cancellationToken = default)
    {
-      return await Context.Set<TEntity>().AggregateAsync(queryModel, cancellationToken: cancellationToken);
+      return await Context.Set<TEntity>().AggregateAsync(queryModel, cancellationToken);
    }
 
    public IEnumerable<MappingModel> GetFilters()
