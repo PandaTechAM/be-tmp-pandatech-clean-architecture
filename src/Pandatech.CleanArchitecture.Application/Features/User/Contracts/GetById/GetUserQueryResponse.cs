@@ -5,7 +5,7 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Contracts.GetByI
 
 public class GetUserQueryResponse
 {
-   [PandaPropertyBaseConverter] public long Id { get; set; }
+   [PropertyBaseConverter] public long Id { get; set; }
    public string Username { get; set; } = null!;
    public string FullName { get; set; } = null!;
    public UserRole Role { get; set; }

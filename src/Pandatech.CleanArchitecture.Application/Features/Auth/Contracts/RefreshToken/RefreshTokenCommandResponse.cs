@@ -6,7 +6,7 @@ namespace Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.Refres
 
 public class RefreshTokenCommandResponse
 {
-   [PandaPropertyBaseConverter] public long UserId { get; set; }
+   [PropertyBaseConverter] public long UserId { get; set; }
    public bool ForcePasswordChange { get; set; }
    public UserRole UserRole { get; set; }
    public string AccessTokenSignature { get; set; } = null!;

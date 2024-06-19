@@ -9,12 +9,10 @@ public class DeleteUsersCommandHandler(IUnitOfWork unitOfWork, IRequestContext r
 {
    public async Task Handle(DeleteUsersCommand request, CancellationToken cancellationToken)
    {
-      List<long> ids = [];
-      ids.AddRange(request.Ids.Select(PandaBaseConverter.Base36ToBase10NotNull));
 
       var users = await unitOfWork
          .Users
-         .GetByIdsExceptSuperAsync(ids, cancellationToken);
+         .GetByIdsExceptSuperAsync(request.Ids, cancellationToken);
 
       if (users.Count == 0)
       {

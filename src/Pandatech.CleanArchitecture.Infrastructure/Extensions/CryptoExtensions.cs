@@ -1,4 +1,5 @@
 using BaseConverter;
+using BaseConverter.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 using Pandatech.Crypto;

@@ -7,7 +7,7 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Upda
 
 public class UpdateUserStatusCommand : ICommand
 {
-   [PandaPropertyBaseConverter]
+   [PropertyBaseConverter]
    [JsonIgnore]
    public long Id { get; set; }
 
