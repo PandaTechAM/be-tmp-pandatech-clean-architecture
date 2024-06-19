@@ -36,5 +36,4 @@ public interface IBaseRepository<TEntity>
 
    Task<object?> AggregateAsync(AggregateQueryModel queryModel, CancellationToken cancellationToken = default);
 
-   IEnumerable<MappingModel> GetFilters();
 }

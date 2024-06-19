@@ -105,9 +105,4 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
    {
       return await Context.Set<TEntity>().AggregateAsync(queryModel, cancellationToken);
    }
-
-   public IEnumerable<MappingModel> GetFilters()
-   {
-      return QueryableExtensions.GetMappings<TEntity>();
-   }
 }
