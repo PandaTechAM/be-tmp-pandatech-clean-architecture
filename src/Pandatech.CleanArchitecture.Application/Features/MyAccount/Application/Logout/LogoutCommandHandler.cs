@@ -2,12 +2,12 @@ using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 using ResponseCrafter.HttpExceptions;
 
-namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.RevokeCurrentToken;
+namespace Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.RevokeCurrentToken;
 
-public class RevokeCurrentTokenCommandHandler(IRequestContext requestContext, IUnitOfWork unitOfWork)
-   : ICommandHandler<RevokeCurrentTokenCommand>
+public class LogoutCommandHandler(IRequestContext requestContext, IUnitOfWork unitOfWork)
+   : ICommandHandler<LogoutCommand>
 {
-   public async Task Handle(RevokeCurrentTokenCommand request, CancellationToken cancellationToken)
+   public async Task Handle(LogoutCommand request, CancellationToken cancellationToken)
    {
       var now = DateTime.UtcNow;
 

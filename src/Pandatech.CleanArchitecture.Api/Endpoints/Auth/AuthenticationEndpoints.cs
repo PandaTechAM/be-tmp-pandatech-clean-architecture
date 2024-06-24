@@ -5,11 +5,11 @@ using Pandatech.CleanArchitecture.Api.Helpers;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Application.IdentityState;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Application.Login;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Application.RefreshToken;
-using Pandatech.CleanArchitecture.Application.Features.Auth.Application.RevokeCurrentToken;
-using Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdateOwnPassword;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdatePasswordForced;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers.ApiAuth.MinimalApiExtensions;
+using Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.RevokeCurrentToken;
+using Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.UpdateOwnPassword;
 using Pandatech.CleanArchitecture.Core.Enums;
 using ResponseCrafter.Extensions;
 
@@ -84,19 +84,7 @@ public class AuthenticationEndpoints : IEndpoint
          .Authorize(UserRole.User)
          .WithDescription("This endpoint is used to get the current user state.");
 
-
-      groupApp.MapPost("/logout",
-            async (ISender sender, IHttpContextAccessor httpContextAccessor, IHostEnvironment environment,
-               IConfiguration configuration, CancellationToken token) =>
-            {
-               var domain = configuration["Security:CookieDomain"]!;
-               await sender.Send(new RevokeCurrentTokenCommand(), token);
-               httpContextAccessor.HttpContext!.DeleteAllCookies(environment, domain);
-               return TypedResults.Ok();
-            })
-         .Authorize(UserRole.User)
-         .WithDescription("This endpoint is used to logout the user and delete cookies. \ud83c\udf6a")
-         .ProducesErrorResponse(404);
+      
 
       groupApp.MapPatch("/password/force",
             async (ISender sender, UpdatePasswordForcedCommand command, CancellationToken token) =>
@@ -107,16 +95,6 @@ public class AuthenticationEndpoints : IEndpoint
          .Authorize(UserRole.User)
          .ForcedPasswordChange()
          .WithDescription("This endpoint is used to update the user password when it is forced.")
-         .ProducesErrorResponse(400);
-
-      groupApp.MapPatch("/password/own",
-            async (ISender sender, [FromBody] UpdateOwnPasswordCommand command, CancellationToken token) =>
-            {
-               await sender.Send(command, token);
-               return TypedResults.Ok();
-            })
-         .Authorize(UserRole.User)
-         .WithDescription("This endpoint is used to update the user password from its own profile.")
          .ProducesErrorResponse(400);
    }
 }

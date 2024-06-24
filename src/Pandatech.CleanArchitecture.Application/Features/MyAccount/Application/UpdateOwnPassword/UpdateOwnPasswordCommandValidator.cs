@@ -2,7 +2,7 @@ using FluentValidation;
 using Pandatech.CleanArchitecture.Application.Helpers;
 using Pandatech.CleanArchitecture.Core.Helpers;
 
-namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdateOwnPassword;
+namespace Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.UpdateOwnPassword;
 
 public class UpdateOwnPasswordCommandValidator : AbstractValidator<UpdateOwnPasswordCommand>
 {

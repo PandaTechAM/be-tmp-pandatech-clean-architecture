@@ -2,6 +2,7 @@ using BaseConverter.Attributes;
 using BaseConverter.Extensions;
 using FluentMinimalApiMapper;
 using GridifyExtensions.Extensions;
+using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pandatech.CleanArchitecture.Api.Helpers;
@@ -33,7 +34,7 @@ public class UserEndpoints : IEndpoint
          .WithGroupName(ApiHelper.GroupNameClean)
          .WithOpenApi();
 
-      groupApp.MapPost("", async (ISender sender, [FromBody] CreateUserCommand command, CancellationToken token) =>
+      groupApp.MapPost("", async (ISender sender, [FromForm] CreateUserCommand command, CancellationToken token) =>
          {
             await sender.Send(command, token);
             return TypedResults.Ok();
@@ -52,8 +53,7 @@ public class UserEndpoints : IEndpoint
 
 
       groupApp.MapPut("/{id}",
-            async (ISender sender, long id, [FromBody] UpdateUserCommand command,
-               CancellationToken token) =>
+            async (ISender sender, long id, [FromForm] UpdateUserCommand command, CancellationToken token) =>
             {
                command.Id = id;
                await sender.Send(command, token);
@@ -66,8 +66,7 @@ public class UserEndpoints : IEndpoint
 
 
       groupApp.MapPatch("/{id}/password",
-            async (ISender sender, long id,
-               [FromBody] UpdateUserPasswordCommand command, CancellationToken token) =>
+            async (ISender sender, long id, [FromForm] UpdateUserPasswordCommand command, CancellationToken token) =>
             {
                command.Id = id;
                await sender.Send(command, token);
@@ -79,7 +78,7 @@ public class UserEndpoints : IEndpoint
          .ProducesErrorResponse(404);
 
       groupApp.MapPatch("/{id}/status",
-            async (ISender sender, long id, [FromBody] UpdateUserStatusCommand command, CancellationToken token) =>
+            async (ISender sender, long id, [FromForm] UpdateUserStatusCommand command, CancellationToken token) =>
             {
                command.Id = id;
                await sender.Send(command, token);

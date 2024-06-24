@@ -52,6 +52,7 @@ public class AuthQueryHandler(IUnitOfWork unitOfWork, IHostEnvironment environme
       var identity = new Identity
       {
          UserId = tokenEntity.UserId,
+         Username = tokenEntity.User.Username,
          Status = tokenEntity.User.Status,
          ForcePasswordChange = tokenEntity.User.ForcePasswordChange,
          FullName = tokenEntity.User.FullName,

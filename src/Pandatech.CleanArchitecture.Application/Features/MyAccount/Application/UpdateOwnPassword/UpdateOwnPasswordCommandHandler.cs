@@ -6,7 +6,7 @@ using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 using Pandatech.Crypto;
 using ResponseCrafter.HttpExceptions;
 
-namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdateOwnPassword;
+namespace Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.UpdateOwnPassword;
 
 public class UpdateOwnPasswordCommandHandler(
    IRequestContext requestContext,
