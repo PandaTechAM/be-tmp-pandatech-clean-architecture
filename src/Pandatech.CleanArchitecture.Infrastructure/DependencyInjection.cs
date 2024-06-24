@@ -1,4 +1,5 @@
-﻿using DistributedCache.Extensions;
+﻿using BaseConverter;
+using DistributedCache.Extensions;
 using GridifyExtensions.Extensions;
 using MassTransit.PostgresOutbox.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +23,7 @@ public static class DependencyInjection
          .AddPostgresContext()
          .ConfigureOpenTelemetry()
          .AddPandaCrypto()
-         .AddGridify()
+         .AddGridify(PandaBaseConverter.Base36Chars)
          .AddRepositories()
          .AddDistributedCache(options =>
          {

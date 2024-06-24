@@ -36,20 +36,20 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
     <PackageVersion Include="Otp.NET" Version="1.3.0" />
-    <PackageVersion Include="PandaTech.BaseConverter" Version="4.0.1" />
+    <PackageVersion Include="PandaTech.BaseConverter" Version="4.0.4" />
     <PackageVersion Include="Pandatech.DistributedCache" Version="1.1.0" />
     <PackageVersion Include="Pandatech.EFCore.AuditBase" Version="1.0.3" />
     <PackageVersion Include="Pandatech.FluentMinimalApiMapper" Version="1.1.0" />
     <PackageVersion Include="Pandatech.CommissionCalculator" Version="3.3.0" />
     <PackageVersion Include="Pandatech.Communicator" Version="1.0.5" />
-    <PackageVersion Include="Pandatech.Crypto" Version="2.4.1" />
-    <PackageVersion Include="Pandatech.GridifyExtensions" Version="1.3.0" />
+    <PackageVersion Include="Pandatech.Crypto" Version="2.5.0" />
+    <PackageVersion Include="Pandatech.GridifyExtensions" Version="1.3.6" />
     <PackageVersion Include="Pandatech.MassTransit.PostgresOutbox" Version="1.0.7" />
     <PackageVersion Include="Pandatech.PandaVaultClient" Version="3.1.0" />
     <PackageVersion Include="Pandatech.RegexBox" Version="1.2.4" />
-    <PackageVersion Include="Pandatech.ResponseCrafter" Version="2.0.0" />
+    <PackageVersion Include="Pandatech.ResponseCrafter" Version="2.1.3" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
-    <PackageVersion Include="Serilog.Enrichers.Environment" Version="3.0.0" />
+    <PackageVersion Include="Serilog.Enrichers.Environment" Version="3.0.1" />
     <PackageVersion Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.27.0.93347">
       <PrivateAssets>all</PrivateAssets>

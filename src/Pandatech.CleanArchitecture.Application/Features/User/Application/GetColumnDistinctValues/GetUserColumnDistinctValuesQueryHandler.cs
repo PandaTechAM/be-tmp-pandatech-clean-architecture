@@ -5,9 +5,9 @@ using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.GetColumnDistinctValues;
 
 public class GetUserColumnDistinctValuesQueryHandler(IUnitOfWork unitOfWork)
-   : IQueryHandler<GetUserColumnDistinctValuesQuery, PagedResponse<object>>
+   : IQueryHandler<GetUserColumnDistinctValuesQuery, CursoredResponse<object>>
 {
-   public Task<PagedResponse<object>> Handle(GetUserColumnDistinctValuesQuery request,
+   public Task<CursoredResponse<object>> Handle(GetUserColumnDistinctValuesQuery request,
       CancellationToken cancellationToken)
    {
       return unitOfWork

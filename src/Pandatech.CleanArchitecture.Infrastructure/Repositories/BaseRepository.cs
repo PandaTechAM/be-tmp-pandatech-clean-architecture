@@ -94,7 +94,7 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
    }
 
 
-   public Task<PagedResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueQueryModel queryModel,
+   public Task<CursoredResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueCursoredQueryModel queryModel,
       CancellationToken cancellationToken = default)
    {
       return Context.Set<TEntity>().ColumnDistinctValuesAsync(queryModel, cancellationToken: cancellationToken);

@@ -31,7 +31,7 @@ public interface IBaseRepository<TEntity>
       GridifyQueryModel model,
       CancellationToken cancellationToken = default);
 
-   Task<PagedResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueQueryModel queryModel,
+   Task<CursoredResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueCursoredQueryModel queryModel,
       CancellationToken cancellationToken = default);
 
    Task<object?> AggregateAsync(AggregateQueryModel queryModel, CancellationToken cancellationToken = default);
