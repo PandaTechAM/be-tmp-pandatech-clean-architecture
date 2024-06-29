@@ -19,10 +19,8 @@ public class UpdateOwnPasswordCommandHandler(
       var user = await unitOfWork.Users
          .GetByIdAsync(requestContext.Identity.UserId, cancellationToken);
 
-      if (user is null)
-      {
-         throw new InternalServerErrorException("User not found");
-      }
+      InternalServerErrorException.ThrowIfNull(user, "User not found");
+
 
       user.PasswordHash = argon2Id.HashPassword(request.NewPassword);
       user.MarkAsUpdated(requestContext.Identity.UserId);

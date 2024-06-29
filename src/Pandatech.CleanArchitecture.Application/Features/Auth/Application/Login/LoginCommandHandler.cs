@@ -20,11 +20,11 @@ public class LoginCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon2Id, ISen
       if (user is null || user.Status != UserStatus.Active ||
           !argon2Id.VerifyHash(request.Password, user.PasswordHash))
       {
-         throw new BadRequestException(ErrorMessages.InvalidUsernameOrPassword);
+         throw new BadRequestException(ErrorMessages.InvalidCredentials);
       }
 
-      var userToken = await sender.Send(new CreateTokenCommand(user.Id), cancellationToken);
+      var token = await sender.Send(new CreateTokenCommand(user.Id), cancellationToken);
 
-      return LoginCommandResponse.MapFromEntity(userToken, user.Role, user.ForcePasswordChange);
+      return LoginCommandResponse.MapFromEntity(token, user.Role, user.ForcePasswordChange);
    }
 }

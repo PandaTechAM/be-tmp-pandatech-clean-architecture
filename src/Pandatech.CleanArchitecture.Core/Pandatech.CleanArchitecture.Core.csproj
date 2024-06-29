@@ -14,6 +14,7 @@
       <PackageReference Include="Pandatech.Crypto"/>
       <PackageReference Include="Pandatech.DistributedCache"/>
       <PackageReference Include="Pandatech.EFCore.AuditBase"/>
+      <PackageReference Include="PandaTech.FileExporter" />
       <PackageReference Include="Pandatech.GridifyExtensions"/>
       <PackageReference Include="Pandatech.MassTransit.PostgresOutbox"/>
       <PackageReference Include="Pandatech.RegexBox"/>

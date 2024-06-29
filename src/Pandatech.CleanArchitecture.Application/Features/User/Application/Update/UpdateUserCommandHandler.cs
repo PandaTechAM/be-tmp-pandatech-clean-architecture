@@ -13,21 +13,16 @@ public class UpdateUserCommandHandler(IUnitOfWork unitOfWork, IRequestContext re
    {
       var user = await unitOfWork.Users.GetByIdAsync(request.Id, cancellationToken);
 
-      if (user is null || user.Role == UserRole.SuperAdmin)
-      {
-         throw new NotFoundException();
-      }
+      NotFoundException.ThrowIfNull(user);
+
 
       var username = request.Username.ToLower();
 
       if (user.Username != username)
       {
          var duplicateUser = await unitOfWork.Users.IsUsernameDuplicateAsync(username, cancellationToken);
+         ConflictException.ThrowIf(duplicateUser, ErrorMessages.DuplicateUsername);
 
-         if (duplicateUser)
-         {
-            throw new ConflictException(ErrorMessages.DuplicateUsername);
-         }
       }
 
       user.Username = username;

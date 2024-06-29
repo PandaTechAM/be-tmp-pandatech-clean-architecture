@@ -12,10 +12,8 @@ public class UpdateUserStatusCommandHandler(IUnitOfWork unitOfWork, IRequestCont
    {
       var user = await unitOfWork.Users.GetByIdAsync(request.Id, cancellationToken);
 
-      if (user is null || user.Role == UserRole.SuperAdmin)
-      {
-         throw new NotFoundException();
-      }
+      NotFoundException.ThrowIfNull(user);
+      NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
 
       if (user.Status == request.Status)
       {

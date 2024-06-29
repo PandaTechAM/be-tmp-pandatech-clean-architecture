@@ -5,18 +5,18 @@ using Pandatech.CleanArchitecture.Infrastructure.Context;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Repositories.EntityRepositories;
 
-public class UserTokenRepository(PostgresContext postgresContext)
-   : BaseRepository<Token>(postgresContext), IUserTokenRepository
+public class TokenRepository(PostgresContext postgresContext)
+   : BaseRepository<Token>(postgresContext), ITokenRepository
 {
-   public Task<List<Token>> GetAllUserTokensByUserIdExceptCurrentAsync(long userId, long userTokenId,
+   public Task<List<Token>> GetAllTokensByUserIdExceptCurrentAsync(long userId, long tokenId,
       CancellationToken cancellationToken = default)
    {
       return Context.Tokens
-         .Where(x => x.UserId == userId && x.Id != userTokenId)
+         .Where(x => x.UserId == userId && x.Id != tokenId)
          .ToListAsync(cancellationToken);
    }
 
-   public Task<List<Token>> GetAllUserTokensByUserIdWhichAreNotExpiredAsync(long userId,
+   public Task<List<Token>> GetAllTokensByUserIdWhichAreNotExpiredAsync(long userId,
       CancellationToken cancellationToken = default)
    {
       var now = DateTime.UtcNow;
@@ -28,7 +28,7 @@ public class UserTokenRepository(PostgresContext postgresContext)
          .ToListAsync(cancellationToken);
    }
 
-   public Task<Token?> GetUserTokenByRefreshTokenAsync(byte[] refreshTokenHash,
+   public Task<Token?> GetTokenByRefreshTokenAsync(byte[] refreshTokenHash,
       CancellationToken cancellationToken = default)
    {
       return Context.Tokens
@@ -36,7 +36,7 @@ public class UserTokenRepository(PostgresContext postgresContext)
          .FirstOrDefaultAsync(x => x.RefreshTokenHash == refreshTokenHash, cancellationToken);
    }
 
-   public Task<Token?> GetUserTokenByAccessTokenAsync(byte[] accessTokenHash,
+   public Task<Token?> GetTokenByAccessTokenAsync(byte[] accessTokenHash,
       CancellationToken cancellationToken = default)
    {
       return Context.Tokens

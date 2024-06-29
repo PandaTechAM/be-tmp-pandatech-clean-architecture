@@ -36,7 +36,7 @@ public class CreateTokenCommandHandler(IConfiguration configuration, IUnitOfWork
          UpdatedAt = now
       };
 
-      unitOfWork.UserTokens.Add(token);
+      unitOfWork.Tokens.Add(token);
       await unitOfWork.SaveChangesAsync(cancellationToken);
 
       return CreateTokenCommandResponse.MapFromEntity(token, accessTokenSignature, refreshTokenSignature);

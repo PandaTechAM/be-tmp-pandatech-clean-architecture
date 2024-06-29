@@ -30,24 +30,17 @@ public class AuthQueryHandler(IUnitOfWork unitOfWork, IHostEnvironment environme
          return;
       }
 
-      if (string.IsNullOrWhiteSpace(accessTokenSignature))
-      {
-         throw new UnauthorizedException(ErrorMessages.AccessTokenIsRequired);
-      }
+      UnauthorizedException.ThrowIfNullOrWhiteSpace(accessTokenSignature, ErrorMessages.AccessTokenIsRequired);
+
 
       var accessTokenHash = Sha3.Hash(accessTokenSignature);
 
-      var tokenEntity = await unitOfWork.UserTokens.GetUserTokenByAccessTokenAsync(accessTokenHash, cancellationToken);
+      var tokenEntity = await unitOfWork.Tokens.GetTokenByAccessTokenAsync(accessTokenHash, cancellationToken);
 
-      if (tokenEntity is null || tokenEntity.User.Status is not UserStatus.Active)
-      {
-         throw new UnauthorizedException();
-      }
-
-      if (tokenEntity.AccessTokenExpiresAt <= DateTime.UtcNow)
-      {
-         throw new UnauthorizedException(ErrorMessages.AccessTokenIsExpired);
-      }
+      UnauthorizedException.ThrowIfNull(tokenEntity);
+      UnauthorizedException.ThrowIf(tokenEntity.User.Status is not UserStatus.Active);
+      UnauthorizedException.ThrowIf(tokenEntity.AccessTokenExpiresAt <= DateTime.UtcNow,
+         ErrorMessages.AccessTokenIsExpired);
 
       var identity = new Identity
       {
@@ -59,7 +52,7 @@ public class AuthQueryHandler(IUnitOfWork unitOfWork, IHostEnvironment environme
          UserRole = tokenEntity.User.Role,
          CreatedAt = tokenEntity.User.CreatedAt,
          UpdatedAt = tokenEntity.User.UpdatedAt,
-         UserTokenId = tokenEntity.Id,
+         TokenId = tokenEntity.Id,
          AccessTokenSignature = accessTokenSignature,
          AccessTokenExpiration = tokenEntity.AccessTokenExpiresAt
       };

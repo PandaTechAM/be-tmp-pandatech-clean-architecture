@@ -29,37 +29,29 @@ public class RefreshTokenCommandHandler(IConfiguration configuration, IUnitOfWor
 
       var refreshTokenHash = Sha3.Hash(request.RefreshTokenSignature);
 
-      var userToken = await unitOfWork.UserTokens.GetUserTokenByRefreshTokenAsync(refreshTokenHash,
+      var token = await unitOfWork.Tokens.GetTokenByRefreshTokenAsync(refreshTokenHash,
          cancellationToken);
 
-      ValidateUserToken(userToken, now);
+      ValidateUserToken(token, now);
 
       var newToken =
-         CreateNewToken(now, userToken, out var newRefreshTokenSignature, out var accessTokenSignature);
+         CreateNewToken(now, token, out var newRefreshTokenSignature, out var accessTokenSignature);
 
-      unitOfWork.UserTokens.Add(newToken);
-      InvalidateOldToken(userToken, now);
+      unitOfWork.Tokens.Add(newToken);
+      InvalidateOldToken(token, now);
       await unitOfWork.SaveChangesAsync(cancellationToken);
-      return RefreshTokenCommandResponse.MapFromUserTokenEntity(newToken, accessTokenSignature,
-         newRefreshTokenSignature, userToken!);
+      return RefreshTokenCommandResponse.MapFromTokenEntity(newToken, accessTokenSignature,
+         newRefreshTokenSignature, token!);
    }
 
    private static void ValidateUserToken(Token? userToken, DateTime now)
    {
-      if (userToken == null)
-      {
-         throw new NotFoundException();
-      }
+      NotFoundException.ThrowIfNull(userToken);
 
-      if (userToken.User.Status != UserStatus.Active)
-      {
-         throw new UnauthorizedException(ErrorMessages.ThisUserIsNotAllowedToPerformThisAction);
-      }
+      UnauthorizedException.ThrowIf(userToken.User.Status != UserStatus.Active,
+         ErrorMessages.ThisUserIsNotAllowedToPerformThisAction);
 
-      if (userToken.RefreshTokenExpiresAt < now)
-      {
-         throw new UnauthorizedException(ErrorMessages.RefreshTokenExpired);
-      }
+      UnauthorizedException.ThrowIf(userToken.RefreshTokenExpiresAt < now, ErrorMessages.RefreshTokenExpired);
    }
 
    private Token CreateNewToken(DateTime now, Token? userToken, out string refreshTokenSignature,
@@ -83,7 +75,7 @@ public class RefreshTokenCommandHandler(IConfiguration configuration, IUnitOfWor
       return new Token
       {
          UserId = userToken.UserId,
-         PreviousUserTokenId = userToken.Id,
+         PreviousTokenId = userToken.Id,
          AccessTokenHash = Sha3.Hash(accessTokenSignature),
          RefreshTokenHash = Sha3.Hash(refreshTokenSignature),
          AccessTokenExpiresAt = now.AddMinutes(AccessTokenExpirationMinutes),

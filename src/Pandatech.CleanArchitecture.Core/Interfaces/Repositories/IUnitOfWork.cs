@@ -5,7 +5,8 @@ namespace Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 public interface IUnitOfWork
 {
    public IUserRepository Users { get; set; }
-   public IUserTokenRepository UserTokens { get; set; }
+   public ITokenRepository Tokens { get; set; }
+   public IUserConfigRepository UserConfigs { get; set; }
 
 
    Task BeginTransactionAsync(CancellationToken cancellationToken = default);

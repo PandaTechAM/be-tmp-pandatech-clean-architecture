@@ -2,7 +2,7 @@ using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 using ResponseCrafter.HttpExceptions;
 
-namespace Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.RevokeCurrentToken;
+namespace Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.Logout;
 
 public class LogoutCommandHandler(IRequestContext requestContext, IUnitOfWork unitOfWork)
    : ICommandHandler<LogoutCommand>
@@ -11,13 +11,10 @@ public class LogoutCommandHandler(IRequestContext requestContext, IUnitOfWork un
    {
       var now = DateTime.UtcNow;
 
-      var token = await unitOfWork.UserTokens
-         .GetByIdAsync(requestContext.Identity.UserTokenId, cancellationToken);
+      var token = await unitOfWork.Tokens
+         .GetByIdAsync(requestContext.Identity.TokenId, cancellationToken);
 
-      if (token is null)
-      {
-         throw new NotFoundException();
-      }
+      InternalServerErrorException.ThrowIfNull(token, "Token not found");
 
       if (token.AccessTokenExpiresAt > now)
       {

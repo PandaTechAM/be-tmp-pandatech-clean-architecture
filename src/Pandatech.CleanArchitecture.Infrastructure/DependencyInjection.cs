@@ -1,4 +1,5 @@
 ﻿using BaseConverter;
+using Communicator.Extensions;
 using DistributedCache.Extensions;
 using GridifyExtensions.Extensions;
 using MassTransit.PostgresOutbox.Extensions;
@@ -25,6 +26,7 @@ public static class DependencyInjection
          .AddPandaCrypto()
          .AddGridify(PandaBaseConverter.Base36Chars)
          .AddRepositories()
+         .AddCommunicator()
          .AddDistributedCache(options =>
          {
             options.RedisConnectionString = builder.Configuration.GetConnectionString(ConfigurationPaths.RedisUrl)!;

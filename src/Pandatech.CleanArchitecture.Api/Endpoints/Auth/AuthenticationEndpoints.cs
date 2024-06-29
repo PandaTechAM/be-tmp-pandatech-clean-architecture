@@ -8,7 +8,6 @@ using Pandatech.CleanArchitecture.Application.Features.Auth.Application.RefreshT
 using Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdatePasswordForced;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers.ApiAuth.MinimalApiExtensions;
-using Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.RevokeCurrentToken;
 using Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.UpdateOwnPassword;
 using Pandatech.CleanArchitecture.Core.Enums;
 using ResponseCrafter.Extensions;
@@ -50,7 +49,7 @@ public class AuthenticationEndpoints : IEndpoint
          .WithSummary(" \ud83c\udf6a Cookies for the browser and token for the rest of the clients. \ud83c\udf6a")
          .WithDescription(
             "This endpoint is used to authenticate a user. Be aware that the response will be different depending on the client type.")
-         .ProducesErrorResponse(400);
+         .ProducesBadRequest();
 
 
       groupApp.MapPost("/refresh-token",
@@ -73,7 +72,7 @@ public class AuthenticationEndpoints : IEndpoint
             })
          .WithSummary(" \ud83c\udf6a Cookies for the browser and token for the rest of the clients. \ud83c\udf6a")
          .WithDescription("This endpoint is used to refresh the user token.")
-         .ProducesErrorResponse(400);
+         .ProducesBadRequest();
 
 
       groupApp.MapGet("/state", async (ISender sender, CancellationToken token) =>
@@ -95,6 +94,6 @@ public class AuthenticationEndpoints : IEndpoint
          .Authorize(UserRole.User)
          .ForcedPasswordChange()
          .WithDescription("This endpoint is used to update the user password when it is forced.")
-         .ProducesErrorResponse(400);
+         .ProducesBadRequest();
    }
 }

@@ -7,13 +7,16 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Repositories;
 
 public class UnitOfWork(
    IUserRepository userRepository,
-   IUserTokenRepository userTokenRepository,
+   ITokenRepository tokenRepository,
+   IUserConfigRepository userConfigRepository,
    PostgresContext context)
    : IUnitOfWork
 {
    private IDbContextTransaction _transaction = null!;
    public IUserRepository Users { get; set; } = userRepository;
-   public IUserTokenRepository UserTokens { get; set; } = userTokenRepository;
+   public ITokenRepository Tokens { get; set; } = tokenRepository;
+
+   public IUserConfigRepository UserConfigs { get; set; } = userConfigRepository;
 
 
    public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)

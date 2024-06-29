@@ -14,10 +14,7 @@ public class CreateUserCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, IR
       var isDuplicateUsername =
          await unitOfWork.Users.IsUsernameDuplicateAsync(request.Username.ToLower(), cancellationToken);
 
-      if (isDuplicateUsername)
-      {
-         throw new BadRequestException(ErrorMessages.DuplicateUsername);
-      }
+      BadRequestException.ThrowIf(isDuplicateUsername, ErrorMessages.DuplicateUsername);
 
       var passwordHash = argon.HashPassword(request.Password);
 

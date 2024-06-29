@@ -13,7 +13,8 @@ public static class RepositoryExtenstion
    {
       builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
       builder.Services.AddScoped<IUserRepository, UserRepository>();
-      builder.Services.AddScoped<IUserTokenRepository, UserTokenRepository>();
+      builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+      builder.Services.AddScoped<IUserConfigRepository, UserConfigRepository>();
 
       return builder;
    }

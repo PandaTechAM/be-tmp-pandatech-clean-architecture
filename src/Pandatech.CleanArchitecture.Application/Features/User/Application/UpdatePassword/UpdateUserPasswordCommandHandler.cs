@@ -19,10 +19,8 @@ public class UpdateUserPasswordCommandHandler(
    {
       var user = await unitOfWork.Users.GetByIdAsync(request.Id, cancellationToken);
 
-      if (user is null || user.Role == UserRole.SuperAdmin)
-      {
-         throw new NotFoundException();
-      }
+      NotFoundException.ThrowIfNull(user);
+      NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
 
       user.PasswordHash = argon2Id.HashPassword(request.NewPassword);
       user.ForcePasswordChange = true;

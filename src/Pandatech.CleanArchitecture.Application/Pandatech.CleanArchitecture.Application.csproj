@@ -8,6 +8,7 @@
    <ItemGroup>
       <Folder Include="Features\Auth\Application\"/>
       <Folder Include="Features\MyAccount\Application\" />
+      <Folder Include="Features\UserConfig\" />
       <Folder Include="Features\User\Application\"/>
    </ItemGroup>
 </Project>

@@ -14,10 +14,7 @@ public class GetUserQueryHandler(IUnitOfWork unitOfWork)
    {
       var user = await unitOfWork.Users.GetByIdNoTrackingAsync(request.Id, cancellationToken);
 
-      if (user is null || user.Role == UserRole.SuperAdmin)
-      {
-         throw new NotFoundException();
-      }
+      NotFoundException.ThrowIfNull(user);
 
       return GetUserQueryResponse.MapFromEntity(user);
    }
