@@ -30,7 +30,7 @@ public static class CookieHelper
 
          if (!environment.IsLocalOrDevelopment())
          {
-            cookieOptions.SameSite = SameSiteMode.Strict; //todo check in qa env what should be here
+            cookieOptions.SameSite = SameSiteMode.Strict;
          }
 
 
