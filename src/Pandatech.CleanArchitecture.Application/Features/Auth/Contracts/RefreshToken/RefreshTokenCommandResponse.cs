@@ -9,9 +9,9 @@ public class RefreshTokenCommandResponse
    [PropertyBaseConverter] public long UserId { get; set; }
    public bool ForcePasswordChange { get; set; }
    public UserRole UserRole { get; set; }
-   public string AccessTokenSignature { get; set; } = null!;
+   public required string AccessTokenSignature { get; set; }
    public DateTime AccessTokenExpiration { get; set; }
-   public string RefreshTokenSignature { get; set; } = null!;
+   public required string RefreshTokenSignature { get; set; }
    public DateTime RefreshTokenExpiration { get; set; }
 
    public static RefreshTokenCommandResponse MapFromTokenEntity(Token token,
@@ -20,7 +20,7 @@ public class RefreshTokenCommandResponse
       return new RefreshTokenCommandResponse
       {
          UserId = token.UserId,
-         ForcePasswordChange = oldToken.User.ForcePasswordChange,
+         ForcePasswordChange = oldToken.User!.ForcePasswordChange,
          UserRole = oldToken.User.Role,
          AccessTokenSignature = accessTokenSignature,
          AccessTokenExpiration = token.AccessTokenExpiresAt,

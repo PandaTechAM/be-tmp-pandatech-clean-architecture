@@ -48,7 +48,7 @@ public class RefreshTokenCommandHandler(IConfiguration configuration, IUnitOfWor
    {
       NotFoundException.ThrowIfNull(userToken);
 
-      UnauthorizedException.ThrowIf(userToken.User.Status != UserStatus.Active,
+      UnauthorizedException.ThrowIf(userToken.User!.Status != UserStatus.Active,
          ErrorMessages.ThisUserIsNotAllowedToPerformThisAction);
 
       UnauthorizedException.ThrowIf(userToken.RefreshTokenExpiresAt < now, ErrorMessages.RefreshTokenExpired);

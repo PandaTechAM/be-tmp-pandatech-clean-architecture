@@ -5,5 +5,5 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Dele
 
 public class DeleteUsersCommand : ICommand
 {
-   [PropertyBaseConverter] public List<long> Ids { get; set; } = null!;
+   [PropertyBaseConverter] public required List<long> Ids { get; set; }
 }

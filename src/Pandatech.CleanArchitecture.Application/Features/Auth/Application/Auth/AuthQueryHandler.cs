@@ -38,7 +38,7 @@ public class AuthQueryHandler(IUnitOfWork unitOfWork, IHostEnvironment environme
       var tokenEntity = await unitOfWork.Tokens.GetTokenByAccessTokenAsync(accessTokenHash, cancellationToken);
 
       UnauthorizedException.ThrowIfNull(tokenEntity);
-      UnauthorizedException.ThrowIf(tokenEntity.User.Status is not UserStatus.Active);
+      UnauthorizedException.ThrowIf(tokenEntity.User!.Status is not UserStatus.Active);
       UnauthorizedException.ThrowIf(tokenEntity.AccessTokenExpiresAt <= DateTime.UtcNow,
          ErrorMessages.AccessTokenIsExpired);
 

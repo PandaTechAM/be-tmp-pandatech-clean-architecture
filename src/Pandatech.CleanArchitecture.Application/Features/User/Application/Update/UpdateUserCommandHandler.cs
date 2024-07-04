@@ -28,7 +28,7 @@ public class UpdateUserCommandHandler(IUnitOfWork unitOfWork, IRequestContext re
       user.Username = username;
       user.FullName = request.FullName;
       user.Role = request.Role;
-      user.Comment = request.Comment;
+      user.Comment = request.Comment ?? "";
       user.MarkAsUpdated(requestContext.Identity.UserId);
 
 

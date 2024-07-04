@@ -6,13 +6,13 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Contracts.GetByI
 public class GetUserQueryResponse
 {
    [PropertyBaseConverter] public long Id { get; set; }
-   public string Username { get; set; } = null!;
-   public string FullName { get; set; } = null!;
+   public required string Username { get; set; }
+   public required string FullName { get; set; }
    public UserRole Role { get; set; }
    public UserStatus Status { get; set; }
    public DateTime CreatedAt { get; set; }
    public DateTime? UpdatedAt { get; set; }
-   public string? Comment { get; set; }
+   public string Comment { get; set; } = "";
 
    public static GetUserQueryResponse MapFromEntity(Core.Entities.User entity)
    {

@@ -24,7 +24,7 @@ public class CreateUserCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, IR
          FullName = request.FullName,
          PasswordHash = passwordHash,
          Role = request.UserRole,
-         Comment = request.Comment,
+         Comment = request.Comment ?? "",
          CreatedByUserId = requestContext.Identity.UserId
       };
       unitOfWork.Users.Add(user);
