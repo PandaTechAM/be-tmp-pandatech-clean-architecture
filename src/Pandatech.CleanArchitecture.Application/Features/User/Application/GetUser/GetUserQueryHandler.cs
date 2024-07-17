@@ -1,5 +1,4 @@
 using Pandatech.CleanArchitecture.Application.Features.User.Contracts.GetById;
-using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 using ResponseCrafter.HttpExceptions;

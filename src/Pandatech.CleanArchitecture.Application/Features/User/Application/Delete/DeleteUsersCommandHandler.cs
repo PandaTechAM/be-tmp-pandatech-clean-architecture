@@ -1,4 +1,3 @@
-using BaseConverter;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 
@@ -9,10 +8,9 @@ public class DeleteUsersCommandHandler(IUnitOfWork unitOfWork, IRequestContext r
 {
    public async Task Handle(DeleteUsersCommand request, CancellationToken cancellationToken)
    {
-
       var users = await unitOfWork
-         .Users
-         .GetByIdsExceptSuperAsync(request.Ids, cancellationToken);
+                        .Users
+                        .GetByIdsExceptSuperAsync(request.Ids, cancellationToken);
 
       if (users.Count == 0)
       {

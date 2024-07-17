@@ -5,7 +5,8 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Upda
 
 public class UpdateUserPasswordCommand : ICommand
 {
-   [JsonIgnore] public long Id { get; set; }
+   [JsonIgnore]
+   public long Id { get; set; }
 
    public required string NewPassword { get; set; }
 }

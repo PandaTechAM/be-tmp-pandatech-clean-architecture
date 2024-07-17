@@ -18,10 +18,17 @@ public class AuthQueryHandler(IUnitOfWork unitOfWork, IHostEnvironment environme
    {
       var now = DateTime.UtcNow;
       var requestId = request.HttpContext.TryParseRequestId();
-      var clientType = request.HttpContext.TryParseClientType().ConvertToEnum(!request.IgnoreClientType);
+      var clientType = request.HttpContext
+                              .TryParseClientType()
+                              .ConvertToEnum(!request.IgnoreClientType);
       var accessTokenSignature = request.HttpContext.TryParseAccessTokenSignature(environment);
 
-      var metadata = new MetaData { RequestId = requestId, RequestTime = now, ClientType = clientType };
+      var metadata = new MetaData
+      {
+         RequestId = requestId,
+         RequestTime = now,
+         ClientType = clientType
+      };
 
       requestContext.MetaData = metadata;
 

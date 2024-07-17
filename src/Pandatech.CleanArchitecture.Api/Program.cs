@@ -27,7 +27,8 @@ builder
    .AddInfrastructureLayer()
    .AddApplicationLayer()
    .AddSwagger()
-   .AddMassTransit(AssemblyRegistry.GetAllAssemblies().ToArray())
+   .AddMassTransit(AssemblyRegistry.GetAllAssemblies()
+                                   .ToArray())
    .AddMediatrWithBehaviors()
    .AddEndpoints()
    .RegisterAllServices();

@@ -1,6 +1,5 @@
 ﻿using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using Pandatech.CleanArchitecture.Core.Interfaces.Repositories.EntityRepositories;
 
 namespace Pandatech.CleanArchitecture.Application.Features.UserConfig.CreateOrUpdate;
 
@@ -9,9 +8,12 @@ public class CreateOrUpdateUserConfigCommandHandler(IUnitOfWork unitOfWork, IReq
 {
    public async Task Handle(CreateOrUpdateUserConfigCommand request, CancellationToken cancellationToken)
    {
-      var keys = request.Configs.Select(x => x.Key).ToList();
+      var keys = request.Configs
+                        .Select(x => x.Key)
+                        .ToList();
 
-      var userConfigs = await unitOfWork.UserConfigs.GetByUserIdAndKeysAsync(requestContext.Identity.UserId, keys, cancellationToken);
+      var userConfigs =
+         await unitOfWork.UserConfigs.GetByUserIdAndKeysAsync(requestContext.Identity.UserId, keys, cancellationToken);
 
       foreach (var requestedUserConfig in request.Configs)
       {

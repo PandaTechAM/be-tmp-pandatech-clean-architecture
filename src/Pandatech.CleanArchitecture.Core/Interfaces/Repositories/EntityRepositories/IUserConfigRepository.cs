@@ -4,6 +4,11 @@ namespace Pandatech.CleanArchitecture.Core.Interfaces.Repositories.EntityReposit
 
 public interface IUserConfigRepository : IBaseRepository<UserConfig>
 {
-   Task<List<UserConfig>> GetByUserIdAndKeysAsync(long identityUserId, List<string> keys, CancellationToken cancellationToken);
-   Task<Dictionary<string,string>> GetByUserIdAndKeysAsNotTrackingToDictAsync(long identityUserId, string[] requestKeys, CancellationToken cancellationToken);
+   Task<List<UserConfig>> GetByUserIdAndKeysAsync(long identityUserId,
+      List<string> keys,
+      CancellationToken cancellationToken);
+
+   Task<Dictionary<string, string>> GetByUserIdAndKeysAsNotTrackingToDictAsync(long identityUserId,
+      string[] requestKeys,
+      CancellationToken cancellationToken);
 }

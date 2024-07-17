@@ -9,7 +9,8 @@ public class DeleteUserConfigsCommandHandler(IUnitOfWork unitOfWork, IRequestCon
    public async Task Handle(DeleteUserConfigsCommand request, CancellationToken cancellationToken)
    {
       var userConfigs =
-         await unitOfWork.UserConfigs.GetByUserIdAndKeysAsync(requestContext.Identity.UserId, request.Keys,
+         await unitOfWork.UserConfigs.GetByUserIdAndKeysAsync(requestContext.Identity.UserId,
+            request.Keys,
             cancellationToken);
 
       if (userConfigs.Count != 0)

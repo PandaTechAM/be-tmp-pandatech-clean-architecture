@@ -22,18 +22,15 @@ public interface IBaseRepository<TEntity>
 
    IQueryable<TEntity> ApplyFilter(GridifyQueryModel model);
 
-   Task<PagedResponse<TDto>> FilterOrderAndGetPagedAsync<TDto>(
-      GridifyQueryModel model,
+   Task<PagedResponse<TDto>> FilterOrderAndGetPagedAsync<TDto>(GridifyQueryModel model,
       Expression<Func<TEntity, TDto>> selectExpression,
       CancellationToken cancellationToken = default);
 
-   Task<PagedResponse<TEntity>> FilterOrderAndGetPagedAsync(
-      GridifyQueryModel model,
+   Task<PagedResponse<TEntity>> FilterOrderAndGetPagedAsync(GridifyQueryModel model,
       CancellationToken cancellationToken = default);
 
    Task<CursoredResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueCursoredQueryModel queryModel,
       CancellationToken cancellationToken = default);
 
    Task<object?> AggregateAsync(AggregateQueryModel queryModel, CancellationToken cancellationToken = default);
-
 }

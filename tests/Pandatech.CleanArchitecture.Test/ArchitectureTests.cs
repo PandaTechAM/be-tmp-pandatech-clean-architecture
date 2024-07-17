@@ -7,16 +7,20 @@ namespace Architecture.Tests;
 public class ArchitectureTests
 {
    private static readonly string? _coreName =
-      typeof(AssemblyReference).Assembly.GetName().Name;
+      typeof(AssemblyReference).Assembly.GetName()
+                               .Name;
 
    private static readonly string? _applicationClientName =
-      typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly.GetName().Name;
+      typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly.GetName()
+                                                                       .Name;
 
    private static readonly string? _infrastructureName =
-      typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly.GetName().Name;
+      typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly.GetName()
+                                                                          .Name;
 
    private static readonly string? _webApiName =
-      typeof(Pandatech.CleanArchitecture.Api.AssemblyReference).Assembly.GetName().Name;
+      typeof(Pandatech.CleanArchitecture.Api.AssemblyReference).Assembly.GetName()
+                                                               .Name;
 
    [Fact]
    public void Core_Should_Not_HaveDependency_On_OtherProjects()
@@ -24,14 +28,19 @@ public class ArchitectureTests
       // Arrange
       var assembly = typeof(AssemblyReference).Assembly;
 
-      var otherProjects = new[] { _webApiName, _infrastructureName, _applicationClientName };
+      var otherProjects = new[]
+      {
+         _webApiName,
+         _infrastructureName,
+         _applicationClientName
+      };
 
       // Act
       var testResult = Types
-         .InAssembly(assembly)
-         .ShouldNot()
-         .HaveDependencyOnAny(otherProjects)
-         .GetResult();
+                       .InAssembly(assembly)
+                       .ShouldNot()
+                       .HaveDependencyOnAny(otherProjects)
+                       .GetResult();
 
       // Assert
       Assert.True(testResult.IsSuccessful);
@@ -43,14 +52,18 @@ public class ArchitectureTests
       // Arrange
       var assembly = typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly;
 
-      var otherProjects = new[] { _webApiName, _infrastructureName };
+      var otherProjects = new[]
+      {
+         _webApiName,
+         _infrastructureName
+      };
 
       // Act
       var testResult = Types
-         .InAssembly(assembly)
-         .ShouldNot()
-         .HaveDependencyOnAny(otherProjects)
-         .GetResult();
+                       .InAssembly(assembly)
+                       .ShouldNot()
+                       .HaveDependencyOnAny(otherProjects)
+                       .GetResult();
 
       // Assert
       Assert.True(testResult.IsSuccessful);
@@ -64,12 +77,12 @@ public class ArchitectureTests
 
       // Act
       var testResult = Types
-         .InAssembly(assembly)
-         .That()
-         .HaveNameEndingWith("Handler")
-         .Should()
-         .HaveDependencyOnAny(_coreName)
-         .GetResult();
+                       .InAssembly(assembly)
+                       .That()
+                       .HaveNameEndingWith("Handler")
+                       .Should()
+                       .HaveDependencyOnAny(_coreName)
+                       .GetResult();
 
       // Assert
       Assert.True(testResult.IsSuccessful);
@@ -83,10 +96,10 @@ public class ArchitectureTests
 
       // Act
       var testResult = Types
-         .InAssembly(assembly)
-         .ShouldNot()
-         .HaveDependencyOnAny(_webApiName)
-         .GetResult();
+                       .InAssembly(assembly)
+                       .ShouldNot()
+                       .HaveDependencyOnAny(_webApiName)
+                       .GetResult();
 
       // Assert
       Assert.True(testResult.IsSuccessful);

@@ -14,66 +14,77 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
 
    public async Task<TEntity?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
    {
-      return await Context.Set<TEntity>().FindAsync([id], cancellationToken);
+      return await Context.Set<TEntity>()
+                          .FindAsync([id], cancellationToken);
    }
 
    public async Task<TEntity?> GetByIdNoTrackingAsync(long id, CancellationToken cancellationToken = default)
    {
-      return await Context.Set<TEntity>().AsNoTracking()
-         .FirstOrDefaultAsync(e => EF.Property<object>(e, "Id").Equals(id), cancellationToken);
+      return await Context.Set<TEntity>()
+                          .AsNoTracking()
+                          .FirstOrDefaultAsync(e => EF.Property<object>(e, "Id")
+                                                      .Equals(id),
+                             cancellationToken);
    }
 
    public void Add(TEntity entity)
    {
-      Context.Set<TEntity>().Add(entity);
+      Context.Set<TEntity>()
+             .Add(entity);
    }
 
    public async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
    {
-      await Context.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
+      await Context.Set<TEntity>()
+                   .AddRangeAsync(entities, cancellationToken);
    }
 
    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
    {
-      return await Context.Set<TEntity>().AnyAsync(predicate);
+      return await Context.Set<TEntity>()
+                          .AnyAsync(predicate);
    }
 
    public void Update(TEntity entity, CancellationToken cancellationToken = default)
    {
-      Context.Set<TEntity>().Attach(entity);
-      Context.Entry(entity).State = EntityState.Modified;
+      Context.Set<TEntity>()
+             .Attach(entity);
+      Context.Entry(entity)
+             .State = EntityState.Modified;
    }
 
    public void Remove(TEntity entity, CancellationToken cancellationToken = default)
    {
-      Context.Set<TEntity>().Remove(entity);
+      Context.Set<TEntity>()
+             .Remove(entity);
    }
 
    public void RemoveRange(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
    {
-      Context.Set<TEntity>().RemoveRange(entities);
+      Context.Set<TEntity>()
+             .RemoveRange(entities);
    }
 
    public Task<PagedResponse<TEntity>> GetPagedAsync(GridifyQueryModel model,
       CancellationToken cancellationToken = default)
    {
       return Context
-         .Set<TEntity>()
-         .GetPagedAsync(model, cancellationToken);
+             .Set<TEntity>()
+             .GetPagedAsync(model, cancellationToken);
    }
 
    public IQueryable<TEntity> ApplyOrder(GridifyQueryModel model)
    {
       return Context
-         .Set<TEntity>()
-         .ApplyOrder(model);
+             .Set<TEntity>()
+             .ApplyOrder(model);
    }
 
    public IQueryable<TEntity> ApplyFilter(GridifyQueryModel model)
    {
       return Context
-         .Set<TEntity>()
-         .ApplyFilter(model);
+             .Set<TEntity>()
+             .ApplyFilter(model);
    }
 
    public Task<PagedResponse<TDto>> FilterOrderAndGetPagedAsync<TDto>(GridifyQueryModel model,
@@ -81,28 +92,30 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
       CancellationToken cancellationToken = default)
    {
       return Context
-         .Set<TEntity>()
-         .FilterOrderAndGetPagedAsync(model, selectExpression, cancellationToken);
+             .Set<TEntity>()
+             .FilterOrderAndGetPagedAsync(model, selectExpression, cancellationToken);
    }
 
    public Task<PagedResponse<TEntity>> FilterOrderAndGetPagedAsync(GridifyQueryModel model,
       CancellationToken cancellationToken = default)
    {
       return Context
-         .Set<TEntity>()
-         .FilterOrderAndGetPagedAsync(model, cancellationToken);
+             .Set<TEntity>()
+             .FilterOrderAndGetPagedAsync(model, cancellationToken);
    }
 
 
    public Task<CursoredResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueCursoredQueryModel queryModel,
       CancellationToken cancellationToken = default)
    {
-      return Context.Set<TEntity>().ColumnDistinctValuesAsync(queryModel, cancellationToken: cancellationToken);
+      return Context.Set<TEntity>()
+                    .ColumnDistinctValuesAsync(queryModel, cancellationToken: cancellationToken);
    }
 
    public async Task<object?> AggregateAsync(AggregateQueryModel queryModel,
       CancellationToken cancellationToken = default)
    {
-      return await Context.Set<TEntity>().AggregateAsync(queryModel, cancellationToken);
+      return await Context.Set<TEntity>()
+                          .AggregateAsync(queryModel, cancellationToken);
    }
 }

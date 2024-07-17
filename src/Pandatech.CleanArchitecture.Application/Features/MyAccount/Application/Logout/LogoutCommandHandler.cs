@@ -12,7 +12,7 @@ public class LogoutCommandHandler(IRequestContext requestContext, IUnitOfWork un
       var now = DateTime.UtcNow;
 
       var token = await unitOfWork.Tokens
-         .GetByIdAsync(requestContext.Identity.TokenId, cancellationToken);
+                                  .GetByIdAsync(requestContext.Identity.TokenId, cancellationToken);
 
       InternalServerErrorException.ThrowIfNull(token, "Token not found");
 

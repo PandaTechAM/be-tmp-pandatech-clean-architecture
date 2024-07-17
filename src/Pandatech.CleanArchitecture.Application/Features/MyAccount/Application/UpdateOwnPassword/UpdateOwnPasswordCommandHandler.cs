@@ -17,7 +17,7 @@ public class UpdateOwnPasswordCommandHandler(
    public async Task Handle(UpdateOwnPasswordCommand request, CancellationToken cancellationToken)
    {
       var user = await unitOfWork.Users
-         .GetByIdAsync(requestContext.Identity.UserId, cancellationToken);
+                                 .GetByIdAsync(requestContext.Identity.UserId, cancellationToken);
 
       InternalServerErrorException.ThrowIfNull(user, "User not found");
 

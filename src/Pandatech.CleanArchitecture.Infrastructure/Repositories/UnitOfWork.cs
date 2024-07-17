@@ -12,7 +12,7 @@ public class UnitOfWork(
    PostgresContext context)
    : IUnitOfWork
 {
-   private  IDbContextTransaction _transaction = null!;
+   private IDbContextTransaction _transaction = null!;
    public IUserRepository Users { get; set; } = userRepository;
    public ITokenRepository Tokens { get; set; } = tokenRepository;
 

@@ -21,8 +21,10 @@ public class CreateTokenCommandHandler(IConfiguration configuration, IUnitOfWork
    {
       var now = DateTime.UtcNow;
 
-      var accessTokenSignature = Guid.NewGuid().ToString();
-      var refreshTokenSignature = Guid.NewGuid().ToString();
+      var accessTokenSignature = Guid.NewGuid()
+                                     .ToString();
+      var refreshTokenSignature = Guid.NewGuid()
+                                      .ToString();
 
       var token = new Token
       {

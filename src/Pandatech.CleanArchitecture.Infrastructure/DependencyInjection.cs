@@ -20,18 +20,18 @@ public static class DependencyInjection
       AssemblyRegistry.AddAssemblies(typeof(DependencyInjection).Assembly);
 
       builder.AddSerilog()
-         .AddHangfireServer()
-         .AddPostgresContext()
-         .ConfigureOpenTelemetry()
-         .AddPandaCrypto()
-         .AddGridify(PandaBaseConverter.Base36Chars)
-         .AddRepositories()
-         .AddCommunicator()
-         .AddDistributedCache(options =>
-         {
-            options.RedisConnectionString = builder.Configuration.GetConnectionString(ConfigurationPaths.RedisUrl)!;
-         })
-         .AddHealthChecks();
+             .AddHangfireServer()
+             .AddPostgresContext()
+             .ConfigureOpenTelemetry()
+             .AddPandaCrypto()
+             .AddGridify(PandaBaseConverter.Base36Chars)
+             .AddRepositories()
+             .AddCommunicator()
+             .AddDistributedCache(options =>
+             {
+                options.RedisConnectionString = builder.Configuration.GetConnectionString(ConfigurationPaths.RedisUrl)!;
+             })
+             .AddHealthChecks();
 
       builder.Services.AddOutboxInboxServices<PostgresContext>();
 

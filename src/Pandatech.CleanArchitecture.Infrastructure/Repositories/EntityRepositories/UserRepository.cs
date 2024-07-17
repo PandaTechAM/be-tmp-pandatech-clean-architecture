@@ -17,14 +17,14 @@ public class UserRepository(PostgresContext postgresContext)
    public Task<List<User>> GetByIdsExceptSuperAsync(List<long> ids, CancellationToken cancellationToken = default)
    {
       return Context.Users
-         .Where(x => ids.Contains(x.Id))
-         .Where(x => x.Role != UserRole.SuperAdmin)
-         .ToListAsync(cancellationToken);
+                    .Where(x => ids.Contains(x.Id))
+                    .Where(x => x.Role != UserRole.SuperAdmin)
+                    .ToListAsync(cancellationToken);
    }
 
    public Task<User?> GetByUsernameAsync(string username, CancellationToken cancellationToken = default)
    {
       return Context.Users
-         .FirstOrDefaultAsync(x => x.Username == username, cancellationToken);
+                    .FirstOrDefaultAsync(x => x.Username == username, cancellationToken);
    }
 }

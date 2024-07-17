@@ -6,7 +6,9 @@ namespace Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.Refres
 
 public class RefreshTokenCommandResponse
 {
-   [PropertyBaseConverter] public long UserId { get; set; }
+   [PropertyBaseConverter]
+   public long UserId { get; set; }
+
    public bool ForcePasswordChange { get; set; }
    public UserRole UserRole { get; set; }
    public required string AccessTokenSignature { get; set; }
@@ -15,7 +17,9 @@ public class RefreshTokenCommandResponse
    public DateTime RefreshTokenExpiration { get; set; }
 
    public static RefreshTokenCommandResponse MapFromTokenEntity(Token token,
-      string accessTokenSignature, string refreshTokenSignature, Token oldToken)
+      string accessTokenSignature,
+      string refreshTokenSignature,
+      Token oldToken)
    {
       return new RefreshTokenCommandResponse
       {

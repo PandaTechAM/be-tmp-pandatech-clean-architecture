@@ -9,6 +9,7 @@ public class GetUserConfigsQueryHandler(IUnitOfWork unitOfWork, IRequestContext 
    public Task<Dictionary<string, string>> Handle(GetUserConfigsQuery request, CancellationToken cancellationToken)
    {
       return unitOfWork.UserConfigs.GetByUserIdAndKeysAsNotTrackingToDictAsync(requestContext.Identity.UserId,
-         request.Keys, cancellationToken);
+         request.Keys,
+         cancellationToken);
    }
 }

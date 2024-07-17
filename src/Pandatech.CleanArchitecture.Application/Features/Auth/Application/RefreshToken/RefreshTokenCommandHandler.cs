@@ -40,8 +40,10 @@ public class RefreshTokenCommandHandler(IConfiguration configuration, IUnitOfWor
       unitOfWork.Tokens.Add(newToken);
       InvalidateOldToken(token, now);
       await unitOfWork.SaveChangesAsync(cancellationToken);
-      return RefreshTokenCommandResponse.MapFromTokenEntity(newToken, accessTokenSignature,
-         newRefreshTokenSignature, token!);
+      return RefreshTokenCommandResponse.MapFromTokenEntity(newToken,
+         accessTokenSignature,
+         newRefreshTokenSignature,
+         token!);
    }
 
    private static void ValidateUserToken(Token? userToken, DateTime now)
@@ -54,7 +56,9 @@ public class RefreshTokenCommandHandler(IConfiguration configuration, IUnitOfWor
       UnauthorizedException.ThrowIf(userToken.RefreshTokenExpiresAt < now, ErrorMessages.RefreshTokenExpired);
    }
 
-   private Token CreateNewToken(DateTime now, Token? userToken, out string refreshTokenSignature,
+   private Token CreateNewToken(DateTime now,
+      Token? userToken,
+      out string refreshTokenSignature,
       out string accessTokenSignature)
    {
       var newExpirationDate = now.AddMinutes(_refreshTokenExpirationMinutes);
@@ -69,8 +73,10 @@ public class RefreshTokenCommandHandler(IConfiguration configuration, IUnitOfWor
          newExpirationDate = now.AddMinutes(60);
       }
 
-      accessTokenSignature = Guid.NewGuid().ToString();
-      refreshTokenSignature = Guid.NewGuid().ToString();
+      accessTokenSignature = Guid.NewGuid()
+                                 .ToString();
+      refreshTokenSignature = Guid.NewGuid()
+                                  .ToString();
 
       return new Token
       {

@@ -1,4 +1,3 @@
-using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Core.Helpers;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
@@ -22,7 +21,6 @@ public class UpdateUserCommandHandler(IUnitOfWork unitOfWork, IRequestContext re
       {
          var duplicateUser = await unitOfWork.Users.IsUsernameDuplicateAsync(username, cancellationToken);
          ConflictException.ThrowIf(duplicateUser, ErrorMessages.DuplicateUsername);
-
       }
 
       user.Username = username;

@@ -11,7 +11,9 @@ public class RevokeAllTokensExceptCurrentCommandHandler(IUnitOfWork unitOfWork, 
       var now = DateTime.UtcNow;
 
       var tokens = await unitOfWork.Tokens.GetAllTokensByUserIdExceptCurrentAsync(
-         requestContext.Identity.UserId, requestContext.Identity.TokenId, cancellationToken);
+         requestContext.Identity.UserId,
+         requestContext.Identity.TokenId,
+         cancellationToken);
 
 
       if (tokens.Count == 0)
