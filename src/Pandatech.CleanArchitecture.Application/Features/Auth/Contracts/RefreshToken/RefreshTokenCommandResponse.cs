@@ -1,4 +1,3 @@
-using BaseConverter.Attributes;
 using Pandatech.CleanArchitecture.Core.Entities;
 using Pandatech.CleanArchitecture.Core.Enums;
 
@@ -6,7 +5,6 @@ namespace Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.Refres
 
 public class RefreshTokenCommandResponse
 {
-   [PropertyBaseConverter]
    public long UserId { get; set; }
 
    public bool ForcePasswordChange { get; set; }

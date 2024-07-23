@@ -6,6 +6,9 @@ public interface IUserRepository : IBaseRepository<User>
 {
    Task<bool> IsUsernameDuplicateAsync(string username, CancellationToken cancellationToken = default);
    Task<List<User>> GetByIdsExceptSuperAsync(List<long> ids, CancellationToken cancellationToken = default);
+   
+   IQueryable<User> WhereNotSuperAdmin();
 
    Task<User?> GetByUsernameAsync(string username, CancellationToken cancellationToken = default);
+   Task DeleteAsync(string requestFilter, long identityUserId, CancellationToken cancellationToken);
 }

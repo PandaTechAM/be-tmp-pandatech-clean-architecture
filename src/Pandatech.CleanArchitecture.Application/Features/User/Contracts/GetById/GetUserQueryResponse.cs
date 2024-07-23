@@ -1,11 +1,9 @@
-using BaseConverter.Attributes;
 using Pandatech.CleanArchitecture.Core.Enums;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Contracts.GetById;
 
 public class GetUserQueryResponse
 {
-   [PropertyBaseConverter]
    public long Id { get; set; }
 
    public required string Username { get; set; }

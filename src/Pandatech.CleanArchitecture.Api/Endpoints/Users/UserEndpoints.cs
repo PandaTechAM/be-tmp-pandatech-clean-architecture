@@ -1,4 +1,3 @@
-using BaseConverter.Extensions;
 using FluentMinimalApiMapper;
 using GridifyExtensions.Extensions;
 using MediatR;
@@ -49,7 +48,6 @@ public class UserEndpoints : IEndpoint
                     return TypedResults.Ok(user);
                  })
               .Authorize()
-              .RouteBaseConverter()
               .ProducesNotFound();
 
 
@@ -61,7 +59,6 @@ public class UserEndpoints : IEndpoint
                     return TypedResults.Ok();
                  })
               .Authorize()
-              .RouteBaseConverter()
               .ProducesBadRequest()
               .ProducesConflict();
 
@@ -77,7 +74,6 @@ public class UserEndpoints : IEndpoint
                     return TypedResults.Ok();
                  })
               .Authorize()
-              .RouteBaseConverter()
               .ProducesBadRequest()
               .ProducesNotFound();
 
@@ -89,7 +85,6 @@ public class UserEndpoints : IEndpoint
                     return TypedResults.Ok();
                  })
               .Authorize()
-              .RouteBaseConverter()
               .ProducesBadRequest()
               .ProducesNotFound();
 
@@ -111,7 +106,7 @@ public class UserEndpoints : IEndpoint
               .Authorize()
               .ProducesBadRequest();
 
-      groupApp.MapGet("/column/distinct",
+      groupApp.MapGet("/column-distinct-values",
                  async ([AsParameters] GetUserColumnDistinctValuesQuery query,
                     ISender sender,
                     CancellationToken token) =>

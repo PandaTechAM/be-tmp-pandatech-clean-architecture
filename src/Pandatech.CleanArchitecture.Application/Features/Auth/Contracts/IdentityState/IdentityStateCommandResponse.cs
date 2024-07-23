@@ -1,4 +1,3 @@
-using BaseConverter.Attributes;
 using Pandatech.CleanArchitecture.Core.DTOs.Auth;
 using Pandatech.CleanArchitecture.Core.Enums;
 
@@ -10,9 +9,7 @@ public class IdentityStateCommandResponse(
    string fullName,
    UserRole userRole)
 {
-   [PropertyBaseConverter]
    public long UserId { get; set; } = userId;
-
    public UserStatus Status { get; set; } = status;
    public string FullName { get; set; } = fullName;
    public UserRole UserRole { get; set; } = userRole;

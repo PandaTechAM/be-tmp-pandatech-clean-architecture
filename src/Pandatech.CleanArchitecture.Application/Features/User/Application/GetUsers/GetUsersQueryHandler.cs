@@ -1,4 +1,5 @@
-﻿using GridifyExtensions.Models;
+﻿using GridifyExtensions.Extensions;
+using GridifyExtensions.Models;
 using Pandatech.CleanArchitecture.Application.Features.User.Contracts.GetById;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
@@ -12,6 +13,7 @@ public class GetUsersQueryHandler(IUnitOfWork unitOfWork)
    {
       return unitOfWork
              .Users
+             .WhereNotSuperAdmin()
              .FilterOrderAndGetPagedAsync(request,
                 x => new GetUserQueryResponse
                 {

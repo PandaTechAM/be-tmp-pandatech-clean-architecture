@@ -1,3 +1,6 @@
+using EFCore.AuditBase;
+using GridifyExtensions.Extensions;
+using GridifyExtensions.Models;
 using Microsoft.EntityFrameworkCore;
 using Pandatech.CleanArchitecture.Core.Entities;
 using Pandatech.CleanArchitecture.Core.Enums;
@@ -22,9 +25,31 @@ public class UserRepository(PostgresContext postgresContext)
                     .ToListAsync(cancellationToken);
    }
 
+   public IQueryable<User> WhereNotSuperAdmin()
+   {
+      return Context.Users
+                    .Where(u => u.Role != UserRole.SuperAdmin);
+   }
+
    public Task<User?> GetByUsernameAsync(string username, CancellationToken cancellationToken = default)
    {
       return Context.Users
                     .FirstOrDefaultAsync(x => x.Username == username, cancellationToken);
+   }
+
+   public Task DeleteAsync(string requestFilter, long identityUserId, CancellationToken cancellationToken)
+   {
+      var filterModel = new GridifyQueryModel
+      {
+         Page = 1,
+         PageSize = 1,
+         OrderBy = null,
+         Filter = requestFilter
+      };
+
+      return Context.Users
+                    .Where(x => x.Role != UserRole.SuperAdmin)
+                    .ApplyFilter(filterModel)
+                    .ExecuteSoftDeleteAsync(identityUserId, cancellationToken: cancellationToken);
    }
 }

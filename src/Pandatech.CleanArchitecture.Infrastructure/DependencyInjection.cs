@@ -1,5 +1,4 @@
-﻿using BaseConverter;
-using Communicator.Extensions;
+﻿using Communicator.Extensions;
 using DistributedCache.Extensions;
 using GridifyExtensions.Extensions;
 using MassTransit.PostgresOutbox.Extensions;
@@ -24,7 +23,7 @@ public static class DependencyInjection
              .AddPostgresContext()
              .ConfigureOpenTelemetry()
              .AddPandaCrypto()
-             .AddGridify(PandaBaseConverter.Base36Chars)
+             .AddGridify()
              .AddRepositories()
              .AddCommunicator()
              .AddDistributedCache(options =>

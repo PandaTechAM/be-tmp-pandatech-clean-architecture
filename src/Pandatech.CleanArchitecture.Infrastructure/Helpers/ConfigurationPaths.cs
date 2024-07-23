@@ -2,7 +2,6 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Helpers;
 
 public static class ConfigurationPaths
 {
-   public const string Base36Chars = "Security:Base36Chars";
    public const string AesKey = "Security:AESKey";
    public const string ElasticSearchUrl = "ElasticSearch";
    public const string ElasticIndex = "ElasticIndexName";
