@@ -18,9 +18,6 @@ public static class MinimalApiAuthExtensions
 
          endpointBuilder.RequestDelegate = async context =>
          {
-            var anonymous = context.GetEndpoint()
-                                   ?.Metadata
-                                   .GetMetadata<AnonymousMetadata>() != null;
             var forceToChangePassword =
                context.GetEndpoint()
                       ?.Metadata
@@ -33,7 +30,7 @@ public static class MinimalApiAuthExtensions
 
             await sender.Send(new AuthQuery(context,
                   minimalUserRole,
-                  anonymous,
+                  false,
                   forceToChangePassword,
                   ignoreClientType),
                context.RequestAborted);
@@ -44,12 +41,6 @@ public static class MinimalApiAuthExtensions
          };
       });
 
-      return builder;
-   }
-
-   public static RouteHandlerBuilder Anonymous(this RouteHandlerBuilder builder)
-   {
-      builder.WithMetadata(new AnonymousMetadata());
       return builder;
    }
 
