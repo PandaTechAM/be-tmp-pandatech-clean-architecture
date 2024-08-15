@@ -13,15 +13,15 @@
     <PackageVersion Include="Hangfire.Dashboard.Basic.Authentication" Version="7.0.1" />
     <PackageVersion Include="Hangfire.EntityFrameworkCore" Version="0.6.0" />
     <PackageVersion Include="Hangfire.PostgreSql" Version="1.20.9" />
-    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.2.3" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
-    <PackageVersion Include="MediatR" Version="12.3.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.2.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageVersion Include="MediatR" Version="12.4.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
@@ -43,19 +43,19 @@
     <PackageVersion Include="Pandatech.CommissionCalculator" Version="3.3.0" />
     <PackageVersion Include="Pandatech.Communicator" Version="1.0.5" />
     <PackageVersion Include="Pandatech.Crypto" Version="2.5.0" />
-    <PackageVersion Include="Pandatech.GridifyExtensions" Version="1.5.1" />
+    <PackageVersion Include="Pandatech.GridifyExtensions" Version="1.5.4" />
     <PackageVersion Include="Pandatech.MassTransit.PostgresOutbox" Version="1.0.7" />
     <PackageVersion Include="Pandatech.PandaVaultClient" Version="3.1.0" />
     <PackageVersion Include="Pandatech.RegexBox" Version="1.2.4" />
     <PackageVersion Include="Pandatech.ResponseCrafter" Version="3.0.0" />
-    <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="8.0.2" />
     <PackageVersion Include="Serilog.Enrichers.Environment" Version="3.0.1" />
     <PackageVersion Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.30.0.95878">
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.7.0" />
     <PackageVersion Include="UAParser" Version="3.1.47" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
