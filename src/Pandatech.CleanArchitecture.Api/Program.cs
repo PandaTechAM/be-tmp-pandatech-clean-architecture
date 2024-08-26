@@ -40,8 +40,9 @@ builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
 
 app.UseStaticFiles();
-app.UseResponseCrafter()
+app
    .UseRequestResponseLogging()
+   .UseResponseCrafter()
    .UserInfrastructureLayer()
    .UseCors()
    .UseSwagger(builder.Configuration);
