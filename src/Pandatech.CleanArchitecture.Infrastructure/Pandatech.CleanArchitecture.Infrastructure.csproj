@@ -24,7 +24,6 @@
         <PackageReference Include="OpenTelemetry.Instrumentation.GrpcNetClient"/>
         <PackageReference Include="OpenTelemetry.Instrumentation.Http"/>
         <PackageReference Include="OpenTelemetry.Instrumentation.Runtime"/>
-        <PackageReference Include="AspNetCore.HealthChecks.Elasticsearch"/>
         <PackageReference Include="AspNetCore.HealthChecks.NpgSql"/>
         <PackageReference Include="AspNetCore.HealthChecks.Prometheus.Metrics"/>
         <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq"/>
