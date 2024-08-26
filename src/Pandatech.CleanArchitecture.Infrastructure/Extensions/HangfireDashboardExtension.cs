@@ -9,21 +9,21 @@ public static class HangfireDashboardExtensions
 {
    public static WebApplication UseHangfireServer(this WebApplication app)
    {
-      var user = app.Configuration[ConfigurationPaths.HangfireUsername];
-      var pass = app.Configuration[ConfigurationPaths.HangfirePassword];
+      var user = app.Configuration.GetHangfireUsername();
+      var pass = app.Configuration.GetHangfirePassword();
 
       app.UseHangfireDashboard("/hangfire",
          new DashboardOptions
          {
             DashboardTitle = "JobMaster Dashboard",
-            Authorization = new[]
-            {
+            Authorization =
+            [
                new HangfireCustomBasicAuthenticationFilter
                {
                   User = user,
                   Pass = pass
                }
-            }
+            ]
          });
       app.MapHangfireDashboard();
 

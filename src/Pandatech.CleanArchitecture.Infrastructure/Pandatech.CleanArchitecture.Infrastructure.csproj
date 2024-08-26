@@ -3,6 +3,7 @@
 
     <ItemGroup>
         <PackageReference Include="EFCore.NamingConventions"/>
+        <PackageReference Include="Elastic.CommonSchema.Serilog" />
         <PackageReference Include="Hangfire.Dashboard.Basic.Authentication"/>
         <PackageReference Include="Hangfire.EntityFrameworkCore"/>
         <PackageReference Include="Hangfire.PostgreSql"/>
@@ -30,8 +31,6 @@
         <PackageReference Include="AspNetCore.HealthChecks.Redis"/>
         <PackageReference Include="AspNetCore.HealthChecks.UI.Client"/>
         <PackageReference Include="Serilog.AspNetCore"/>
-        <PackageReference Include="Serilog.Enrichers.Environment"/>
-        <PackageReference Include="Serilog.Sinks.Elasticsearch"/>
     </ItemGroup>
 
     <ItemGroup>

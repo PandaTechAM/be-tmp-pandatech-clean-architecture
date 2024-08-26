@@ -28,7 +28,7 @@ public static class DependencyInjection
              .AddCommunicator()
              .AddDistributedCache(options =>
              {
-                options.RedisConnectionString = builder.Configuration.GetConnectionString(ConfigurationPaths.RedisUrl)!;
+                options.RedisConnectionString = builder.Configuration.GetRedisUrl();
              })
              .AddHealthChecks();
 

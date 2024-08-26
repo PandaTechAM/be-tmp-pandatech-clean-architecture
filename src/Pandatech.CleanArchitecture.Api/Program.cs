@@ -41,6 +41,7 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseResponseCrafter()
+   .UseRequestResponseLogging()
    .UserInfrastructureLayer()
    .UseCors()
    .UseSwagger(builder.Configuration);
