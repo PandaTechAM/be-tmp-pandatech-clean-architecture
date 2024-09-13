@@ -13,7 +13,6 @@ public static class MediatrExtension
    {
       var assemblies = AssemblyRegistry.GetAllAssemblies();
       builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies.ToArray()));
-      builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
       builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviorWithoutResponse<,>));
       builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviorWithResponse<,>));
       builder.Services.AddValidatorsFromAssemblies(assemblies);

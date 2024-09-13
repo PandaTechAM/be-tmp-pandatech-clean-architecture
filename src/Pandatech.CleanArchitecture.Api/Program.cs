@@ -51,5 +51,5 @@ app.MapPandaEndpoints();
 app.MapEndpoints();
 
 AssemblyRegistry.RemoveAllAssemblies();
-StartupLogger.LogStartSuccess();
+app.LogStartSuccess();
 app.Run();

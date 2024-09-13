@@ -24,9 +24,4 @@
         </PackageReference>
     </ItemGroup>
 
-
-    <ItemGroup>
-        <PackageVersion Update="MediatR" Version="12.2.0"/>
-    </ItemGroup>
-
 </Project>

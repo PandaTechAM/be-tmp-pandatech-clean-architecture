@@ -26,6 +26,7 @@ public static class DependencyInjection
              .AddGridify()
              .AddRepositories()
              .AddCommunicator()
+             .AddResilienceDefaultPipeline()
              .AddDistributedCache(options =>
              {
                 options.RedisConnectionString = builder.Configuration.GetRedisUrl();
