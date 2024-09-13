@@ -17,7 +17,7 @@ public class UpdateUserPasswordCommandHandler(
 {
    public async Task Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken)
    {
-      var user = await unitOfWork.Users.GetByIdAsync(request.Id, cancellationToken);
+      var user = await unitOfWork.Users.GetById(request.Id, cancellationToken);
 
       NotFoundException.ThrowIfNull(user);
       NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
@@ -26,7 +26,7 @@ public class UpdateUserPasswordCommandHandler(
       user.ForcePasswordChange = true;
       user.MarkAsUpdated(requestContext.Identity.UserId);
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
 
       BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllTokensCommand(request.Id), cancellationToken));
    }

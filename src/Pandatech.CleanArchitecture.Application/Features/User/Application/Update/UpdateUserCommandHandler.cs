@@ -10,7 +10,7 @@ public class UpdateUserCommandHandler(IUnitOfWork unitOfWork, IRequestContext re
 {
    public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
    {
-      var user = await unitOfWork.Users.GetByIdAsync(request.Id, cancellationToken);
+      var user = await unitOfWork.Users.GetById(request.Id, cancellationToken);
 
       NotFoundException.ThrowIfNull(user);
 
@@ -19,7 +19,7 @@ public class UpdateUserCommandHandler(IUnitOfWork unitOfWork, IRequestContext re
 
       if (user.Username != username)
       {
-         var duplicateUser = await unitOfWork.Users.IsUsernameDuplicateAsync(username, cancellationToken);
+         var duplicateUser = await unitOfWork.Users.IsUsernameDuplicate(username, cancellationToken);
          ConflictException.ThrowIf(duplicateUser, ErrorMessages.DuplicateUsername);
       }
 
@@ -30,6 +30,6 @@ public class UpdateUserCommandHandler(IUnitOfWork unitOfWork, IRequestContext re
       user.MarkAsUpdated(requestContext.Identity.UserId);
 
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
    }
 }

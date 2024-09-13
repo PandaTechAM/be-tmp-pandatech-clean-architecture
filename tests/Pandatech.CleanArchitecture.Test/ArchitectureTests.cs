@@ -6,19 +6,19 @@ namespace Architecture.Tests;
 
 public class ArchitectureTests
 {
-   private static readonly string? _coreName =
+   private static readonly string? CoreName =
       typeof(AssemblyReference).Assembly.GetName()
                                .Name;
 
-   private static readonly string? _applicationClientName =
+   private static readonly string? ApplicationClientName =
       typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly.GetName()
                                                                        .Name;
 
-   private static readonly string? _infrastructureName =
+   private static readonly string? InfrastructureName =
       typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly.GetName()
                                                                           .Name;
 
-   private static readonly string? _webApiName =
+   private static readonly string? WebApiName =
       typeof(Pandatech.CleanArchitecture.Api.AssemblyReference).Assembly.GetName()
                                                                .Name;
 
@@ -30,9 +30,9 @@ public class ArchitectureTests
 
       var otherProjects = new[]
       {
-         _webApiName,
-         _infrastructureName,
-         _applicationClientName
+         WebApiName,
+         InfrastructureName,
+         ApplicationClientName
       };
 
       // Act
@@ -54,8 +54,8 @@ public class ArchitectureTests
 
       var otherProjects = new[]
       {
-         _webApiName,
-         _infrastructureName
+         WebApiName,
+         InfrastructureName
       };
 
       // Act
@@ -81,7 +81,7 @@ public class ArchitectureTests
                        .That()
                        .HaveNameEndingWith("Handler")
                        .Should()
-                       .HaveDependencyOnAny(_coreName)
+                       .HaveDependencyOnAny(CoreName)
                        .GetResult();
 
       // Assert
@@ -98,7 +98,7 @@ public class ArchitectureTests
       var testResult = Types
                        .InAssembly(assembly)
                        .ShouldNot()
-                       .HaveDependencyOnAny(_webApiName)
+                       .HaveDependencyOnAny(WebApiName)
                        .GetResult();
 
       // Assert

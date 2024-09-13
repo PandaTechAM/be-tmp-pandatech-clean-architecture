@@ -8,7 +8,7 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Repositories.EntityReposito
 public class UserConfigRepository(PostgresContext postgresContext)
    : BaseRepository<UserConfig>(postgresContext), IUserConfigRepository
 {
-   public Task<List<UserConfig>> GetByUserIdAndKeysAsync(long identityUserId,
+   public Task<List<UserConfig>> GetByUserIdAndKeys(long identityUserId,
       List<string> keys,
       CancellationToken cancellationToken)
    {
@@ -18,7 +18,7 @@ public class UserConfigRepository(PostgresContext postgresContext)
                     .ToListAsync(cancellationToken);
    }
 
-   public Task<Dictionary<string, string>> GetByUserIdAndKeysAsNotTrackingToDictAsync(long identityUserId,
+   public Task<Dictionary<string, string>> GetByUserIdAndKeysAsNotTrackingToDict(long identityUserId,
       string[] requestKeys,
       CancellationToken cancellationToken)
    {

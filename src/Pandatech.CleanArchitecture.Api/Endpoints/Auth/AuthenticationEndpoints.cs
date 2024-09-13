@@ -8,6 +8,7 @@ using Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdatePa
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers.ApiAuth.MinimalApiExtensions;
 using Pandatech.CleanArchitecture.Core.Enums;
+using Pandatech.CleanArchitecture.Infrastructure.Extensions;
 using ResponseCrafter.Extensions;
 
 namespace Pandatech.CleanArchitecture.Api.Endpoints.Auth;
@@ -44,7 +45,7 @@ public class AuthenticationEndpoints : IEndpoint
                        return TypedResults.Ok(response);
                     }
 
-                    var domain = configuration["Security:CookieDomain"]!;
+                    var domain = configuration.GetCookieDomain();
                     httpContextAccessor.HttpContext!.PrepareAndSetCookies(response, environment, domain);
 
                     return TypedResults.Ok(response);
@@ -73,7 +74,7 @@ public class AuthenticationEndpoints : IEndpoint
                        return TypedResults.Ok(response);
                     }
 
-                    var domain = configuration["Security:CookieDomain"]!;
+                    var domain = configuration.GetCookieDomain();
                     httpContextAccessor.HttpContext!.PrepareAndSetCookies(response, environment, domain);
 
                     return TypedResults.Ok(response);

@@ -8,6 +8,7 @@ using Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.Log
 using Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.PersonalInformation;
 using Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.UpdateOwnPassword;
 using Pandatech.CleanArchitecture.Core.Enums;
+using Pandatech.CleanArchitecture.Infrastructure.Extensions;
 using ResponseCrafter.Extensions;
 
 namespace Pandatech.CleanArchitecture.Api.Endpoints.MyAccount;
@@ -54,7 +55,7 @@ public class MyAccountEndpoints : IEndpoint
                     IConfiguration configuration,
                     CancellationToken token) =>
                  {
-                    var domain = configuration["Security:CookieDomain"]!;
+                    var domain = configuration.GetCookieDomain();
                     await sender.Send(new LogoutCommand(), token);
                     httpContextAccessor.HttpContext!.DeleteAllCookies(environment, domain);
                     return TypedResults.Ok();

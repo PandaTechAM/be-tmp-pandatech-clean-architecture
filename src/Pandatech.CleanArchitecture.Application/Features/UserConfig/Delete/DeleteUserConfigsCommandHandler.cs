@@ -9,7 +9,7 @@ public class DeleteUserConfigsCommandHandler(IUnitOfWork unitOfWork, IRequestCon
    public async Task Handle(DeleteUserConfigsCommand request, CancellationToken cancellationToken)
    {
       var userConfigs =
-         await unitOfWork.UserConfigs.GetByUserIdAndKeysAsync(requestContext.Identity.UserId,
+         await unitOfWork.UserConfigs.GetByUserIdAndKeys(requestContext.Identity.UserId,
             request.Keys,
             cancellationToken);
 
@@ -17,7 +17,7 @@ public class DeleteUserConfigsCommandHandler(IUnitOfWork unitOfWork, IRequestCon
       {
          unitOfWork.UserConfigs.RemoveRange(userConfigs, cancellationToken);
 
-         await unitOfWork.SaveChangesAsync(cancellationToken);
+         await unitOfWork.SaveChanges(cancellationToken);
       }
    }
 }

@@ -10,7 +10,7 @@ public class RevokeAllTokensExceptCurrentCommandHandler(IUnitOfWork unitOfWork, 
    {
       var now = DateTime.UtcNow;
 
-      var tokens = await unitOfWork.Tokens.GetAllTokensByUserIdExceptCurrentAsync(
+      var tokens = await unitOfWork.Tokens.GetAllTokensByUserIdExceptCurrent(
          requestContext.Identity.UserId,
          requestContext.Identity.TokenId,
          cancellationToken);
@@ -36,6 +36,6 @@ public class RevokeAllTokensExceptCurrentCommandHandler(IUnitOfWork unitOfWork, 
          }
       }
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
    }
 }

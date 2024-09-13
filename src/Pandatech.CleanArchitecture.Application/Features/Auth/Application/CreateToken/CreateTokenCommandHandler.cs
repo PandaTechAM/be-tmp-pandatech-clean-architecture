@@ -39,7 +39,7 @@ public class CreateTokenCommandHandler(IConfiguration configuration, IUnitOfWork
       };
 
       unitOfWork.Tokens.Add(token);
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
 
       return CreateTokenCommandResponse.MapFromEntity(token, accessTokenSignature, refreshTokenSignature);
    }

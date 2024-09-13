@@ -29,7 +29,7 @@ public class RefreshTokenCommandHandler(IConfiguration configuration, IUnitOfWor
 
       var refreshTokenHash = Sha3.Hash(request.RefreshTokenSignature);
 
-      var token = await unitOfWork.Tokens.GetTokenByRefreshTokenAsync(refreshTokenHash,
+      var token = await unitOfWork.Tokens.GetTokenByRefreshToken(refreshTokenHash,
          cancellationToken);
 
       ValidateUserToken(token, now);
@@ -39,7 +39,7 @@ public class RefreshTokenCommandHandler(IConfiguration configuration, IUnitOfWor
 
       unitOfWork.Tokens.Add(newToken);
       InvalidateOldToken(token, now);
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
       return RefreshTokenCommandResponse.MapFromTokenEntity(newToken,
          accessTokenSignature,
          newRefreshTokenSignature,

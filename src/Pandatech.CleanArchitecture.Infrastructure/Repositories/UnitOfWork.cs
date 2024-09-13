@@ -19,7 +19,7 @@ public class UnitOfWork(
    public IUserConfigRepository UserConfigs { get; set; } = userConfigRepository;
 
 
-   public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+   public async Task BeginTransaction(CancellationToken cancellationToken = default)
    {
       if (_transaction != null)
       {
@@ -29,11 +29,11 @@ public class UnitOfWork(
       _transaction = await context.Database.BeginTransactionAsync(cancellationToken);
    }
 
-   public async Task CommitAsync(CancellationToken cancellationToken = default)
+   public async Task Commit(CancellationToken cancellationToken = default)
    {
       try
       {
-         await SaveChangesAsync(cancellationToken);
+         await SaveChanges(cancellationToken);
          await _transaction.CommitAsync(cancellationToken);
       }
       finally
@@ -43,7 +43,7 @@ public class UnitOfWork(
       }
    }
 
-   public async Task RollbackAsync(CancellationToken cancellationToken = default)
+   public async Task Rollback(CancellationToken cancellationToken = default)
    {
       try
       {
@@ -56,7 +56,7 @@ public class UnitOfWork(
       }
    }
 
-   public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+   public async Task SaveChanges(CancellationToken cancellationToken = default)
    {
       await context.SaveChangesAsync(cancellationToken);
    }

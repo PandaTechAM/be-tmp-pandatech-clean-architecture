@@ -5,32 +5,32 @@ namespace Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
 
 public interface IBaseRepository<TEntity>
 {
-   Task<TEntity?> GetByIdAsync(long id, CancellationToken cancellationToken = default);
-   Task<TEntity?> GetByIdNoTrackingAsync(long id, CancellationToken cancellationToken = default);
+   Task<TEntity?> GetById(long id, CancellationToken cancellationToken = default);
+   Task<TEntity?> GetByIdNoTracking(long id, CancellationToken cancellationToken = default);
 
-   public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
+   public Task<bool> Any(Expression<Func<TEntity, bool>> predicate);
    void Add(TEntity entity);
-   Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+   Task AddRange(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
    void Update(TEntity entity, CancellationToken cancellationToken = default);
    void Remove(TEntity entity, CancellationToken cancellationToken = default);
 
    void RemoveRange(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
-   Task<PagedResponse<TEntity>> GetPagedAsync(GridifyQueryModel model, CancellationToken cancellationToken = default);
+   Task<PagedResponse<TEntity>> GetPaged(GridifyQueryModel model, CancellationToken cancellationToken = default);
 
    IQueryable<TEntity> ApplyOrder(GridifyQueryModel model);
 
    IQueryable<TEntity> ApplyFilter(GridifyQueryModel model);
 
-   Task<PagedResponse<TDto>> FilterOrderAndGetPagedAsync<TDto>(GridifyQueryModel model,
+   Task<PagedResponse<TDto>> FilterOrderAndGetPaged<TDto>(GridifyQueryModel model,
       Expression<Func<TEntity, TDto>> selectExpression,
       CancellationToken cancellationToken = default);
 
-   Task<PagedResponse<TEntity>> FilterOrderAndGetPagedAsync(GridifyQueryModel model,
+   Task<PagedResponse<TEntity>> FilterOrderAndGetPaged(GridifyQueryModel model,
       CancellationToken cancellationToken = default);
 
-   Task<CursoredResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueCursoredQueryModel queryModel,
+   Task<CursoredResponse<object>> ColumnDistinctValues(ColumnDistinctValueCursoredQueryModel queryModel,
       CancellationToken cancellationToken = default);
 
-   Task<object?> AggregateAsync(AggregateQueryModel queryModel, CancellationToken cancellationToken = default);
+   Task<object?> Aggregate(AggregateQueryModel queryModel, CancellationToken cancellationToken = default);
 }

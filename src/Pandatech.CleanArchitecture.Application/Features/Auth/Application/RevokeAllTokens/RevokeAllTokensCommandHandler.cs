@@ -11,7 +11,7 @@ public class RevokeAllTokensCommandHandler(IUnitOfWork unitOfWork)
       var now = DateTime.UtcNow;
 
       var tokens =
-         await unitOfWork.Tokens.GetAllTokensByUserIdWhichAreNotExpiredAsync(request.UserId, cancellationToken);
+         await unitOfWork.Tokens.GetAllTokensByUserIdWhichAreNotExpired(request.UserId, cancellationToken);
 
       if (tokens.Count == 0)
       {
@@ -33,6 +33,6 @@ public class RevokeAllTokensCommandHandler(IUnitOfWork unitOfWork)
          }
       }
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
    }
 }

@@ -19,7 +19,7 @@ public class UpdatePasswordForcedCommandHandler(
    public async Task Handle(UpdatePasswordForcedCommand request, CancellationToken cancellationToken)
    {
       var user = await unitOfWork.Users
-                                 .GetByIdAsync(requestContext.Identity.UserId, cancellationToken);
+                                 .GetById(requestContext.Identity.UserId, cancellationToken);
 
       InternalServerErrorException.ThrowIfNull(user, "User not found");
 
@@ -32,7 +32,7 @@ public class UpdatePasswordForcedCommandHandler(
 
       user.MarkAsUpdated(requestContext.Identity.UserId);
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
 
       BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllTokensExceptCurrentCommand(), cancellationToken));
    }

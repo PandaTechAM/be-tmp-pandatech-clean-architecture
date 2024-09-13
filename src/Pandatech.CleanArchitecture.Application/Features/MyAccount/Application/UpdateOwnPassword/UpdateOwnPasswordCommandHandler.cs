@@ -17,7 +17,7 @@ public class UpdateOwnPasswordCommandHandler(
    public async Task Handle(UpdateOwnPasswordCommand request, CancellationToken cancellationToken)
    {
       var user = await unitOfWork.Users
-                                 .GetByIdAsync(requestContext.Identity.UserId, cancellationToken);
+                                 .GetById(requestContext.Identity.UserId, cancellationToken);
 
       InternalServerErrorException.ThrowIfNull(user, "User not found");
 
@@ -25,7 +25,7 @@ public class UpdateOwnPasswordCommandHandler(
       user.PasswordHash = argon2Id.HashPassword(request.NewPassword);
       user.MarkAsUpdated(requestContext.Identity.UserId);
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
 
       BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllTokensExceptCurrentCommand(), cancellationToken));
    }

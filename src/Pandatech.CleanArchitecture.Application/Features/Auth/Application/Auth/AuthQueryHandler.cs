@@ -42,7 +42,7 @@ public class AuthQueryHandler(IUnitOfWork unitOfWork, IHostEnvironment environme
 
       var accessTokenHash = Sha3.Hash(accessTokenSignature);
 
-      var tokenEntity = await unitOfWork.Tokens.GetTokenByAccessTokenAsync(accessTokenHash, cancellationToken);
+      var tokenEntity = await unitOfWork.Tokens.GetTokenByAccessToken(accessTokenHash, cancellationToken);
 
       UnauthorizedException.ThrowIfNull(tokenEntity);
       UnauthorizedException.ThrowIf(tokenEntity.User!.Status is not UserStatus.Active);

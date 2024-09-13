@@ -12,7 +12,7 @@ public class LogoutCommandHandler(IRequestContext requestContext, IUnitOfWork un
       var now = DateTime.UtcNow;
 
       var token = await unitOfWork.Tokens
-                                  .GetByIdAsync(requestContext.Identity.TokenId, cancellationToken);
+                                  .GetById(requestContext.Identity.TokenId, cancellationToken);
 
       InternalServerErrorException.ThrowIfNull(token, "Token not found");
 
@@ -28,6 +28,6 @@ public class LogoutCommandHandler(IRequestContext requestContext, IUnitOfWork un
          token.UpdatedAt = now;
       }
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
    }
 }

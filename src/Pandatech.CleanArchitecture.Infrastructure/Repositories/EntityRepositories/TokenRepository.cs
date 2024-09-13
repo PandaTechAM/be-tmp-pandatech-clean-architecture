@@ -8,7 +8,7 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Repositories.EntityReposito
 public class TokenRepository(PostgresContext postgresContext)
    : BaseRepository<Token>(postgresContext), ITokenRepository
 {
-   public Task<List<Token>> GetAllTokensByUserIdExceptCurrentAsync(long userId,
+   public Task<List<Token>> GetAllTokensByUserIdExceptCurrent(long userId,
       long tokenId,
       CancellationToken cancellationToken = default)
    {
@@ -17,7 +17,7 @@ public class TokenRepository(PostgresContext postgresContext)
                     .ToListAsync(cancellationToken);
    }
 
-   public Task<List<Token>> GetAllTokensByUserIdWhichAreNotExpiredAsync(long userId,
+   public Task<List<Token>> GetAllTokensByUserIdWhichAreNotExpired(long userId,
       CancellationToken cancellationToken = default)
    {
       var now = DateTime.UtcNow;
@@ -29,7 +29,7 @@ public class TokenRepository(PostgresContext postgresContext)
                     .ToListAsync(cancellationToken);
    }
 
-   public Task<Token?> GetTokenByRefreshTokenAsync(byte[] refreshTokenHash,
+   public Task<Token?> GetTokenByRefreshToken(byte[] refreshTokenHash,
       CancellationToken cancellationToken = default)
    {
       return Context.Tokens
@@ -37,7 +37,7 @@ public class TokenRepository(PostgresContext postgresContext)
                     .FirstOrDefaultAsync(x => x.RefreshTokenHash == refreshTokenHash, cancellationToken);
    }
 
-   public Task<Token?> GetTokenByAccessTokenAsync(byte[] accessTokenHash,
+   public Task<Token?> GetTokenByAccessToken(byte[] accessTokenHash,
       CancellationToken cancellationToken = default)
    {
       return Context.Tokens

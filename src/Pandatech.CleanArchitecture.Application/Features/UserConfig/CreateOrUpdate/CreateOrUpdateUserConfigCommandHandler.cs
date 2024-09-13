@@ -13,7 +13,7 @@ public class CreateOrUpdateUserConfigCommandHandler(IUnitOfWork unitOfWork, IReq
                         .ToList();
 
       var userConfigs =
-         await unitOfWork.UserConfigs.GetByUserIdAndKeysAsync(requestContext.Identity.UserId, keys, cancellationToken);
+         await unitOfWork.UserConfigs.GetByUserIdAndKeys(requestContext.Identity.UserId, keys, cancellationToken);
 
       foreach (var requestedUserConfig in request.Configs)
       {
@@ -40,6 +40,6 @@ public class CreateOrUpdateUserConfigCommandHandler(IUnitOfWork unitOfWork, IReq
          }
       }
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
    }
 }

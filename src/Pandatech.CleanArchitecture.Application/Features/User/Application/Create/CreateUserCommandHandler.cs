@@ -12,7 +12,7 @@ public class CreateUserCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, IR
    public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
    {
       var isDuplicateUsername =
-         await unitOfWork.Users.IsUsernameDuplicateAsync(request.Username.ToLower(), cancellationToken);
+         await unitOfWork.Users.IsUsernameDuplicate(request.Username.ToLower(), cancellationToken);
 
       BadRequestException.ThrowIf(isDuplicateUsername, ErrorMessages.DuplicateUsername);
 
@@ -28,6 +28,6 @@ public class CreateUserCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, IR
          CreatedByUserId = requestContext.Identity.UserId
       };
       unitOfWork.Users.Add(user);
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
    }
 }

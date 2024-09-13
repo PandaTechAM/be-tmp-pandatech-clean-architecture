@@ -12,13 +12,13 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
 {
    protected readonly PostgresContext Context = context;
 
-   public async Task<TEntity?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
+   public async Task<TEntity?> GetById(long id, CancellationToken cancellationToken = default)
    {
       return await Context.Set<TEntity>()
                           .FindAsync([id], cancellationToken);
    }
 
-   public async Task<TEntity?> GetByIdNoTrackingAsync(long id, CancellationToken cancellationToken = default)
+   public async Task<TEntity?> GetByIdNoTracking(long id, CancellationToken cancellationToken = default)
    {
       return await Context.Set<TEntity>()
                           .AsNoTracking()
@@ -33,13 +33,13 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
              .Add(entity);
    }
 
-   public async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+   public async Task AddRange(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
    {
       await Context.Set<TEntity>()
                    .AddRangeAsync(entities, cancellationToken);
    }
 
-   public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+   public async Task<bool> Any(Expression<Func<TEntity, bool>> predicate)
    {
       return await Context.Set<TEntity>()
                           .AnyAsync(predicate);
@@ -65,7 +65,7 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
              .RemoveRange(entities);
    }
 
-   public Task<PagedResponse<TEntity>> GetPagedAsync(GridifyQueryModel model,
+   public Task<PagedResponse<TEntity>> GetPaged(GridifyQueryModel model,
       CancellationToken cancellationToken = default)
    {
       return Context
@@ -87,7 +87,7 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
              .ApplyFilter(model);
    }
 
-   public Task<PagedResponse<TDto>> FilterOrderAndGetPagedAsync<TDto>(GridifyQueryModel model,
+   public Task<PagedResponse<TDto>> FilterOrderAndGetPaged<TDto>(GridifyQueryModel model,
       Expression<Func<TEntity, TDto>> selectExpression,
       CancellationToken cancellationToken = default)
    {
@@ -96,7 +96,7 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
              .FilterOrderAndGetPagedAsync(model, selectExpression, cancellationToken);
    }
 
-   public Task<PagedResponse<TEntity>> FilterOrderAndGetPagedAsync(GridifyQueryModel model,
+   public Task<PagedResponse<TEntity>> FilterOrderAndGetPaged(GridifyQueryModel model,
       CancellationToken cancellationToken = default)
    {
       return Context
@@ -105,14 +105,14 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
    }
 
 
-   public Task<CursoredResponse<object>> ColumnDistinctValuesAsync(ColumnDistinctValueCursoredQueryModel queryModel,
+   public Task<CursoredResponse<object>> ColumnDistinctValues(ColumnDistinctValueCursoredQueryModel queryModel,
       CancellationToken cancellationToken = default)
    {
       return Context.Set<TEntity>()
                     .ColumnDistinctValuesAsync(queryModel, cancellationToken: cancellationToken);
    }
 
-   public async Task<object?> AggregateAsync(AggregateQueryModel queryModel,
+   public async Task<object?> Aggregate(AggregateQueryModel queryModel,
       CancellationToken cancellationToken = default)
    {
       return await Context.Set<TEntity>()

@@ -9,6 +9,6 @@ public class DeleteUsersCommandHandler(IUnitOfWork unitOfWork, IRequestContext r
    public Task Handle(DeleteUsersCommand request, CancellationToken cancellationToken)
    {
       return unitOfWork.Users
-                       .DeleteAsync(request.Filter, requestContext.Identity.UserId, cancellationToken);
+                       .Delete(request.Filter, requestContext.Identity.UserId, cancellationToken);
    }
 }

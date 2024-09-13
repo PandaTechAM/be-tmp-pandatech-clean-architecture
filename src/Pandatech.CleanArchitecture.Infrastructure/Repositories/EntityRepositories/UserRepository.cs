@@ -12,12 +12,12 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Repositories.EntityReposito
 public class UserRepository(PostgresContext postgresContext)
    : BaseRepository<User>(postgresContext), IUserRepository
 {
-   public Task<bool> IsUsernameDuplicateAsync(string username, CancellationToken cancellationToken = default)
+   public Task<bool> IsUsernameDuplicate(string username, CancellationToken cancellationToken = default)
    {
       return Context.Users.AnyAsync(x => x.Username == username, cancellationToken);
    }
 
-   public Task<List<User>> GetByIdsExceptSuperAsync(List<long> ids, CancellationToken cancellationToken = default)
+   public Task<List<User>> GetByIdsExceptSuper(List<long> ids, CancellationToken cancellationToken = default)
    {
       return Context.Users
                     .Where(x => ids.Contains(x.Id))
@@ -31,13 +31,13 @@ public class UserRepository(PostgresContext postgresContext)
                     .Where(u => u.Role != UserRole.SuperAdmin);
    }
 
-   public Task<User?> GetByUsernameAsync(string username, CancellationToken cancellationToken = default)
+   public Task<User?> GetByUsername(string username, CancellationToken cancellationToken = default)
    {
       return Context.Users
                     .FirstOrDefaultAsync(x => x.Username == username, cancellationToken);
    }
 
-   public Task DeleteAsync(string requestFilter, long identityUserId, CancellationToken cancellationToken)
+   public Task Delete(string requestFilter, long identityUserId, CancellationToken cancellationToken)
    {
       var filterModel = new GridifyQueryModel
       {

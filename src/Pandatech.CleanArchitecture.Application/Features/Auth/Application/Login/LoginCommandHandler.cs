@@ -15,7 +15,7 @@ public class LoginCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon2Id, ISen
 {
    public async Task<LoginCommandResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
    {
-      var user = await unitOfWork.Users.GetByUsernameAsync(request.Username.ToLower(), cancellationToken);
+      var user = await unitOfWork.Users.GetByUsername(request.Username.ToLower(), cancellationToken);
 
       if (user is null || user.Status != UserStatus.Active ||
           !argon2Id.VerifyHash(request.Password, user.PasswordHash))

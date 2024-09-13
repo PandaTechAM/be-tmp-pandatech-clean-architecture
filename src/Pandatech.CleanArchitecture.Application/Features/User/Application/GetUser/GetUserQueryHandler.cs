@@ -11,7 +11,7 @@ public class GetUserQueryHandler(IUnitOfWork unitOfWork)
    public async Task<GetUserQueryResponse> Handle(GetUserQuery request,
       CancellationToken cancellationToken)
    {
-      var user = await unitOfWork.Users.GetByIdNoTrackingAsync(request.Id, cancellationToken);
+      var user = await unitOfWork.Users.GetByIdNoTracking(request.Id, cancellationToken);
 
       NotFoundException.ThrowIfNull(user);
 

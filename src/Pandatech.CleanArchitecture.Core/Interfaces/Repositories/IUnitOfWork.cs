@@ -9,8 +9,8 @@ public interface IUnitOfWork
    public IUserConfigRepository UserConfigs { get; set; }
 
 
-   Task BeginTransactionAsync(CancellationToken cancellationToken = default);
-   Task CommitAsync(CancellationToken cancellationToken = default);
-   Task RollbackAsync(CancellationToken cancellationToken = default);
-   Task SaveChangesAsync(CancellationToken cancellationToken = default);
+   Task BeginTransaction(CancellationToken cancellationToken = default);
+   Task Commit(CancellationToken cancellationToken = default);
+   Task Rollback(CancellationToken cancellationToken = default);
+   Task SaveChanges(CancellationToken cancellationToken = default);
 }

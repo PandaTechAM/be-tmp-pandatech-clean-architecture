@@ -12,6 +12,6 @@ public class GetUserColumnDistinctValuesQueryHandler(IUnitOfWork unitOfWork)
    {
       return unitOfWork
              .Users
-             .ColumnDistinctValuesAsync(request, cancellationToken);
+             .ColumnDistinctValues(request, cancellationToken);
    }
 }

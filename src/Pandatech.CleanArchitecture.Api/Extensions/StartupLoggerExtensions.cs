@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Pandatech.CleanArchitecture.Api.Extensions;
 
-public static class StartupLogger
+public static class StartupLoggerExtensions
 {
    private static readonly Stopwatch Stopwatch = new();
 

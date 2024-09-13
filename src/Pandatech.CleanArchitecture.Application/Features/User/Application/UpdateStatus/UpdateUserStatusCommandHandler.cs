@@ -10,7 +10,7 @@ public class UpdateUserStatusCommandHandler(IUnitOfWork unitOfWork, IRequestCont
 {
    public async Task Handle(UpdateUserStatusCommand request, CancellationToken cancellationToken)
    {
-      var user = await unitOfWork.Users.GetByIdAsync(request.Id, cancellationToken);
+      var user = await unitOfWork.Users.GetById(request.Id, cancellationToken);
 
       NotFoundException.ThrowIfNull(user);
       NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
@@ -23,6 +23,6 @@ public class UpdateUserStatusCommandHandler(IUnitOfWork unitOfWork, IRequestCont
       user.Status = request.Status;
       user.MarkAsUpdated(requestContext.Identity.UserId);
 
-      await unitOfWork.SaveChangesAsync(cancellationToken);
+      await unitOfWork.SaveChanges(cancellationToken);
    }
 }

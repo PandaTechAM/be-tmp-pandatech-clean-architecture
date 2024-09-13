@@ -4,16 +4,16 @@ namespace Pandatech.CleanArchitecture.Core.Interfaces.Repositories.EntityReposit
 
 public interface ITokenRepository : IBaseRepository<Token>
 {
-   public Task<List<Token>> GetAllTokensByUserIdExceptCurrentAsync(long userId,
+   public Task<List<Token>> GetAllTokensByUserIdExceptCurrent(long userId,
       long tokenId,
       CancellationToken cancellationToken = default);
 
-   public Task<List<Token>> GetAllTokensByUserIdWhichAreNotExpiredAsync(long userId,
+   public Task<List<Token>> GetAllTokensByUserIdWhichAreNotExpired(long userId,
       CancellationToken cancellationToken = default);
 
-   public Task<Token?> GetTokenByRefreshTokenAsync(byte[] refreshTokenHash,
+   public Task<Token?> GetTokenByRefreshToken(byte[] refreshTokenHash,
       CancellationToken cancellationToken = default);
 
-   public Task<Token?> GetTokenByAccessTokenAsync(byte[] accessTokenHash,
+   public Task<Token?> GetTokenByAccessToken(byte[] accessTokenHash,
       CancellationToken cancellationToken = default);
 }
