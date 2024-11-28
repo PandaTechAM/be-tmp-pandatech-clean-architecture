@@ -1,55 +1,53 @@
 using FluentMinimalApiMapper;
-using Pandatech.CleanArchitecture.Api.Endpoints.SharedEndpoints;
-using Pandatech.CleanArchitecture.Api.Extensions;
 using Pandatech.CleanArchitecture.Application;
 using Pandatech.CleanArchitecture.Core;
-using Pandatech.CleanArchitecture.Core.Extensions;
-using Pandatech.CleanArchitecture.Core.Helpers;
+using Pandatech.CleanArchitecture.Core.DTOs.Auth;
+using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Infrastructure;
 using Pandatech.CleanArchitecture.Infrastructure.Extensions;
-using PandaVaultClient;
+using Pandatech.Crypto.Extensions;
+using ResponseCrafter.Enums;
 using ResponseCrafter.Extensions;
-using NamingConvention = ResponseCrafter.Enums.NamingConvention;
+using SharedKernel.Extensions;
+using SharedKernel.Helpers;
+using SharedKernel.Logging;
+using SharedKernel.OpenApi;
+using SharedKernel.ValidatorAndMediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.LogStartAttempt();
-AssemblyRegistry.AddAssemblies(typeof(Program).Assembly);
-
-if (!builder.Environment.IsLocal())
-{
-   builder.Configuration.AddPandaVault();
-}
+AssemblyRegistry.Add(typeof(Program).Assembly);
 
 builder
-   .AddCors()
+   .ConfigureWithPandaVault()
    .AddResponseCrafter(NamingConvention.ToSnakeCase)
+   .AddOpenApi()
+   .AddMinimalApis(AssemblyRegistry.ToArray())
+   .AddControllers(AssemblyRegistry.ToArray())
+   .MapDefaultTimeZone()
+   .AddCors()
+   .AddAes256Key(builder.Configuration.GetAesKey())
    .AddCoreLayer()
-   .AddInfrastructureLayer()
    .AddApplicationLayer()
-   .AddSwagger()
-   .AddMassTransit(AssemblyRegistry.GetAllAssemblies()
-                                   .ToArray())
-   .AddMediatrWithBehaviors()
-   .AddEndpoints()
-   .RegisterAllServices();
+   .AddInfrastructureLayer()
+   .AddMediatrWithBehaviors(AssemblyRegistry.ToArray());
 
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IRequestContext, RequestContext>();
 
-builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-app.UseStaticFiles();
 app
    .UseRequestResponseLogging()
    .UseResponseCrafter()
-   .UserInfrastructureLayer()
    .UseCors()
-   .UseSwagger(builder.Configuration);
+   .MapMinimalApis()
+   .MapHealthCheckEndpoints()
+   .MapPrometheusExporterEndpoints()
+   .UseOpenApi()
+   .MapInfrastructureLayer()
+   .ClearAssemblyRegistry()
+   .MapControllers();
 
-app.MapPandaEndpoints();
-app.MapEndpoints();
-
-AssemblyRegistry.RemoveAllAssemblies();
 app.LogStartSuccess();
 app.Run();

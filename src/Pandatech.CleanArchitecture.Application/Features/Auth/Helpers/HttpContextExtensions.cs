@@ -7,7 +7,7 @@ using Pandatech.CleanArchitecture.Core.Helpers;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 
-public static class HttpContextParser
+public static class HttpContextExtensions
 {
    private const string DefaultIpAddress = "0.0.0.0";
 

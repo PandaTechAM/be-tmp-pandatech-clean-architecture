@@ -3,15 +3,15 @@ using MediatR;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Application.RevokeAllTokensExceptCurrentSession;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using Pandatech.Crypto;
+using Pandatech.Crypto.Helpers;
 using ResponseCrafter.HttpExceptions;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.UpdateOwnPassword;
 
 public class UpdateOwnPasswordCommandHandler(
    IRequestContext requestContext,
    IUnitOfWork unitOfWork,
-   Argon2Id argon2Id,
    ISender sender) : ICommandHandler<UpdateOwnPasswordCommand>
 {
    public async Task Handle(UpdateOwnPasswordCommand request, CancellationToken cancellationToken)
@@ -22,7 +22,7 @@ public class UpdateOwnPasswordCommandHandler(
       InternalServerErrorException.ThrowIfNull(user, "User not found");
 
 
-      user.PasswordHash = argon2Id.HashPassword(request.NewPassword);
+      user.PasswordHash = Argon2Id.HashPassword(request.NewPassword);
       user.MarkAsUpdated(requestContext.Identity.UserId);
 
       await unitOfWork.SaveChanges(cancellationToken);

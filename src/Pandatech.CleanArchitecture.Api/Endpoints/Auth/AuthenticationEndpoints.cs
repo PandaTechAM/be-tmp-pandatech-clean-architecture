@@ -31,14 +31,14 @@ public class AuthenticationEndpoints : IEndpoint
       groupApp.MapPost("/login",
                  async (ISender sender,
                     LoginCommand command,
-                    IHttpContextAccessor httpContextAccessor,
+                    HttpContext httpContext,
                     IHostEnvironment environment,
                     IConfiguration configuration,
                     CancellationToken token) =>
                  {
                     var response = await sender.Send(command, token);
-                    var clientType = httpContextAccessor.HttpContext!.TryParseClientType()
-                                                        .ConvertToEnum();
+                    var clientType = httpContext.TryParseClientType()
+                                                .ConvertToEnum();
 
                     if (clientType != ClientType.Browser)
                     {
@@ -46,7 +46,7 @@ public class AuthenticationEndpoints : IEndpoint
                     }
 
                     var domain = configuration.GetCookieDomain();
-                    httpContextAccessor.HttpContext!.PrepareAndSetCookies(response, environment, domain);
+                    httpContext.PrepareAndSetCookies(response, environment, domain);
 
                     return TypedResults.Ok(response);
                  })

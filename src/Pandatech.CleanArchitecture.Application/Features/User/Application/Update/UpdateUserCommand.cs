@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Pandatech.CleanArchitecture.Core.Enums;
-using Pandatech.CleanArchitecture.Core.Interfaces;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Update;
 

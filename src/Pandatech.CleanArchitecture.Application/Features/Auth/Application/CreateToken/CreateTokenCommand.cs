@@ -1,5 +1,5 @@
 using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.CreateToken;
-using Pandatech.CleanArchitecture.Core.Interfaces;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.CreateToken;
 

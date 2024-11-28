@@ -1,5 +1,6 @@
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.RevokeAllTokensExceptCurrentSession;
 

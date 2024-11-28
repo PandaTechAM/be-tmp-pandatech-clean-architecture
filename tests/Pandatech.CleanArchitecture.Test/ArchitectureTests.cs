@@ -2,7 +2,7 @@
 using Pandatech.CleanArchitecture.Core;
 using Xunit;
 
-namespace Architecture.Tests;
+namespace Pandatech.CleanArchitecture.Test;
 
 public class ArchitectureTests
 {
@@ -11,16 +11,16 @@ public class ArchitectureTests
                                .Name;
 
    private static readonly string? ApplicationClientName =
-      typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly.GetName()
-                                                                       .Name;
+      typeof(Application.AssemblyReference).Assembly.GetName()
+                                           .Name;
 
    private static readonly string? InfrastructureName =
-      typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly.GetName()
-                                                                          .Name;
+      typeof(Infrastructure.AssemblyReference).Assembly.GetName()
+                                              .Name;
 
    private static readonly string? WebApiName =
-      typeof(Pandatech.CleanArchitecture.Api.AssemblyReference).Assembly.GetName()
-                                                               .Name;
+      typeof(Api.AssemblyReference).Assembly.GetName()
+                                   .Name;
 
    [Fact]
    public void Core_Should_Not_HaveDependency_On_OtherProjects()
@@ -50,7 +50,7 @@ public class ArchitectureTests
    public void Application_Should_Not_HaveDependency_On_OtherProjects()
    {
       // Arrange
-      var assembly = typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly;
+      var assembly = typeof(Application.AssemblyReference).Assembly;
 
       var otherProjects = new[]
       {
@@ -73,7 +73,7 @@ public class ArchitectureTests
    public void Handlers_Should_Have_Dependency_On_Core()
    {
       // Arrange
-      var assembly = typeof(Pandatech.CleanArchitecture.Application.AssemblyReference).Assembly;
+      var assembly = typeof(Application.AssemblyReference).Assembly;
 
       // Act
       var testResult = Types
@@ -92,7 +92,7 @@ public class ArchitectureTests
    public void Infrastructure_Should_Not_HaveDependency_On_OtherProjects()
    {
       // Arrange
-      var assembly = typeof(Pandatech.CleanArchitecture.Infrastructure.AssemblyReference).Assembly;
+      var assembly = typeof(Infrastructure.AssemblyReference).Assembly;
 
       // Act
       var testResult = Types

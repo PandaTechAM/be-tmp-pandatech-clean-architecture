@@ -1,12 +1,28 @@
 using Hangfire;
+using Hangfire.PostgreSql;
 using HangfireBasicAuthenticationFilter;
 using Microsoft.AspNetCore.Builder;
-using Pandatech.CleanArchitecture.Infrastructure.Helpers;
+using Microsoft.Extensions.Configuration;
 
 namespace Pandatech.CleanArchitecture.Infrastructure.Extensions;
 
-public static class HangfireDashboardExtensions
+public static class HangfireExtensions
 {
+   public static WebApplicationBuilder AddHangfireServer(this WebApplicationBuilder builder)
+   {
+      var postgresConnectionString = builder.Configuration.GetConnectionString("Postgres");
+      builder.Services.AddHangfire(configuration =>
+      {
+         configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_180);
+         configuration.UseSimpleAssemblyNameTypeSerializer();
+         configuration.UseRecommendedSerializerSettings();
+         configuration.UsePostgreSqlStorage(c => c.UseNpgsqlConnection(postgresConnectionString));
+      });
+
+      builder.Services.AddHangfireServer();
+      return builder;
+   }
+
    public static WebApplication UseHangfireServer(this WebApplication app)
    {
       var user = app.Configuration.GetHangfireUsername();

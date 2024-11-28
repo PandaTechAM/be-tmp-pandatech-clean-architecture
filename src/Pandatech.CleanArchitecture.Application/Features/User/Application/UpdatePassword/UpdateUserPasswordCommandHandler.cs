@@ -4,14 +4,14 @@ using Pandatech.CleanArchitecture.Application.Features.Auth.Application.RevokeAl
 using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using Pandatech.Crypto;
+using Pandatech.Crypto.Helpers;
 using ResponseCrafter.HttpExceptions;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.UpdatePassword;
 
 public class UpdateUserPasswordCommandHandler(
    IUnitOfWork unitOfWork,
-   Argon2Id argon2Id,
    IRequestContext requestContext)
    : ICommandHandler<UpdateUserPasswordCommand>
 {
@@ -22,7 +22,7 @@ public class UpdateUserPasswordCommandHandler(
       NotFoundException.ThrowIfNull(user);
       NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
 
-      user.PasswordHash = argon2Id.HashPassword(request.NewPassword);
+      user.PasswordHash = Argon2Id.HashPassword(request.NewPassword);
       user.ForcePasswordChange = true;
       user.MarkAsUpdated(requestContext.Identity.UserId);
 

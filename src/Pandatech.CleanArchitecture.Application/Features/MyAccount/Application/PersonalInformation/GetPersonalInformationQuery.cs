@@ -1,5 +1,5 @@
 ﻿using Pandatech.CleanArchitecture.Application.Features.MyAccount.Contracts;
-using Pandatech.CleanArchitecture.Core.Interfaces;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.MyAccount.Application.PersonalInformation;
 

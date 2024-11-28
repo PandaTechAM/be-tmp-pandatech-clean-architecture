@@ -3,14 +3,14 @@ using Pandatech.CleanArchitecture.Application.Features.Auth.Application.CreateTo
 using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.Login;
 using Pandatech.CleanArchitecture.Core.Enums;
 using Pandatech.CleanArchitecture.Core.Helpers;
-using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using Pandatech.Crypto;
+using Pandatech.Crypto.Helpers;
 using ResponseCrafter.HttpExceptions;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.Login;
 
-public class LoginCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon2Id, ISender sender)
+public class LoginCommandHandler(IUnitOfWork unitOfWork, ISender sender)
    : ICommandHandler<LoginCommand, LoginCommandResponse>
 {
    public async Task<LoginCommandResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -18,7 +18,7 @@ public class LoginCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon2Id, ISen
       var user = await unitOfWork.Users.GetByUsername(request.Username.ToLower(), cancellationToken);
 
       if (user is null || user.Status != UserStatus.Active ||
-          !argon2Id.VerifyHash(request.Password, user.PasswordHash))
+          !Argon2Id.VerifyHash(request.Password, user.PasswordHash))
       {
          throw new BadRequestException(ErrorMessages.InvalidCredentials);
       }

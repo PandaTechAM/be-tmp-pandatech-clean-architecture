@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Builder;
-using Pandatech.CleanArchitecture.Core.Helpers;
+using SharedKernel.Helpers;
 
 namespace Pandatech.CleanArchitecture.Core;
 
@@ -7,7 +7,7 @@ public static class DependencyInjection
 {
    public static WebApplicationBuilder AddCoreLayer(this WebApplicationBuilder builder)
    {
-      AssemblyRegistry.AddAssemblies(typeof(DependencyInjection).Assembly);
+      AssemblyRegistry.Add(typeof(DependencyInjection).Assembly);
       return builder;
    }
 }

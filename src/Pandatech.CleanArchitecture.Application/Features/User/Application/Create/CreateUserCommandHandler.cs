@@ -1,12 +1,13 @@
 using Pandatech.CleanArchitecture.Core.Helpers;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using Pandatech.Crypto;
+using Pandatech.Crypto.Helpers;
 using ResponseCrafter.HttpExceptions;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Create;
 
-public class CreateUserCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, IRequestContext requestContext)
+public class CreateUserCommandHandler(IUnitOfWork unitOfWork, IRequestContext requestContext)
    : ICommandHandler<CreateUserCommand>
 {
    public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -16,7 +17,7 @@ public class CreateUserCommandHandler(IUnitOfWork unitOfWork, Argon2Id argon, IR
 
       BadRequestException.ThrowIf(isDuplicateUsername, ErrorMessages.DuplicateUsername);
 
-      var passwordHash = argon.HashPassword(request.Password);
+      var passwordHash = Argon2Id.HashPassword(request.Password);
 
       var user = new Core.Entities.User
       {

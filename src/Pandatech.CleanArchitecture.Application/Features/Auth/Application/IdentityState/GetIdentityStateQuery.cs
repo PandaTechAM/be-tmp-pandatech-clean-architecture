@@ -1,5 +1,5 @@
 using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.IdentityState;
-using Pandatech.CleanArchitecture.Core.Interfaces;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.IdentityState;
 

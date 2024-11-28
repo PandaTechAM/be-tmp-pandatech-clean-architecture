@@ -1,5 +1,5 @@
 ﻿using GridifyExtensions.Models;
-using Pandatech.CleanArchitecture.Core.Interfaces;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.GetColumnDistinctValues;
 

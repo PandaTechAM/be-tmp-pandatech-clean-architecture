@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.sln.dotsettings
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -480,3 +481,4 @@ $RECYCLE.BIN/
 .idea
 logs
 LocalFileStorage
+*.db*

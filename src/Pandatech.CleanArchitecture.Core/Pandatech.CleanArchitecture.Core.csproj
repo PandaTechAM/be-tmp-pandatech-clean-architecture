@@ -3,21 +3,13 @@
 
 
     <ItemGroup>
-        <PackageReference Include="FluentDateTime"/>
-        <PackageReference Include="FluentValidation.AspNetCore"/>
         <PackageReference Include="Hangfire"/>
         <PackageReference Include="MassTransit.RabbitMQ"/>
-        <PackageReference Include="MediatR"/>
         <PackageReference Include="Pandatech.CommissionCalculator"/>
         <PackageReference Include="Pandatech.Communicator"/>
-        <PackageReference Include="Pandatech.Crypto"/>
-        <PackageReference Include="Pandatech.DistributedCache"/>
-        <PackageReference Include="Pandatech.EFCore.AuditBase"/>
-        <PackageReference Include="PandaTech.FileExporter"/>
-        <PackageReference Include="Pandatech.GridifyExtensions"/>
         <PackageReference Include="Pandatech.MassTransit.PostgresOutbox"/>
-        <PackageReference Include="Pandatech.RegexBox"/>
-        <PackageReference Include="Pandatech.ResponseCrafter"/>
+        <PackageReference Include="Pandatech.SharedKernel"/>
+        <PackageReference Include="Pandatech.SharedKernel.Postgres"/>
         <PackageReference Include="SonarAnalyzer.CSharp">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

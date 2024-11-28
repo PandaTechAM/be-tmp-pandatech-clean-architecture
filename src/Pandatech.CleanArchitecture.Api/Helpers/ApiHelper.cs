@@ -4,7 +4,7 @@ public static class ApiHelper
 {
    private const string BaseApiPath = "/api/v";
 
-   public const string GroupNameClean = "Clean";
+   public const string GroupNameClean = "clean-v1";
 
 
    public static string GetRoutePrefix(int version, string baseRoute)

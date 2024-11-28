@@ -4,16 +4,15 @@ using Pandatech.CleanArchitecture.Application.Features.Auth.Application.RevokeAl
 using Pandatech.CleanArchitecture.Core.Helpers;
 using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using Pandatech.Crypto;
+using Pandatech.Crypto.Helpers;
 using ResponseCrafter.HttpExceptions;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdatePasswordForced;
 
 public class UpdatePasswordForcedCommandHandler(
    IRequestContext requestContext,
-   IUnitOfWork unitOfWork,
-   Argon2Id argon2Id,
-   ISender sender)
+   IUnitOfWork unitOfWork)
    : ICommandHandler<UpdatePasswordForcedCommand>
 {
    public async Task Handle(UpdatePasswordForcedCommand request, CancellationToken cancellationToken)
@@ -23,11 +22,11 @@ public class UpdatePasswordForcedCommandHandler(
 
       InternalServerErrorException.ThrowIfNull(user, "User not found");
 
-      var sameWithOldPassword = argon2Id.VerifyHash(request.NewPassword, user.PasswordHash);
+      var sameWithOldPassword = Argon2Id.VerifyHash(request.NewPassword, user.PasswordHash);
 
       BadRequestException.ThrowIf(sameWithOldPassword, ErrorMessages.NewPasswordMustBeDifferentFromOldPassword);
 
-      user.PasswordHash = argon2Id.HashPassword(request.NewPassword);
+      user.PasswordHash = Argon2Id.HashPassword(request.NewPassword);
       user.ForcePasswordChange = false;
 
       user.MarkAsUpdated(requestContext.Identity.UserId);

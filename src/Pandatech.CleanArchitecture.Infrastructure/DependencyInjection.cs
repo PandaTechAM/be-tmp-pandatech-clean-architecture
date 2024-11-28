@@ -1,14 +1,15 @@
 ﻿using Communicator.Extensions;
-using DistributedCache.Extensions;
-using GridifyExtensions.Extensions;
+using DistributedCache.Options;
 using MassTransit.PostgresOutbox.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Pandatech.CleanArchitecture.Core.Helpers;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
 using Pandatech.CleanArchitecture.Infrastructure.Extensions;
-using Pandatech.CleanArchitecture.Infrastructure.Helpers;
 using Pandatech.CleanArchitecture.Infrastructure.Seed.User;
+using SharedKernel.Extensions;
+using SharedKernel.Helpers;
+using SharedKernel.Logging;
+using SharedKernel.Postgres.Extensions;
+using SharedKernel.Resilience;
 
 namespace Pandatech.CleanArchitecture.Infrastructure;
 
@@ -16,34 +17,35 @@ public static class DependencyInjection
 {
    public static WebApplicationBuilder AddInfrastructureLayer(this WebApplicationBuilder builder)
    {
-      AssemblyRegistry.AddAssemblies(typeof(DependencyInjection).Assembly);
+      AssemblyRegistry.Add(typeof(AssemblyReference).Assembly);
 
-      builder.AddSerilog()
-             .AddHangfireServer()
-             .AddPostgresContext()
-             .ConfigureOpenTelemetry()
-             .AddPandaCrypto()
-             .AddGridify()
-             .AddRepositories()
-             .AddCommunicator()
-             .AddResilienceDefaultPipeline()
-             .AddDistributedCache(options =>
-             {
-                options.RedisConnectionString = builder.Configuration.GetRedisUrl();
-             })
-             .AddHealthChecks();
+      builder
+         .AddSerilog()
+         .AddOpenTelemetry()
+         .AddResilienceDefaultPipeline()
+         .AddRedis(KeyPrefix.AssemblyNamePrefix)
+         .AddDistributedSignalR("DistributedSignalR")
+         .AddPostgresContext<PostgresContext>(builder.Configuration.GetPostgresUrl())
+         .AddMassTransit(AssemblyRegistry.ToArray())
+         .AddCommunicator()
+         .AddHangfireServer()
+         .AddRepositories()
+         .AddHealthChecks();
 
       builder.Services.AddOutboxInboxServices<PostgresContext>();
 
       return builder;
    }
 
-   public static WebApplication UserInfrastructureLayer(this WebApplication app)
+   public static WebApplication MapInfrastructureLayer(this WebApplication app)
    {
-      app.MigrateDatabase()
+      app
+         .MigrateDatabase<PostgresContext>()
          .EnsureHealthy()
          .UseHangfireServer()
          .SeedSystemUser();
+
+
       return app;
    }
 }

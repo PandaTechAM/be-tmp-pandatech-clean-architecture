@@ -4,7 +4,7 @@ using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.Auth;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.Login;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.RefreshToken;
 using Pandatech.CleanArchitecture.Core.DTOs.Auth;
-using Pandatech.CleanArchitecture.Core.Extensions;
+using SharedKernel.Extensions;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 
@@ -119,10 +119,10 @@ public static class CookieHelper
    {
       List<Cookie> newCookies =
       [
-         new Cookie(FormatCookieName("access_token", environment),
+         new(FormatCookieName("access_token", environment),
             cookies.AccessTokenSignature,
             cookies.AccessTokenExpiresAt),
-         new Cookie(FormatCookieName("refresh_token", environment),
+         new(FormatCookieName("refresh_token", environment),
             cookies.RefreshTokenSignature,
             cookies.RefreshTokenExpiresAt)
       ];

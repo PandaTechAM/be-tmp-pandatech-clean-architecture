@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Pandatech.CleanArchitecture.Core.Enums;
-using Pandatech.CleanArchitecture.Core.Interfaces;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.Auth;
 

@@ -2,9 +2,9 @@ using Microsoft.Extensions.Configuration;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Contracts.CreateToken;
 using Pandatech.CleanArchitecture.Application.Features.Auth.Helpers;
 using Pandatech.CleanArchitecture.Core.Entities;
-using Pandatech.CleanArchitecture.Core.Interfaces;
 using Pandatech.CleanArchitecture.Core.Interfaces.Repositories;
-using Pandatech.Crypto;
+using Pandatech.Crypto.Helpers;
+using SharedKernel.ValidatorAndMediatR;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.CreateToken;
 
