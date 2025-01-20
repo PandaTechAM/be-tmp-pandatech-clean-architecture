@@ -26,7 +26,7 @@ public static class DependencyInjection
          .AddResilienceDefaultPipeline()
          .AddRedis(KeyPrefix.AssemblyNamePrefix)
          .AddDistributedSignalR("DistributedSignalR")
-         .AddPostgresContext<PostgresContext>(builder.Configuration.GetPostgresUrl())
+         .AddPostgresContextPool<PostgresContext>(builder.Configuration.GetPostgresUrl())
          .AddMassTransit(AssemblyRegistry.ToArray())
          .AddCommunicator()
          .AddGridify(typeof(DependencyInjection).Assembly)
