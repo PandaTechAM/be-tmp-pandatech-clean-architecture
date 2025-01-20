@@ -1,5 +1,6 @@
 ﻿using Communicator.Extensions;
 using DistributedCache.Options;
+using GridifyExtensions.Extensions;
 using MassTransit.PostgresOutbox.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Pandatech.CleanArchitecture.Infrastructure.Context;
@@ -28,6 +29,7 @@ public static class DependencyInjection
          .AddPostgresContext<PostgresContext>(builder.Configuration.GetPostgresUrl())
          .AddMassTransit(AssemblyRegistry.ToArray())
          .AddCommunicator()
+         .AddGridify(typeof(DependencyInjection).Assembly)
          .AddHangfireServer()
          .AddRepositories()
          .AddHealthChecks();

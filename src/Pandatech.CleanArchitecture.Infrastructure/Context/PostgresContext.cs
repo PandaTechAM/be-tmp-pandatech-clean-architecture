@@ -9,13 +9,9 @@ using Pandatech.CleanArchitecture.Core.Entities;
 namespace Pandatech.CleanArchitecture.Infrastructure.Context;
 
 //hint for migration: dotnet ef migrations add --project src\Pandatech.CleanArchitecture.Infrastructure\Pandatech.CleanArchitecture.Infrastructure.csproj --context Pandatech.CleanArchitecture.Infrastructure.Context.PostgresContext --configuration Debug --output-dir ./Context/Migrations
-public class PostgresContext : PostgresFunctions, IOutboxDbContext, IInboxDbContext
+public class PostgresContext(DbContextOptions<PostgresContext> options)
+   : PostgresFunctions(options), IOutboxDbContext, IInboxDbContext
 {
-   public PostgresContext(DbContextOptions<PostgresContext> options) : base(options)
-   {
-      this.UseAuditPropertyValidation();
-   }
-
    public DbSet<Token> Tokens { get; set; }
    public DbSet<User> Users { get; set; }
    public DbSet<UserConfig> UserConfigs { get; set; }
