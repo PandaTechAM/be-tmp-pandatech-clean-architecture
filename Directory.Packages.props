@@ -20,7 +20,7 @@
     <PackageVersion Include="Pandatech.CommissionCalculator" Version="4.0.0" />
     <PackageVersion Include="Pandatech.Communicator" Version="2.1.1" />
     <PackageVersion Include="Pandatech.MassTransit.PostgresOutbox" Version="2.0.2" />
-    <PackageVersion Include="Pandatech.SharedKernel" Version="1.0.25" />
+    <PackageVersion Include="Pandatech.SharedKernel" Version="1.1.1" />
     <PackageVersion Include="Pandatech.SharedKernel.Postgres" Version="1.0.15" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.5.0.109200">
       <PrivateAssets>all</PrivateAssets>
