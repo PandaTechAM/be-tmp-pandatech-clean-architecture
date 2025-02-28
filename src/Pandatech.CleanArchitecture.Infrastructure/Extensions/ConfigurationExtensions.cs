@@ -6,6 +6,8 @@ public static class ConfigurationExtensions
 {
    private const string AesKeyConfigurationPath = "Security:AESKey";
    private const string RabbitMqConfigurationPath = "RabbitMq";
+   private const string RepositoryNameConfigurationPath = "RepositoryName";
+   private const string RedisConfigurationPath = "Redis";
    private const string PostgresConfigurationPath = "Postgres";
    private const string HangfireUserConfigurationPath = "Security:Hangfire:Username";
    private const string HangfirePasswordConfigurationPath = "Security:Hangfire:Password";
@@ -22,6 +24,15 @@ public static class ConfigurationExtensions
    public static string GetAesKey(this IConfiguration configuration)
    {
       return configuration[AesKeyConfigurationPath]!;
+   }
+   public static string GetRepositoryName(this IConfiguration configuration)
+   {
+      return configuration[RepositoryNameConfigurationPath]!;
+   }
+
+   public static string GetRedisUrl(this IConfiguration configuration)
+   {
+      return configuration.GetConnectionString(RedisConfigurationPath)!;
    }
 
    public static string GetRabbitMqUrl(this IConfiguration configuration)

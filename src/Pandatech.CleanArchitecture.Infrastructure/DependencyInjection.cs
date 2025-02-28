@@ -1,4 +1,5 @@
 ﻿using Communicator.Extensions;
+using DistributedCache.Extensions;
 using DistributedCache.Options;
 using GridifyExtensions.Extensions;
 using MassTransit.PostgresOutbox.Extensions;
@@ -19,13 +20,18 @@ public static class DependencyInjection
    public static WebApplicationBuilder AddInfrastructureLayer(this WebApplicationBuilder builder)
    {
       AssemblyRegistry.Add(typeof(AssemblyReference).Assembly);
+      var repoName = builder.Environment.GetShortEnvironmentName() + ":" + builder.Configuration.GetRepositoryName();
 
       builder
          .AddSerilog()
          .AddOpenTelemetry()
          .AddResilienceDefaultPipeline()
-         .AddRedis(KeyPrefix.AssemblyNamePrefix)
-         .AddDistributedSignalR("DistributedSignalR")
+         .AddDistributedCache(o =>
+         {
+            o.RedisConnectionString = builder.Configuration.GetRedisUrl();
+            o.ChannelPrefix = repoName;
+         })
+         .AddDistributedSignalR(builder.Configuration.GetRedisUrl(), repoName + ":SignalR")
          .AddPostgresContextPool<PostgresContext>(builder.Configuration.GetPostgresUrl())
          .AddMassTransit(AssemblyRegistry.ToArray())
          .AddCommunicator()

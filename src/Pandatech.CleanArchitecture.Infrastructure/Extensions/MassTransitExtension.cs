@@ -16,7 +16,6 @@ public static class MassTransitExtension
       {
          x.AddConsumers(assemblies);
          x.SetKebabCaseEndpointNameFormatter();
-
          x.UsingRabbitMq((context, cfg) =>
          {
             cfg.Host(builder.Configuration.GetRabbitMqUrl());
@@ -46,14 +45,22 @@ public class RabbitMqHealthCheck(IConfiguration configuration) : IHealthCheck
          Uri = new Uri(rmqConnectionString),
          AutomaticRecoveryEnabled = true
       };
+      var connection = default(IConnection);
       try
       {
-         await factory.CreateConnectionAsync(cancellationToken);
+         connection = await factory.CreateConnectionAsync(cancellationToken);
          return HealthCheckResult.Healthy("RabbitMQ is healthy.");
       }
       catch (Exception e)
       {
          return HealthCheckResult.Unhealthy("RabbitMQ is unhealthy.", e);
+      }
+      finally
+      {
+         if (connection is not null)
+         {
+            await connection.CloseAsync(cancellationToken);
+         }
       }
    }
 }
