@@ -5,12 +5,12 @@
     <PackageVersion Include="Hangfire.Dashboard.Basic.Authentication" Version="7.0.1" />
     <PackageVersion Include="Hangfire.EntityFrameworkCore" Version="0.7.0" />
     <PackageVersion Include="Hangfire.PostgreSql" Version="1.20.10" />
-    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.3.6" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.3.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
@@ -20,9 +20,9 @@
     <PackageVersion Include="Pandatech.CommissionCalculator" Version="4.0.1" />
     <PackageVersion Include="Pandatech.Communicator" Version="2.1.2" />
     <PackageVersion Include="Pandatech.MassTransit.PostgresOutbox" Version="2.0.3" />
-    <PackageVersion Include="Pandatech.SharedKernel" Version="1.2.10" />
-    <PackageVersion Include="Pandatech.SharedKernel.Postgres" Version="1.0.18" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.6.0.109712">
+    <PackageVersion Include="Pandatech.SharedKernel" Version="1.2.13" />
+    <PackageVersion Include="Pandatech.SharedKernel.Postgres" Version="1.0.21" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.7.0.110445">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
