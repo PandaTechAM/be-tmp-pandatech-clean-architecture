@@ -1,6 +1,6 @@
 using FluentValidation;
 using Pandatech.CleanArchitecture.Core.Helpers;
-using RegexBox;
+using SharedKernel.Helpers;
 
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.RefreshToken;
 
@@ -10,7 +10,7 @@ public class RefreshTokenCommandValidator : AbstractValidator<RefreshTokenComman
    {
       RuleFor(x => x.RefreshTokenSignature)
          .NotEmpty()
-         .Must(PandaValidator.IsGuid)
+         .Must(ValidationHelper.IsGuid)
          .WithMessage(ErrorMessages.InvalidTokenFormat);
    }
 }

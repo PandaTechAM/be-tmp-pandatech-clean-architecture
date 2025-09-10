@@ -23,7 +23,7 @@ public static class DependencyInjection
       var repoName = builder.Environment.GetShortEnvironmentName() + ":" + builder.Configuration.GetRepositoryName();
 
       builder
-         .AddSerilog()
+         .AddSerilog(LogBackend.ElasticSearch)
          .AddOpenTelemetry()
          .AddResilienceDefaultPipeline()
          .AddDistributedCache(o =>

@@ -5,10 +5,6 @@
         <PackageReference Include="Hangfire.Dashboard.Basic.Authentication"/>
         <PackageReference Include="Hangfire.EntityFrameworkCore"/>
         <PackageReference Include="Hangfire.PostgreSql"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

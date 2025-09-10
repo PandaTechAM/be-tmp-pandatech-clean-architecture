@@ -11,12 +11,15 @@ using ResponseCrafter.Extensions;
 using SharedKernel.Extensions;
 using SharedKernel.Helpers;
 using SharedKernel.Logging;
+using SharedKernel.Logging.Middleware;
 using SharedKernel.OpenApi;
 using SharedKernel.ValidatorAndMediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.LogStartAttempt();
 AssemblyRegistry.Add(typeof(Program).Assembly);
+
+builder.WebHost.UseKestrel(o => o.AddServerHeader = false);
 
 builder
    .ConfigureWithPandaVault()
