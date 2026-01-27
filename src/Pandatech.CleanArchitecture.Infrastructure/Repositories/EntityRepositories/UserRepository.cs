@@ -50,6 +50,6 @@ public class UserRepository(PostgresContext postgresContext)
       return Context.Users
                     .Where(x => x.Role != UserRole.SuperAdmin)
                     .ApplyFilter(filterModel)
-                    .ExecuteSoftDeleteAsync(identityUserId, cancellationToken: cancellationToken);
+                    .ExecuteSoftDeleteAsync(identityUserId, ct: cancellationToken);
    }
 }

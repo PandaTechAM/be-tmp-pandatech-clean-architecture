@@ -109,7 +109,7 @@ public abstract class BaseRepository<TEntity>(PostgresContext context) : IBaseRe
       CancellationToken cancellationToken = default)
    {
       return Context.Set<TEntity>()
-                    .ColumnDistinctValuesAsync(queryModel, cancellationToken: cancellationToken);
+                    .ColumnDistinctValuesAsync(queryModel, ct: cancellationToken);
    }
 
    public async Task<object?> Aggregate(AggregateQueryModel queryModel,
