@@ -1,3 +1,4 @@
+using FileExporter.Extensions;
 using FluentMinimalApiMapper;
 using Pandatech.CleanArchitecture.Application;
 using Pandatech.CleanArchitecture.Core;
@@ -34,7 +35,8 @@ builder
    .AddCoreLayer()
    .AddApplicationLayer()
    .AddInfrastructureLayer()
-   .AddMediatrWithBehaviors(AssemblyRegistry.ToArray());
+   .AddMediatrWithBehaviors(AssemblyRegistry.ToArray())
+   .AddFileExporter(AssemblyRegistry.ToArray());
 
 builder.Services.AddScoped<IRequestContext, RequestContext>();
 
