@@ -5,11 +5,11 @@ namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.Upda
 
 public class UpdatePasswordForcedCommandValidator : AbstractValidator<UpdatePasswordForcedCommand>
 {
-   public UpdatePasswordForcedCommandValidator()
-   {
-      RuleFor(x => x.NewPassword)
-         .NotEmpty()
-         .Must(PasswordHelper.ValidatePassword)
-         .WithMessage(PasswordHelper.WrongPasswordMessage);
-   }
+    public UpdatePasswordForcedCommandValidator()
+    {
+        RuleFor(x => x.NewPassword)
+            .NotEmpty()
+            .Must(PasswordHelper.ValidatePassword)
+            .WithMessage(PasswordHelper.WrongPasswordMessage);
+    }
 }

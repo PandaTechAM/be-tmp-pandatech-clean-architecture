@@ -1,3 +1,16 @@
+# =============================================================================
+# TEMPLATE REPO CI — build + test only.
+#
+# This repository is a Pandatech project TEMPLATE and has no live environment to
+# deploy to, so the Docker build/push + Kubernetes deploy steps are intentionally
+# COMMENTED OUT below (preserved for when the template is forked into a real
+# service). When forking into a deployable service: re-enable the commented steps
+# and rename the job `build-and-test` back to `build-and-deploy`.
+#
+# The self-hosted runner needs Docker available for integration tests that use
+# Testcontainers. This template's tests are architecture-only and need no infra,
+# but forks typically add Testcontainers-based integration tests.
+# =============================================================================
 name: Unified CI Pipeline
 
 on:
@@ -15,24 +28,24 @@ env:
   DOCKER_REPO_BASE: "repopanda.pandatech.it/pandatech" # Change repo base path depends on your envairment(pandatech, easypay etc.)
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: self-hosted
     steps:
-      - name: Set Environment Variables
-        run: |
-          if [ "${{ github.ref }}" == "refs/heads/development" ]; then
-              echo "ASPNETCORE_ENVIRONMENT=Development" >> $GITHUB_ENV
-              echo "DOCKER_REPO_PATH=dev" >> $GITHUB_ENV
-              echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
-          elif [ "${{ github.ref }}" == "refs/heads/qa" ]; then
-              echo "ASPNETCORE_ENVIRONMENT=QA" >> $GITHUB_ENV
-              echo "DOCKER_REPO_PATH=qa" >> $GITHUB_ENV
-              echo "K8S_NAMESPACE=qa" >> $GITHUB_ENV
-          elif [ "${{ github.ref }}" == "refs/heads/staging" ]; then
-              echo "ASPNETCORE_ENVIRONMENT=Staging" >> $GITHUB_ENV
-              echo "DOCKER_REPO_PATH=staging" >> $GITHUB_ENV
-              echo "K8S_NAMESPACE=staging" >> $GITHUB_ENV
-          fi
+      #      - name: Set Environment Variables
+      #        run: |
+      #          if [ "${{ github.ref }}" == "refs/heads/development" ]; then
+      #              echo "ASPNETCORE_ENVIRONMENT=Development" >> $GITHUB_ENV
+      #              echo "DOCKER_REPO_PATH=dev" >> $GITHUB_ENV
+      #              echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
+      #          elif [ "${{ github.ref }}" == "refs/heads/qa" ]; then
+      #              echo "ASPNETCORE_ENVIRONMENT=QA" >> $GITHUB_ENV
+      #              echo "DOCKER_REPO_PATH=qa" >> $GITHUB_ENV
+      #              echo "K8S_NAMESPACE=qa" >> $GITHUB_ENV
+      #          elif [ "${{ github.ref }}" == "refs/heads/staging" ]; then
+      #              echo "ASPNETCORE_ENVIRONMENT=Staging" >> $GITHUB_ENV
+      #              echo "DOCKER_REPO_PATH=staging" >> $GITHUB_ENV
+      #              echo "K8S_NAMESPACE=staging" >> $GITHUB_ENV
+      #          fi
 
       - uses: actions/checkout@v4
       - name: Setup .NET Core SDK
@@ -48,48 +61,56 @@ jobs:
           dotnet nuget add source ${{ env.NUGET_ORG_SOURCE }} -n nuget.org
         continue-on-error: true
 
-      - name: Build and Publish .NET App
+      - name: Build and Test .NET App
         run: |
           dotnet restore --no-cache --force --disable-parallel
           dotnet build --no-restore --configuration Release
-          dotnet publish --no-build --configuration Release --output ./publish
-          echo "DOCKER_TAG=$(date +'%Y-%m-%d-%H-%M')-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+          dotnet test --no-build --configuration Release
 
-      - name: Login to Docker Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.DOCKER_REPO_BASE }}
-          username: ${{ env.NEXUS_USERNAME }}
-          password: ${{ env.NEXUS_PASSWORD }}
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }}:${{ env.DOCKER_TAG }}
-            ${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }}:latest
-
-      - name: Update and Apply Kubernetes Deployment
-        run: |
-          export KUBECONFIG=/home/runner/.kube/config
-          sed -i "s|\$(ASPNETCORE_ENVIRONMENT)|${{ env.ASPNETCORE_ENVIRONMENT }}|g" ./kubernetes/deployment.yaml
-          sed -i "s|namespace: .*|namespace: ${{ env.K8S_NAMESPACE }}|g" ./kubernetes/deployment.yaml
-          sed -i "s|\$(IMAGE_REFERENCE)|${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }}:${{ env.DOCKER_TAG }}|g" ./kubernetes/deployment.yaml
-
-          kubectl apply -f ./kubernetes/deployment.yaml -n ${{ env.K8S_NAMESPACE }}
-
-      - name: Cleanup
-        run: rm -rf ./publish
-
-      - name: Remove the built image from the GitHub runners  keeping last one
-        run: |
-          # Get the ID of the latest Docker image
-          LATEST_IMAGE=$(docker images --format '{{.ID}}' --filter=reference=${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }} | head -n 1)
-      
-          # Remove all Docker images except the latest one
-          docker rmi -f $(docker images --format '{{.ID}}' --filter=reference=${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }} | grep -v ${LATEST_IMAGE}) || true
-      
-      - name: Cleanup Docker Build Cache
-        run: docker builder prune -af
+      # ---------------------------------------------------------------------------
+      # Deploy pipeline — disabled for the template. Re-enable when forking into a
+      # real service (and rename the job above to `build-and-deploy`).
+      # ---------------------------------------------------------------------------
+      #      - name: Publish .NET App
+      #        run: |
+      #          dotnet publish --no-build --configuration Release --output ./publish
+      #          echo "DOCKER_TAG=$(date +'%Y-%m-%d-%H-%M')-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+      #
+      #      - name: Login to Docker Registry
+      #        uses: docker/login-action@v3
+      #        with:
+      #          registry: ${{ env.DOCKER_REPO_BASE }}
+      #          username: ${{ env.NEXUS_USERNAME }}
+      #          password: ${{ env.NEXUS_PASSWORD }}
+      #
+      #      - name: Build and Push Docker Image
+      #        uses: docker/build-push-action@v5
+      #        with:
+      #          context: .
+      #          push: true
+      #          tags: |
+      #            ${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }}:${{ env.DOCKER_TAG }}
+      #            ${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }}:latest
+      #
+      #      - name: Update and Apply Kubernetes Deployment
+      #        run: |
+      #          export KUBECONFIG=/home/runner/.kube/config
+      #          sed -i "s|\$(ASPNETCORE_ENVIRONMENT)|${{ env.ASPNETCORE_ENVIRONMENT }}|g" ./kubernetes/deployment.yaml
+      #          sed -i "s|namespace: .*|namespace: ${{ env.K8S_NAMESPACE }}|g" ./kubernetes/deployment.yaml
+      #          sed -i "s|\$(IMAGE_REFERENCE)|${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }}:${{ env.DOCKER_TAG }}|g" ./kubernetes/deployment.yaml
+      #
+      #          kubectl apply -f ./kubernetes/deployment.yaml -n ${{ env.K8S_NAMESPACE }}
+      #
+      #      - name: Cleanup
+      #        run: rm -rf ./publish
+      #
+      #      - name: Remove the built image from the GitHub runners  keeping last one
+      #        run: |
+      #          # Get the ID of the latest Docker image
+      #          LATEST_IMAGE=$(docker images --format '{{.ID}}' --filter=reference=${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }} | head -n 1)
+      #
+      #          # Remove all Docker images except the latest one
+      #          docker rmi -f $(docker images --format '{{.ID}}' --filter=reference=${{ env.DOCKER_REPO_BASE }}/${{ env.DOCKER_REPO_PATH }}/${{ github.event.repository.name }} | grep -v ${LATEST_IMAGE}) || true
+      #
+      #      - name: Cleanup Docker Build Cache
+      #        run: docker builder prune -af

@@ -4,11 +4,11 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Upda
 
 public class UpdateUserStatusCommandValidator : AbstractValidator<UpdateUserStatusCommand>
 {
-   public UpdateUserStatusCommandValidator()
-   {
-      RuleFor(x => x.Id)
-         .NotEmpty();
-      RuleFor(x => x.Status)
-         .IsInEnum();
-   }
+    public UpdateUserStatusCommandValidator()
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty();
+        RuleFor(x => x.Status)
+            .IsInEnum();
+    }
 }

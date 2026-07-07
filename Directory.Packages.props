@@ -1,32 +1,32 @@
 <Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="FluentAssertions" Version="[7.2.0]" />
-    <PackageVersion Include="Hangfire" Version="1.8.21" />
-    <PackageVersion Include="Hangfire.Dashboard.Basic.Authentication" Version="8.0.0" />
-    <PackageVersion Include="Hangfire.EntityFrameworkCore" Version="0.7.0" />
-    <PackageVersion Include="Hangfire.PostgreSql" Version="1.20.12" />
-    <PackageVersion Include="MassTransit.RabbitMQ" Version="[8.5.7]" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageVersion>
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageVersion Include="NetArchTest.Rules" Version="1.3.2" />
-    <PackageVersion Include="Otp.NET" Version="1.3.0" />
-    <PackageVersion Include="Pandatech.CommissionCalculator" Version="4.0.1" />
-    <PackageVersion Include="Pandatech.Communicator" Version="2.1.4" />
-    <PackageVersion Include="Pandatech.MassTransit.PostgresOutbox" Version="3.0.2" />
-    <PackageVersion Include="Pandatech.SharedKernel" Version="1.6.4" />
-    <PackageVersion Include="Pandatech.SharedKernel.Postgres" Version="1.0.33" />
-    <PackageVersion Include="UAParser" Version="3.1.47" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageVersion>
-    <PackageVersion Include="xunit" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageVersion>
+    <PackageVersion Include="Hangfire" Version="1.8.23"/>
+    <PackageVersion Include="Hangfire.Dashboard.Basic.Authentication" Version="8.0.0"/>
+    <PackageVersion Include="Hangfire.EntityFrameworkCore" Version="0.9.0"/>
+    <PackageVersion Include="Hangfire.PostgreSql" Version="1.21.1"/>
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="[8.5.10]"/>
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.9"/>
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.9"/>
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.9"/>
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.7.0"/>
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.10.0"/>
+    <!-- Newest release whose Microsoft.Testing.Platform dependency stays on 1.x (1.8.4), matching the
+         MTP 1.9.x stack that xunit.v3 3.2.2 ships. 18.1.0+ require Platform 2.x, which throws
+         TypeLoadException (IDataConsumer) against xunit's Platform.MSBuild 1.9.1. Bump when xunit.v3
+         moves to the Platform 2.x MTP stack. -->
+    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.0.6"/>
+    <PackageVersion Include="NetArchTest.Rules" Version="1.3.2"/>
+    <PackageVersion Include="Otp.NET" Version="1.4.1"/>
+    <PackageVersion Include="Pandatech.CommissionCalculator" Version="6.0.2"/>
+    <PackageVersion Include="Pandatech.Communicator" Version="4.0.3"/>
+    <PackageVersion Include="Pandatech.MassTransit.PostgresOutbox" Version="7.1.1"/>
+    <PackageVersion Include="Pandatech.SharedKernel" Version="2.4.1"/>
+    <PackageVersion Include="Pandatech.SharedKernel.Postgres" Version="2.1.6"/>
+    <PackageVersion Include="UAParser" Version="3.1.47"/>
+    <PackageVersion Include="xunit.v3" Version="3.2.2"/>
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5"/>
   </ItemGroup>
 </Project>

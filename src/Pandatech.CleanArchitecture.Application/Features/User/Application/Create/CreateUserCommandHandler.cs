@@ -8,27 +8,27 @@ using SharedKernel.ValidatorAndMediatR;
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Create;
 
 public class CreateUserCommandHandler(IUnitOfWork unitOfWork, IRequestContext requestContext)
-   : ICommandHandler<CreateUserCommand>
+    : ICommandHandler<CreateUserCommand>
 {
-   public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
-   {
-      var isDuplicateUsername =
-         await unitOfWork.Users.IsUsernameDuplicate(request.Username.ToLower(), cancellationToken);
+    public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    {
+        var isDuplicateUsername =
+            await unitOfWork.Users.IsUsernameDuplicate(request.Username.ToLower(), cancellationToken);
 
-      BadRequestException.ThrowIf(isDuplicateUsername, ErrorMessages.DuplicateUsername);
+        BadRequestException.ThrowIf(isDuplicateUsername, ErrorMessages.DuplicateUsername);
 
-      var passwordHash = Argon2Id.HashPassword(request.Password);
+        var passwordHash = Argon2Id.HashPassword(request.Password);
 
-      var user = new Core.Entities.User
-      {
-         Username = request.Username.ToLower(),
-         FullName = request.FullName,
-         PasswordHash = passwordHash,
-         Role = request.UserRole,
-         Comment = request.Comment ?? "",
-         CreatedByUserId = requestContext.Identity.UserId
-      };
-      unitOfWork.Users.Add(user);
-      await unitOfWork.SaveChanges(cancellationToken);
-   }
+        var user = new Core.Entities.User
+        {
+            Username = request.Username.ToLower(),
+            FullName = request.FullName,
+            PasswordHash = passwordHash,
+            Role = request.UserRole,
+            Comment = request.Comment ?? "",
+            CreatedByUserId = requestContext.Identity.UserId
+        };
+        unitOfWork.Users.Add(user);
+        await unitOfWork.SaveChanges(cancellationToken);
+    }
 }

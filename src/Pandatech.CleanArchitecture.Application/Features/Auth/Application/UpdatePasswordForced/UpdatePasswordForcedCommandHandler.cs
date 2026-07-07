@@ -11,28 +11,28 @@ using SharedKernel.ValidatorAndMediatR;
 namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.UpdatePasswordForced;
 
 public class UpdatePasswordForcedCommandHandler(
-   IRequestContext requestContext,
-   IUnitOfWork unitOfWork)
-   : ICommandHandler<UpdatePasswordForcedCommand>
+    IRequestContext requestContext,
+    IUnitOfWork unitOfWork)
+    : ICommandHandler<UpdatePasswordForcedCommand>
 {
-   public async Task Handle(UpdatePasswordForcedCommand request, CancellationToken cancellationToken)
-   {
-      var user = await unitOfWork.Users
-                                 .GetById(requestContext.Identity.UserId, cancellationToken);
+    public async Task Handle(UpdatePasswordForcedCommand request, CancellationToken cancellationToken)
+    {
+        var user = await unitOfWork.Users
+            .GetById(requestContext.Identity.UserId, cancellationToken);
 
-      InternalServerErrorException.ThrowIfNull(user, "User not found");
+        InternalServerErrorException.ThrowIfNull(user, "User not found");
 
-      var sameWithOldPassword = Argon2Id.VerifyHash(request.NewPassword, user.PasswordHash);
+        var sameWithOldPassword = Argon2Id.VerifyHash(request.NewPassword, user.PasswordHash);
 
-      BadRequestException.ThrowIf(sameWithOldPassword, ErrorMessages.NewPasswordMustBeDifferentFromOldPassword);
+        BadRequestException.ThrowIf(sameWithOldPassword, ErrorMessages.NewPasswordMustBeDifferentFromOldPassword);
 
-      user.PasswordHash = Argon2Id.HashPassword(request.NewPassword);
-      user.ForcePasswordChange = false;
+        user.PasswordHash = Argon2Id.HashPassword(request.NewPassword);
+        user.ForcePasswordChange = false;
 
-      user.MarkAsUpdated(requestContext.Identity.UserId);
+        user.MarkAsUpdated(requestContext.Identity.UserId);
 
-      await unitOfWork.SaveChanges(cancellationToken);
+        await unitOfWork.SaveChanges(cancellationToken);
 
-      BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllTokensExceptCurrentCommand(), cancellationToken));
-   }
+        BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllTokensExceptCurrentCommand(), cancellationToken));
+    }
 }

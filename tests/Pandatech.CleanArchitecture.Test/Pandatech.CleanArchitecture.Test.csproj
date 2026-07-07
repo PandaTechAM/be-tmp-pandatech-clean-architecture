@@ -1,23 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <ItemGroup>
-        <PackageReference Include="FluentAssertions" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-        <PackageReference Include="NetArchTest.Rules"/>
-        <PackageReference Include="xunit"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="coverlet.collector">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\src\Pandatech.CleanArchitecture.Api\Pandatech.CleanArchitecture.Api.csproj"/>
-    </ItemGroup>
+    <!-- xUnit v3 test projects are executables, not libraries -->
+    <OutputType>Exe</OutputType>
 
+    <!-- REQUIRED with Test.Sdk 18.x + xunit.v3: these versions build a Microsoft Testing Platform
+         runner. Without these, the build errors (CS0017) and/or `dotnet test` silently runs
+         zero tests. TestingPlatformDotnetTestSupport routes `dotnet test` through MTP;
+         UseMicrosoftTestingPlatformRunner makes xUnit's own entry point the MTP runner (not its
+         native console runner) so MTP extensions register — required for MTP code-coverage
+         collection via Microsoft.Testing.Extensions.CodeCoverage. -->
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <GenerateTestingPlatformEntryPoint>false</GenerateTestingPlatformEntryPoint>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="NetArchTest.Rules"/>
+    <PackageReference Include="xunit.v3"/>
+    <PackageReference Include="xunit.runner.visualstudio">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Pandatech.CleanArchitecture.Api\Pandatech.CleanArchitecture.Api.csproj"/>
+  </ItemGroup>
 
 </Project>

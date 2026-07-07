@@ -11,23 +11,23 @@ using SharedKernel.ValidatorAndMediatR;
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.UpdatePassword;
 
 public class UpdateUserPasswordCommandHandler(
-   IUnitOfWork unitOfWork,
-   IRequestContext requestContext)
-   : ICommandHandler<UpdateUserPasswordCommand>
+    IUnitOfWork unitOfWork,
+    IRequestContext requestContext)
+    : ICommandHandler<UpdateUserPasswordCommand>
 {
-   public async Task Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken)
-   {
-      var user = await unitOfWork.Users.GetById(request.Id, cancellationToken);
+    public async Task Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken)
+    {
+        var user = await unitOfWork.Users.GetById(request.Id, cancellationToken);
 
-      NotFoundException.ThrowIfNull(user);
-      NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
+        NotFoundException.ThrowIfNull(user);
+        NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
 
-      user.PasswordHash = Argon2Id.HashPassword(request.NewPassword);
-      user.ForcePasswordChange = true;
-      user.MarkAsUpdated(requestContext.Identity.UserId);
+        user.PasswordHash = Argon2Id.HashPassword(request.NewPassword);
+        user.ForcePasswordChange = true;
+        user.MarkAsUpdated(requestContext.Identity.UserId);
 
-      await unitOfWork.SaveChanges(cancellationToken);
+        await unitOfWork.SaveChanges(cancellationToken);
 
-      BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllTokensCommand(request.Id), cancellationToken));
-   }
+        BackgroundJob.Enqueue<ISender>(x => x.Send(new RevokeAllTokensCommand(request.Id), cancellationToken));
+    }
 }

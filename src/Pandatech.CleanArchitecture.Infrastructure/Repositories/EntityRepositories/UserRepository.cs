@@ -10,46 +10,46 @@ using Pandatech.CleanArchitecture.Infrastructure.Context;
 namespace Pandatech.CleanArchitecture.Infrastructure.Repositories.EntityRepositories;
 
 public class UserRepository(PostgresContext postgresContext)
-   : BaseRepository<User>(postgresContext), IUserRepository
+    : BaseRepository<User>(postgresContext), IUserRepository
 {
-   public Task<bool> IsUsernameDuplicate(string username, CancellationToken cancellationToken = default)
-   {
-      return Context.Users.AnyAsync(x => x.Username == username, cancellationToken);
-   }
+    public Task<bool> IsUsernameDuplicate(string username, CancellationToken cancellationToken = default)
+    {
+        return Context.Users.AnyAsync(x => x.Username == username, cancellationToken);
+    }
 
-   public Task<List<User>> GetByIdsExceptSuper(List<long> ids, CancellationToken cancellationToken = default)
-   {
-      return Context.Users
-                    .Where(x => ids.Contains(x.Id))
-                    .Where(x => x.Role != UserRole.SuperAdmin)
-                    .ToListAsync(cancellationToken);
-   }
+    public Task<List<User>> GetByIdsExceptSuper(List<long> ids, CancellationToken cancellationToken = default)
+    {
+        return Context.Users
+            .Where(x => ids.Contains(x.Id))
+            .Where(x => x.Role != UserRole.SuperAdmin)
+            .ToListAsync(cancellationToken);
+    }
 
-   public IQueryable<User> WhereNotSuperAdmin()
-   {
-      return Context.Users
-                    .Where(u => u.Role != UserRole.SuperAdmin);
-   }
+    public IQueryable<User> WhereNotSuperAdmin()
+    {
+        return Context.Users
+            .Where(u => u.Role != UserRole.SuperAdmin);
+    }
 
-   public Task<User?> GetByUsername(string username, CancellationToken cancellationToken = default)
-   {
-      return Context.Users
-                    .FirstOrDefaultAsync(x => x.Username == username, cancellationToken);
-   }
+    public Task<User?> GetByUsername(string username, CancellationToken cancellationToken = default)
+    {
+        return Context.Users
+            .FirstOrDefaultAsync(x => x.Username == username, cancellationToken);
+    }
 
-   public Task Delete(string requestFilter, long identityUserId, CancellationToken cancellationToken)
-   {
-      var filterModel = new GridifyQueryModel
-      {
-         Page = 1,
-         PageSize = 1,
-         OrderBy = null,
-         Filter = requestFilter
-      };
+    public Task Delete(string requestFilter, long identityUserId, CancellationToken cancellationToken)
+    {
+        var filterModel = new GridifyQueryModel
+        {
+            Page = 1,
+            PageSize = 1,
+            OrderBy = null,
+            Filter = requestFilter
+        };
 
-      return Context.Users
-                    .Where(x => x.Role != UserRole.SuperAdmin)
-                    .ApplyFilter(filterModel)
-                    .ExecuteSoftDeleteAsync(identityUserId, ct: cancellationToken);
-   }
+        return Context.Users
+            .Where(x => x.Role != UserRole.SuperAdmin)
+            .ApplyFilter(filterModel)
+            .ExecuteSoftDeleteAsync(identityUserId, ct: cancellationToken);
+    }
 }

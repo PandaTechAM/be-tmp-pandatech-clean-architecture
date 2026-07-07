@@ -1,23 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3"/>
 
-    <ItemGroup>
-        <PackageReference Include="Hangfire.Dashboard.Basic.Authentication"/>
-        <PackageReference Include="Hangfire.EntityFrameworkCore" Version="0.9.0" />
-        <PackageReference Include="Hangfire.PostgreSql" Version="1.20.13" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.2">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Hangfire.Dashboard.Basic.Authentication"/>
+    <PackageReference Include="Hangfire.EntityFrameworkCore"/>
+    <PackageReference Include="Hangfire.PostgreSql"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Pandatech.CleanArchitecture.Application\Pandatech.CleanArchitecture.Application.csproj"/>
-        <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj"/>
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pandatech.CleanArchitecture.Application\Pandatech.CleanArchitecture.Application.csproj"/>
+    <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj"/>
+  </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Seed\"/>
-    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Seed\"/>
+  </ItemGroup>
 
 </Project>

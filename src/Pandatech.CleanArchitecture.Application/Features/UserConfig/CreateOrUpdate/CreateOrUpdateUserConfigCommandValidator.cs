@@ -4,9 +4,9 @@ namespace Pandatech.CleanArchitecture.Application.Features.UserConfig.CreateOrUp
 
 public class CreateOrUpdateUserConfigCommandValidator : AbstractValidator<CreateOrUpdateUserConfigCommand>
 {
-   public CreateOrUpdateUserConfigCommandValidator()
-   {
-      RuleFor(x => x.Configs)
-         .NotEmpty();
-   }
+    public CreateOrUpdateUserConfigCommandValidator()
+    {
+        RuleFor(x => x.Configs)
+            .NotEmpty();
+    }
 }

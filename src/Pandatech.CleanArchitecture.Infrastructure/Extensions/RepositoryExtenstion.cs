@@ -9,13 +9,13 @@ namespace Pandatech.CleanArchitecture.Infrastructure.Extensions;
 
 public static class RepositoryExtenstion
 {
-   internal static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
-   {
-      builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-      builder.Services.AddScoped<IUserRepository, UserRepository>();
-      builder.Services.AddScoped<ITokenRepository, TokenRepository>();
-      builder.Services.AddScoped<IUserConfigRepository, UserConfigRepository>();
+    internal static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+        builder.Services.AddScoped<IUserConfigRepository, UserConfigRepository>();
 
-      return builder;
-   }
+        return builder;
+    }
 }

@@ -6,8 +6,8 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Upda
 
 public class UpdateUserStatusCommand : ICommand
 {
-   [JsonIgnore]
-   public long Id { get; set; }
+    [JsonIgnore]
+    public long Id { get; set; }
 
-   public UserStatus Status { get; set; }
+    public UserStatus Status { get; set; }
 }

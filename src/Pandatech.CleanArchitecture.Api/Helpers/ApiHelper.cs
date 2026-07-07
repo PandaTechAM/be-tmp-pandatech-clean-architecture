@@ -2,13 +2,13 @@ namespace Pandatech.CleanArchitecture.Api.Helpers;
 
 public static class ApiHelper
 {
-   private const string BaseApiPath = "/api/v";
+    private const string BaseApiPath = "/api/v";
 
-   public const string GroupNameClean = "clean-v1";
+    public const string GroupNameClean = "clean-v1";
 
 
-   public static string GetRoutePrefix(int version, string baseRoute)
-   {
-      return $"{BaseApiPath}{version}{baseRoute}";
-   }
+    public static string GetRoutePrefix(int version, string baseRoute)
+    {
+        return $"{BaseApiPath}{version}{baseRoute}";
+    }
 }

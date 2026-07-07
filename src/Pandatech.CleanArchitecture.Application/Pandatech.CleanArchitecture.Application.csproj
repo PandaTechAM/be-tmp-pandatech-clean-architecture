@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3"/>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj"/>
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pandatech.CleanArchitecture.Core\Pandatech.CleanArchitecture.Core.csproj"/>
+  </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Features\Auth\Application\"/>
-        <Folder Include="Features\MyAccount\Application\"/>
-        <Folder Include="Features\UserConfig\"/>
-        <Folder Include="Features\User\Application\"/>
-    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\Auth\Application\"/>
+    <Folder Include="Features\MyAccount\Application\"/>
+    <Folder Include="Features\UserConfig\"/>
+    <Folder Include="Features\User\Application\"/>
+  </ItemGroup>
 </Project>

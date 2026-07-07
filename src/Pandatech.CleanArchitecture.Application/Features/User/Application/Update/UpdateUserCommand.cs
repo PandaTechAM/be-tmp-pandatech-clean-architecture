@@ -6,11 +6,11 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Application.Upda
 
 public class UpdateUserCommand : ICommand
 {
-   [JsonIgnore]
-   public long Id { get; set; }
+    [JsonIgnore]
+    public long Id { get; set; }
 
-   public required string Username { get; set; }
-   public required string FullName { get; set; }
-   public UserRole Role { get; set; }
-   public string? Comment { get; set; }
+    public required string Username { get; set; }
+    public required string FullName { get; set; }
+    public UserRole Role { get; set; }
+    public string? Comment { get; set; }
 }

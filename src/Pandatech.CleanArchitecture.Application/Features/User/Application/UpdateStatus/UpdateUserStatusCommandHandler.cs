@@ -7,23 +7,23 @@ using SharedKernel.ValidatorAndMediatR;
 namespace Pandatech.CleanArchitecture.Application.Features.User.Application.UpdateStatus;
 
 public class UpdateUserStatusCommandHandler(IUnitOfWork unitOfWork, IRequestContext requestContext)
-   : ICommandHandler<UpdateUserStatusCommand>
+    : ICommandHandler<UpdateUserStatusCommand>
 {
-   public async Task Handle(UpdateUserStatusCommand request, CancellationToken cancellationToken)
-   {
-      var user = await unitOfWork.Users.GetById(request.Id, cancellationToken);
+    public async Task Handle(UpdateUserStatusCommand request, CancellationToken cancellationToken)
+    {
+        var user = await unitOfWork.Users.GetById(request.Id, cancellationToken);
 
-      NotFoundException.ThrowIfNull(user);
-      NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
+        NotFoundException.ThrowIfNull(user);
+        NotFoundException.ThrowIf(user.Role == UserRole.SuperAdmin);
 
-      if (user.Status == request.Status)
-      {
-         return;
-      }
+        if (user.Status == request.Status)
+        {
+            return;
+        }
 
-      user.Status = request.Status;
-      user.MarkAsUpdated(requestContext.Identity.UserId);
+        user.Status = request.Status;
+        user.MarkAsUpdated(requestContext.Identity.UserId);
 
-      await unitOfWork.SaveChanges(cancellationToken);
-   }
+        await unitOfWork.SaveChanges(cancellationToken);
+    }
 }

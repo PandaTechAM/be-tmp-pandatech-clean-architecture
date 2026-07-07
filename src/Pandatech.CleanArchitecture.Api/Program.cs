@@ -23,20 +23,20 @@ AssemblyRegistry.Add(typeof(Program).Assembly);
 builder.WebHost.UseKestrel(o => o.AddServerHeader = false);
 
 builder
-   .ConfigureWithPandaVault()
-   .AddOutboundLoggingHandler()
-   .AddResponseCrafter(NamingConvention.ToSnakeCase)
-   .AddOpenApi()
-   .AddMinimalApis(AssemblyRegistry.ToArray())
-   .AddControllers(AssemblyRegistry.ToArray())
-   .MapDefaultTimeZone()
-   .AddCors()
-   .AddAes256Key(builder.Configuration.GetAesKey())
-   .AddCoreLayer()
-   .AddApplicationLayer()
-   .AddInfrastructureLayer()
-   .AddMediatrWithBehaviors(AssemblyRegistry.ToArray())
-   .AddFileExporter(AssemblyRegistry.ToArray());
+    .ConfigureWithPandaVault()
+    .AddOutboundLoggingHandler()
+    .AddResponseCrafter(NamingConvention.ToSnakeCase)
+    .AddOpenApi()
+    .AddMinimalApis(AssemblyRegistry.ToArray())
+    .AddControllers(AssemblyRegistry.ToArray())
+    .MapDefaultTimeZone()
+    .AddCors()
+    .AddAes256Key(builder.Configuration.GetAesKey())
+    .AddCoreLayer()
+    .AddApplicationLayer()
+    .AddInfrastructureLayer()
+    .AddMediatrWithBehaviors(AssemblyRegistry.ToArray())
+    .AddFileExporter(AssemblyRegistry.ToArray());
 
 builder.Services.AddScoped<IRequestContext, RequestContext>();
 
@@ -44,20 +44,20 @@ builder.Services.AddScoped<IRequestContext, RequestContext>();
 var app = builder.Build();
 
 var groupPolicy = app.MapGroup("")
-                     .DisableAntiforgery();
+    .DisableAntiforgery();
 
 
 app
-   .UseRequestLogging()
-   .UseResponseCrafter()
-   .UseCors()
-   .MapMinimalApis(groupPolicy)
-   .MapHealthCheckEndpoints()
-   .MapPrometheusExporterEndpoints()
-   .UseOpenApi()
-   .MapInfrastructureLayer()
-   .ClearAssemblyRegistry()
-   .MapControllers();
+    .UseRequestLogging()
+    .UseResponseCrafter()
+    .UseCors()
+    .MapMinimalApis(groupPolicy)
+    .MapHealthCheckEndpoints()
+    .MapPrometheusExporterEndpoints()
+    .UseOpenApi()
+    .MapInfrastructureLayer()
+    .ClearAssemblyRegistry()
+    .MapControllers();
 
 app.LogStartSuccess();
 app.Run();

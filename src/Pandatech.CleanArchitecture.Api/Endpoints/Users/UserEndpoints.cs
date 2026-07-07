@@ -19,107 +19,107 @@ namespace Pandatech.CleanArchitecture.Api.Endpoints.Users;
 
 public class UserEndpoints : IEndpoint
 {
-   private const string BaseRoute = "/users";
-   private const string TagName = "users";
-   private static string RoutePrefix => ApiHelper.GetRoutePrefix(1, BaseRoute);
+    private const string BaseRoute = "/users";
+    private const string TagName = "users";
+    private static string RoutePrefix => ApiHelper.GetRoutePrefix(1, BaseRoute);
 
-   public void AddRoutes(IEndpointRouteBuilder app)
-   {
-      var groupApp = app
-                     .MapGroup(RoutePrefix)
-                     .WithTags(TagName)
-                     .WithGroupName(ApiHelper.GroupNameClean)
-                     .DisableAntiforgery()
-                     .WithOpenApi();
+    public void AddRoutes(IEndpointRouteBuilder app)
+    {
+        var groupApp = app
+            .MapGroup(RoutePrefix)
+            .WithTags(TagName)
+            .WithGroupName(ApiHelper.GroupNameClean)
+            .DisableAntiforgery()
+            .WithOpenApi();
 
-      groupApp.MapPost("",
-                 async (ISender sender, [FromBody] CreateUserCommand command, CancellationToken token) =>
-                 {
+        groupApp.MapPost("",
+                async (ISender sender, [FromBody] CreateUserCommand command, CancellationToken token) =>
+                {
                     await sender.Send(command, token);
                     return TypedResults.Ok();
-                 })
-              .Authorize()
-              .ProducesBadRequest();
+                })
+            .Authorize()
+            .ProducesBadRequest();
 
-      groupApp.MapGet("/{id}",
-                 async (ISender sender, long id, CancellationToken token) =>
-                 {
+        groupApp.MapGet("/{id}",
+                async (ISender sender, long id, CancellationToken token) =>
+                {
                     var user = await sender.Send(new GetUserQuery(id), token);
                     return TypedResults.Ok(user);
-                 })
-              .Authorize()
-              .ProducesNotFound();
+                })
+            .Authorize()
+            .ProducesNotFound();
 
 
-      groupApp.MapPut("/{id}",
-                 async (ISender sender, long id, [FromBody] UpdateUserCommand command, CancellationToken token) =>
-                 {
+        groupApp.MapPut("/{id}",
+                async (ISender sender, long id, [FromBody] UpdateUserCommand command, CancellationToken token) =>
+                {
                     command.Id = id;
                     await sender.Send(command, token);
                     return TypedResults.Ok();
-                 })
-              .Authorize()
-              .ProducesBadRequest()
-              .ProducesConflict();
+                })
+            .Authorize()
+            .ProducesBadRequest()
+            .ProducesConflict();
 
 
-      groupApp.MapPatch("/{id}/password",
-                 async (ISender sender,
+        groupApp.MapPatch("/{id}/password",
+                async (ISender sender,
                     long id,
                     [FromBody] UpdateUserPasswordCommand command,
                     CancellationToken token) =>
-                 {
+                {
                     command.Id = id;
                     await sender.Send(command, token);
                     return TypedResults.Ok();
-                 })
-              .Authorize()
-              .ProducesBadRequest()
-              .ProducesNotFound();
+                })
+            .Authorize()
+            .ProducesBadRequest()
+            .ProducesNotFound();
 
-      groupApp.MapPatch("/{id}/status",
-                 async (ISender sender, long id, [FromBody] UpdateUserStatusCommand command, CancellationToken token) =>
-                 {
+        groupApp.MapPatch("/{id}/status",
+                async (ISender sender, long id, [FromBody] UpdateUserStatusCommand command, CancellationToken token) =>
+                {
                     command.Id = id;
                     await sender.Send(command, token);
                     return TypedResults.Ok();
-                 })
-              .Authorize()
-              .ProducesBadRequest()
-              .ProducesNotFound();
+                })
+            .Authorize()
+            .ProducesBadRequest()
+            .ProducesNotFound();
 
-      groupApp.MapDelete("",
-                 async (ISender sender, [FromBody] DeleteUsersCommand command, CancellationToken token) =>
-                 {
+        groupApp.MapDelete("",
+                async (ISender sender, [FromBody] DeleteUsersCommand command, CancellationToken token) =>
+                {
                     await sender.Send(command, token);
                     return TypedResults.Ok();
-                 })
-              .Authorize()
-              .ProducesBadRequest();
+                })
+            .Authorize()
+            .ProducesBadRequest();
 
-      groupApp.MapGet("",
-                 async ([AsParameters] GetUsersQuery request, ISender sender, CancellationToken token) =>
-                 {
+        groupApp.MapGet("",
+                async ([AsParameters] GetUsersQuery request, ISender sender, CancellationToken token) =>
+                {
                     var users = await sender.Send(request, token);
                     return TypedResults.Ok(users);
-                 })
-              .Authorize()
-              .ProducesBadRequest();
+                })
+            .Authorize()
+            .ProducesBadRequest();
 
-      groupApp.MapGet("/column-distinct-values",
-                 async ([AsParameters] GetUserColumnDistinctValuesQuery query,
+        groupApp.MapGet("/column-distinct-values",
+                async ([AsParameters] GetUserColumnDistinctValuesQuery query,
                     ISender sender,
                     CancellationToken token) =>
-                 {
+                {
                     var distinctValues = await sender.Send(query, token);
                     return TypedResults.Ok(distinctValues);
-                 })
-              .Authorize()
-              .ProducesBadRequest();
+                })
+            .Authorize()
+            .ProducesBadRequest();
 
-      groupApp.MapGet("/filters", () => TypedResults.Ok(QueryableExtensions.GetMappings<User>()))
-              .Authorize()
-              .WithSummary("Get filter technical information")
-              .ProducesBadRequest();
-   }
+        groupApp.MapGet("/filters", () => TypedResults.Ok(QueryableExtensions.GetMappings<User>()))
+            .Authorize()
+            .WithSummary("Get filter technical information")
+            .ProducesBadRequest();
+    }
 }

@@ -6,26 +6,26 @@ using Pandatech.CleanArchitecture.Infrastructure.Context;
 namespace Pandatech.CleanArchitecture.Infrastructure.Repositories.EntityRepositories;
 
 public class UserConfigRepository(PostgresContext postgresContext)
-   : BaseRepository<UserConfig>(postgresContext), IUserConfigRepository
+    : BaseRepository<UserConfig>(postgresContext), IUserConfigRepository
 {
-   public Task<List<UserConfig>> GetByUserIdAndKeys(long identityUserId,
-      List<string> keys,
-      CancellationToken cancellationToken)
-   {
-      return Context.UserConfigs
-                    .Where(x => x.UserId == identityUserId)
-                    .Where(x => keys.Contains(x.Key))
-                    .ToListAsync(cancellationToken);
-   }
+    public Task<List<UserConfig>> GetByUserIdAndKeys(long identityUserId,
+        List<string> keys,
+        CancellationToken cancellationToken)
+    {
+        return Context.UserConfigs
+            .Where(x => x.UserId == identityUserId)
+            .Where(x => keys.Contains(x.Key))
+            .ToListAsync(cancellationToken);
+    }
 
-   public Task<Dictionary<string, string>> GetByUserIdAndKeysAsNotTrackingToDict(long identityUserId,
-      string[] requestKeys,
-      CancellationToken cancellationToken)
-   {
-      return Context.UserConfigs
-                    .Where(x => x.UserId == identityUserId)
-                    .Where(x => requestKeys.Contains(x.Key))
-                    .AsNoTracking()
-                    .ToDictionaryAsync(x => x.Key, x => x.Value, cancellationToken);
-   }
+    public Task<Dictionary<string, string>> GetByUserIdAndKeysAsNotTrackingToDict(long identityUserId,
+        string[] requestKeys,
+        CancellationToken cancellationToken)
+    {
+        return Context.UserConfigs
+            .Where(x => x.UserId == identityUserId)
+            .Where(x => requestKeys.Contains(x.Key))
+            .AsNoTracking()
+            .ToDictionaryAsync(x => x.Key, x => x.Value, cancellationToken);
+    }
 }

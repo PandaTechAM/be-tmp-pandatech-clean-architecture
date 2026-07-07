@@ -6,11 +6,11 @@ namespace Pandatech.CleanArchitecture.Application.Features.Auth.Application.Refr
 
 public class RefreshTokenCommandValidator : AbstractValidator<RefreshTokenCommand>
 {
-   public RefreshTokenCommandValidator()
-   {
-      RuleFor(x => x.RefreshTokenSignature)
-         .NotEmpty()
-         .Must(ValidationHelper.IsGuid)
-         .WithMessage(ErrorMessages.InvalidTokenFormat);
-   }
+    public RefreshTokenCommandValidator()
+    {
+        RuleFor(x => x.RefreshTokenSignature)
+            .NotEmpty()
+            .Must(ValidationHelper.IsGuid)
+            .WithMessage(ErrorMessages.InvalidTokenFormat);
+    }
 }

@@ -8,11 +8,11 @@ namespace Pandatech.CleanArchitecture.Application;
 
 public static class DependencyInjection
 {
-   public static WebApplicationBuilder AddApplicationLayer(this WebApplicationBuilder builder)
-   {
-      AssemblyRegistry.Add(typeof(DependencyInjection).Assembly);
+    public static WebApplicationBuilder AddApplicationLayer(this WebApplicationBuilder builder)
+    {
+        AssemblyRegistry.Add(typeof(DependencyInjection).Assembly);
 
-      builder.Services.AddScoped<IRequestContext, RequestContext>();
-      return builder;
-   }
+        builder.Services.AddScoped<IRequestContext, RequestContext>();
+        return builder;
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using Communicator.Extensions;
 using DistributedCache.Extensions;
-using DistributedCache.Options;
 using GridifyExtensions.Extensions;
 using MassTransit.PostgresOutbox.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -17,43 +16,43 @@ namespace Pandatech.CleanArchitecture.Infrastructure;
 
 public static class DependencyInjection
 {
-   public static WebApplicationBuilder AddInfrastructureLayer(this WebApplicationBuilder builder)
-   {
-      AssemblyRegistry.Add(typeof(AssemblyReference).Assembly);
-      var repoName = builder.Environment.GetShortEnvironmentName() + ":" + builder.Configuration.GetRepositoryName();
+    public static WebApplicationBuilder AddInfrastructureLayer(this WebApplicationBuilder builder)
+    {
+        AssemblyRegistry.Add(typeof(AssemblyReference).Assembly);
+        var repoName = builder.Environment.GetShortEnvironmentName() + ":" + builder.Configuration.GetRepositoryName();
 
-      builder
-         .AddSerilog(LogBackend.ElasticSearch)
-         .AddOpenTelemetry()
-         .AddResilienceDefaultPipeline()
-         .AddDistributedCache(o =>
-         {
-            o.RedisConnectionString = builder.Configuration.GetRedisUrl();
-            o.ChannelPrefix = repoName;
-         })
-         .AddDistributedSignalR(builder.Configuration.GetRedisUrl(), repoName + ":SignalR")
-         .AddPostgresContextPool<PostgresContext>(builder.Configuration.GetPostgresUrl())
-         .AddMassTransit(AssemblyRegistry.ToArray())
-         .AddCommunicator()
-         .AddGridify(typeof(DependencyInjection).Assembly)
-         .AddHangfireServer()
-         .AddRepositories()
-         .AddHealthChecks();
+        builder
+            .AddSerilog(LogBackend.ElasticSearch)
+            .AddOpenTelemetry()
+            .AddResilienceDefaultPipeline()
+            .AddDistributedCache(o =>
+            {
+                o.RedisConnectionString = builder.Configuration.GetRedisUrl();
+                o.ChannelPrefix = repoName;
+            })
+            .AddDistributedSignalR(builder.Configuration.GetRedisUrl(), repoName + ":SignalR")
+            .AddPostgresContextPool<PostgresContext>(builder.Configuration.GetPostgresUrl())
+            .AddMassTransit(AssemblyRegistry.ToArray())
+            .AddCommunicator()
+            .AddGridify(typeof(DependencyInjection).Assembly)
+            .AddHangfireServer()
+            .AddRepositories()
+            .AddHealthChecks();
 
-      builder.Services.AddOutboxInboxServices<PostgresContext>();
+        builder.Services.AddOutboxInboxServices<PostgresContext>();
 
-      return builder;
-   }
+        return builder;
+    }
 
-   public static WebApplication MapInfrastructureLayer(this WebApplication app)
-   {
-      app
-         .MigrateDatabase<PostgresContext>()
-         .EnsureHealthy()
-         .UseHangfireServer()
-         .SeedSystemUser();
+    public static WebApplication MapInfrastructureLayer(this WebApplication app)
+    {
+        app
+            .MigrateDatabase<PostgresContext>()
+            .EnsureHealthy()
+            .UseHangfireServer()
+            .SeedSystemUser();
 
 
-      return app;
-   }
+        return app;
+    }
 }

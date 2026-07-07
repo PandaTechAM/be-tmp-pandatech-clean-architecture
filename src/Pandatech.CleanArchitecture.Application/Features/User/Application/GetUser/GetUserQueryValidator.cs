@@ -4,9 +4,9 @@ namespace Pandatech.CleanArchitecture.Application.Features.User.Application.GetU
 
 public class GetUserQueryValidator : AbstractValidator<GetUserQuery>
 {
-   public GetUserQueryValidator()
-   {
-      RuleFor(x => x.Id)
-         .NotEmpty();
-   }
+    public GetUserQueryValidator()
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty();
+    }
 }
